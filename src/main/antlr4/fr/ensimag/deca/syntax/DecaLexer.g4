@@ -11,6 +11,39 @@ options {
 @members {
 }
 
+
+
+//Others
+LETTER: 'a' .. 'z' | 'A' .. 'Z';
+
+DIGIT: '0' .. '9';
+
+EOL: '\n';
+
+IDENT: (LETTER | '$' | '_') (LETTER | DIGIT | '$' | '_')*;
+
+POSITIVE_DIGIT: '1' .. '9';
+
+INT: '0' | POSITIVE_DIGIT DIGIT;
+
+//--------------------- special cars ---------------------------
+
+OBRACE: '(';
+
+CBRACE: ')';
+
+SEMI: ';';
+
+// String
+
+
+fragment STRING_CAR: .;
+STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"';
+MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
+
+COMMENT: '//' (~('\n'))* { skip(); };
+MULTI_LINE_COMMENT : '/*' (STRING_CAR | EOL)* '*/' { skip(); };
+
 // Deca lexer rules.
 DUMMY_TOKEN: .; // A FAIRE : Règle bidon qui reconnait tous les caractères.
                 // A FAIRE : Il faut la supprimer et la remplacer par les vraies règles.
