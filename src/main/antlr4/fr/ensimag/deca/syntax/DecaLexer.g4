@@ -10,7 +10,10 @@ options {
 
 @members {
 }
+// -----------------special words --------------
 
+PRINTLN : 'println';
+PRINT : 'print';
 
 
 //Others
@@ -24,7 +27,7 @@ IDENT: (LETTER | '$' | '_') (LETTER | DIGIT | '$' | '_')*;
 
 POSITIVE_DIGIT: '1' .. '9';
 
-INT: '0' | POSITIVE_DIGIT DIGIT;
+INT: '0' | POSITIVE_DIGIT DIGIT*;
 
 //--------------------- special cars ---------------------------
 
