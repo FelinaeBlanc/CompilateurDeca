@@ -16,24 +16,42 @@ PRINTLN : 'println';
 PRINT : 'print';
 
 
-//Others
-LETTER: 'a' .. 'z' | 'A' .. 'Z';
+// ------------------ Others -----------------
+fragment LETTER: 'a' .. 'z' | 'A' .. 'Z';
 
-DIGIT: '0' .. '9';
+fragment DIGIT: '0' .. '9';
 
 EOL: '\n';
 
+SPACES: ' ' {skip(); };
+
 IDENT: (LETTER | '$' | '_') (LETTER | DIGIT | '$' | '_')*;
 
-POSITIVE_DIGIT: '1' .. '9';
+fragment POSITIVE_DIGIT: '1' .. '9';
 
 INT: '0' | POSITIVE_DIGIT DIGIT*;
 
+//------- FLOAT --------
+
+fragment NUM : DIGIT+;
+fragment SIGN : '+' | '-' | /* epsilon */;
+fragment EXP : ('E' | 'e') SIGN NUM;
+fragment DEC : NUM '.' NUM;
+fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | /* epsilon */ );
+fragment DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
+fragment NUMHEX : DIGITHEX+;
+fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | /* epsilon */);
+FLOAT : FLOATDEC | FLOATHEX;
+
 //--------------------- special cars ---------------------------
 
-OBRACE: '(';
+OPARENT: '(';
 
-CBRACE: ')';
+CPARENT: ')';
+
+OBRACE: '{';
+
+CBRACE: '}';
 
 SEMI: ';';
 
@@ -45,6 +63,7 @@ STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"';
 MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 
 COMMENT: '//' (~('\n'))* { skip(); };
+
 MULTI_LINE_COMMENT : '/*' (STRING_CAR | EOL)* '*/' { skip(); };
 
 // Deca lexer rules.

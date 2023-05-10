@@ -170,7 +170,7 @@ expr returns[AbstractExpr tree]
     : e=INT
     | e1=FLOAT
     | e2=STRING
-    | e3=IDENT
+    | e3=IDENT;
 
 assign_expr returns[AbstractExpr tree]
     : e=or_expr (
