@@ -135,6 +135,7 @@ public class DecaLexer extends AbstractDecaLexer {
 			break;
 		}
 	}
+<<<<<<< HEAD
 
 	public static final String _serializedATN =
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2\22\u0090\b\1\4\2"+
@@ -186,3 +187,5 @@ public class DecaLexer extends AbstractDecaLexer {
 		}
 	}
 }
+=======
+>>>>>>> 19d509610514971a96fd7f4d83c7d315fe857ed1
