@@ -163,14 +163,19 @@ list_expr returns[ListExpr tree]
     ;
 
 expr returns[AbstractExpr tree]
-    /* : assign_expr {
-            assert($assign_expr.tree != null);
-        }
-    ;*/
-    : e=INT
-    | e1=FLOAT
-    | e2=STRING
-    | e3=IDENT;
+   : e=INT {
+        $tree = new IntLiteral(Integer.parseInt($e.text));
+    }
+    | e1=FLOAT {
+        $tree = new FloatLiteral(Float.parseFloat($e1.text));
+    }
+    | e2=STRING{
+        $tree = new StringLiteral($e2.text);
+    }
+    | e3=IDENT{
+        $tree = new Identifier($e3.text);
+    };
+
 
 assign_expr returns[AbstractExpr tree]
     : e=or_expr (
