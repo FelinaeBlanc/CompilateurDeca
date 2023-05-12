@@ -89,11 +89,10 @@ list_decl_var[ListDeclVar l, AbstractIdentifier t]
 decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
 @init   {
 
-        Initialization init;
-        
         }
+        /* $tree = new DeclVar($t,$i.text, new Initialization());  getDecacCompiler().environmentType*/
     : i=ident {
-        
+            
         }
       (EQUALS e=expr {
 
