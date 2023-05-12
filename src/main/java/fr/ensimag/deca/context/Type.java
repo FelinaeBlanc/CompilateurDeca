@@ -37,35 +37,35 @@ public abstract class Type {
     }
 
     public boolean isClass() {
-        return false;
+        return name.getName().equals("class");
     }
 
     public boolean isInt() {
-        return false;
+        return name.getName().equals("int");
     }
 
     public boolean isFloat() {
-        return false;
+        return name.getName().equals("float");
     }
 
     public boolean isBoolean() {
-        return false;
+        return name.getName().equals("boolean");
     }
 
     public boolean isVoid() {
-        return false;
+        return name.getName().equals("void");
     }
 
     public boolean isString() {
-        return false;
+        return name.getName().equals("string");
     }
 
     public boolean isNull() {
-        return false;
+        return name.getName().equals("null");
     }
 
     public boolean isClassOrNull() {
-        return false;
+        return isClass() || isNull();
     }
 
     /**
@@ -77,6 +77,7 @@ public abstract class Type {
      */
     public ClassType asClassType(String errorMessage, Location l)
             throws ContextualError {
+                
         throw new ContextualError(errorMessage, l);
     }
 

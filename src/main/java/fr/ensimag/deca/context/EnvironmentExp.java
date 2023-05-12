@@ -1,11 +1,14 @@
 package fr.ensimag.deca.context;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 
 /**
  * Dictionary associating identifier's ExpDefinition to their names.
  * 
- * This is actually a linked list of dictionaries: each EnvironmentExp has a
+ * This is actually a linimport java.util.HashMap;ked list of dictionaries: each EnvironmentExp has a
  * pointer to a parentEnvironment, corresponding to superblock (eg superclass).
  * 
  * The dictionary at the head of this list thus corresponds to the "current" 
@@ -24,6 +27,7 @@ public class EnvironmentExp {
     // environnement (association nom -> définition, avec possibilité
     // d'empilement).
 
+    private Map<Symbol, ExpDefinition> map = new HashMap<Symbol, ExpDefinition>();
     EnvironmentExp parentEnvironment;
     
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
@@ -39,7 +43,7 @@ public class EnvironmentExp {
      * symbol is undefined.
      */
     public ExpDefinition get(Symbol key) {
-        throw new UnsupportedOperationException("not yet implemented");
+        return map.get(key);
     }
 
     /**
@@ -58,7 +62,11 @@ public class EnvironmentExp {
      *
      */
     public void declare(Symbol name, ExpDefinition def) throws DoubleDefException {
-        throw new UnsupportedOperationException("not yet implemented");
+        if(map.containsKey(name)){
+            throw new DoubleDefException();
+        } else {
+            map.put(name, def);
+        }
     }
 
 }
