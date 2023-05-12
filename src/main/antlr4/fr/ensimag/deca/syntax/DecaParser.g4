@@ -91,9 +91,10 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
         }
         /* $tree = new DeclVar($t,$i.text, new Initialization());  getDecacCompiler().environmentType*/
     : i=ident {
-            
+            $tree = new DeclVar($t,$i.text, new NoInitialization()); 
         }
       (EQUALS e=expr {
+            $tree = new DeclVar($t,$i.text, new ()); 
         }
       )? {
         }
@@ -332,6 +333,7 @@ primary_expr returns[AbstractExpr tree]
 type returns[AbstractIdentifier tree]
     : ident {
             assert($ident.tree != null);
+            $tree = $ident.tree;
         }
     ;
 
