@@ -30,9 +30,8 @@ public class DeclVar extends AbstractDeclVar {
     }
 
     @Override
-    protected void verifyDeclVar(DecacCompiler compiler,
-            EnvironmentExp localEnv, ClassDefinition currentClass)
-            throws ContextualError {
+    protected void verifyDeclVar(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
+        
     }
 
     

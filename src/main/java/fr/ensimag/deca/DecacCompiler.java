@@ -128,7 +128,7 @@ public class DecacCompiler {
     public Symbol createSymbol(String name) {
         return symbolTable.create(name);
     }
-
+    
     /**
      * Run the compiler (parse source file, generate code)
      *
