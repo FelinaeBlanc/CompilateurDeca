@@ -107,7 +107,7 @@ list_inst returns[ListInst tree]
     ;
 
 inst returns[AbstractInst tree]
-    : e1=ident EQUAL e2=expr SEMI {
+    : e1=ident EQUALS e2=expr SEMI {
         $tree = new Assign($e1.tree,$e2.tree);
     }
     | PRINT OPARENT e3=list_expr CPARENT SEMI {
