@@ -154,9 +154,8 @@ expr returns[AbstractExpr tree]
     | e2=STRING{
         $tree = new StringLiteral($e2.text);
     }
-    | e3=IDENT{
-       
-        $tree = new Identifier( getDecacCompiler().createSymbol($e3.text));
+    | e3=ident{
+       $tree = $e3.tree;
     };
 
 
@@ -351,8 +350,9 @@ literal returns[AbstractExpr tree]
     ;
 
 ident returns[AbstractIdentifier tree]
-    : IDENT {
-        }
+    : e=IDENT {
+        $tree = new Identifier( getDecacCompiler().createSymbol($e.text));
+    }
     ;
 
 /****     Class related rules     ****/
