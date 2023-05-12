@@ -61,7 +61,7 @@ EQUAL : '=';
 // String
 
 
-fragment STRING_CAR: .;
+fragment STRING_CAR: ~["\\\r\n];
 STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"';
 MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 
