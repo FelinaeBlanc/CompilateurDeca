@@ -55,6 +55,7 @@ OBRACE: '{';
 CBRACE: '}';
 
 SEMI: ';';
+COMMA: ',';
 EQUAL : '=';
 
 // String

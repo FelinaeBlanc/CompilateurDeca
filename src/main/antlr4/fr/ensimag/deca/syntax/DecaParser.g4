@@ -141,7 +141,7 @@ list_expr returns[ListExpr tree]
        (COMMA e2=expr {
             $tree.add($e2.tree);
         }
-       )* )?
+       )* )
     ;
 
 expr returns[AbstractExpr tree]
