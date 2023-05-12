@@ -43,7 +43,25 @@ public class CompilerOptions {
 
     
     public void parseArgs(String[] args) throws CLIException {
-        // A FAIRE : parcourir args pour positionner les options correctement.
+        if (args.length != 0){
+            for (String option : args){
+                switch (option){
+                    case "-b":
+                    case "-p":
+                    case "-v":
+                    case "-n":
+                    case "-r":
+                    case "-d":
+                    case "-P":
+                        break;
+                    default:
+                        File f = new File(option);
+                        sourceFiles.add(f);
+                        break;
+                }
+            }
+        }
+
         Logger logger = Logger.getRootLogger();
         // map command-line debug option to log4j's level.
         switch (getDebug()) {
@@ -59,7 +77,7 @@ public class CompilerOptions {
         }
         logger.info("Application-wide trace level set to " + logger.getLevel());
 
-        boolean assertsEnabled = false;
+        /*boolean assertsEnabled = true;
         assert assertsEnabled = true; // Intentional side effect!!!
         if (assertsEnabled) {
             logger.info("Java assertions enabled");
@@ -67,7 +85,7 @@ public class CompilerOptions {
             logger.info("Java assertions disabled");
         }
 
-        throw new UnsupportedOperationException("not yet implemented");
+        throw new UnsupportedOperationException("not yet implemented");*/
     }
 
     protected void displayUsage() {

@@ -13,9 +13,9 @@ import org.apache.commons.lang.Validate;
  * @author gl07
  * @date 21/04/2023
  */
-public class DeclVar extends AbstractDeclVar {
+public class DeclVar extends AbstractDeclVar {4
 
-    
+
     final private AbstractIdentifier type;
     final private AbstractIdentifier varName;
     final private AbstractInitialization initialization;
@@ -32,9 +32,15 @@ public class DeclVar extends AbstractDeclVar {
     @Override
     protected void verifyDeclVar(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
         
+
+        if (type.getType() == compiler.environmentType.VOID){
+            throw new UnsupportedOperationException("DeclVar Type Invalide ! (void)");
+        }
+
+        //localEnv.declare(varName.getName(), null);
     }
 
-    
+
     @Override
     public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("not yet implemented");
@@ -47,7 +53,7 @@ public class DeclVar extends AbstractDeclVar {
         varName.iter(f);
         initialization.iter(f);
     }
-    
+
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         type.prettyPrint(s, prefix, false);

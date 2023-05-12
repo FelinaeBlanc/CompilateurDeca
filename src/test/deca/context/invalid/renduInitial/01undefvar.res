@@ -1,3 +1,1 @@
-Exception in thread "main" java.lang.UnsupportedOperationException: not yet implemented
-	at fr.ensimag.deca.CompilerOptions.parseArgs(CompilerOptions.java:70)
-	at fr.ensimag.deca.DecacMain.main(DecacMain.java:21)
+/user/1/.base/lennea/home/Projet_GL/src/test/deca/context/invalid/renduInitial/01undefvar.deca:2:0: mismatched input '\t' expecting {'println', 'print', IDENT, '}'}
