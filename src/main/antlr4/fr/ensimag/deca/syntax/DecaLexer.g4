@@ -22,9 +22,9 @@ fragment LETTER: 'a' .. 'z' | 'A' .. 'Z';
 
 fragment DIGIT: '0' .. '9';
 
-EOL: '\n';
+fragment EOL: '\n';
 
-SPACES: ' ' {skip(); };
+SPACES: (' ' | EOL) {skip(); };
 
 IDENT: (LETTER | '$' | '_') (LETTER | DIGIT | '$' | '_')*;
 

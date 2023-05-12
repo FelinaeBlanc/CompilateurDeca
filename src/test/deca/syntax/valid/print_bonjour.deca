@@ -1,1 +1,1 @@
-{int x;print("Hello",3.0,"eee",7);print("Hello",3.0,"eee",7);}
+{int x;}
