@@ -25,6 +25,7 @@ options {
 // which packages should be imported?
 @header {
     import fr.ensimag.deca.tree.*;
+    import fr.ensimag.deca.tools.*;
     import java.io.PrintStream;
 }
 
@@ -106,35 +107,16 @@ list_inst returns[ListInst tree]
     ;
 
 inst returns[AbstractInst tree]
-    : e1=expr SEMI {
-            assert($e1.tree != null);
-        }
-    | SEMI {
-            $tree = new NoOperation();
-        }
-    | PRINT OPARENT list_expr CPARENT SEMI {
-            assert($list_expr.tree != null);
-        }
-    | PRINTLN OPARENT list_expr CPARENT SEMI {
-            assert($list_expr.tree != null);
-        }
-    | PRINTX OPARENT list_expr CPARENT SEMI {
-            assert($list_expr.tree != null);
-        }
-    | PRINTLNX OPARENT list_expr CPARENT SEMI {
-            assert($list_expr.tree != null);
-        }
-    | if_then_else {
-            assert($if_then_else.tree != null);
-        }
-    | WHILE OPARENT condition=expr CPARENT OBRACE body=list_inst CBRACE {
-            assert($condition.tree != null);
-            assert($body.tree != null);
-        }
-    | RETURN expr SEMI {
-            assert($expr.tree != null);
-        }
-    ;
+    : e1=ident EQUAL e2=expr SEMI {
+        $tree = new Assign($e1.tree,$e2.tree);
+    }
+    | PRINT OPARENT e3=list_expr CPARENT SEMI {
+        $tree = new Print(false,$e3.tree);
+    }
+    | PRINTLN OPARENT e4=list_expr CPARENT SEMI {
+        $tree = new Println(false,$e4.tree);
+    };
+
 
 if_then_else returns[IfThenElse tree]
 @init {
@@ -173,7 +155,8 @@ expr returns[AbstractExpr tree]
         $tree = new StringLiteral($e2.text);
     }
     | e3=IDENT{
-        $tree = new Identifier($e3.text);
+       
+        $tree = new Identifier( getDecacCompiler().createSymbol($e3.text));
     };
 
 

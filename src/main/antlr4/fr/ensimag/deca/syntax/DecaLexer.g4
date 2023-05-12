@@ -16,6 +16,7 @@ PRINTLN : 'println';
 PRINT : 'print';
 
 
+
 // ------------------ Others -----------------
 fragment LETTER: 'a' .. 'z' | 'A' .. 'Z';
 
@@ -54,6 +55,7 @@ OBRACE: '{';
 CBRACE: '}';
 
 SEMI: ';';
+EQUAL : '=';
 
 // String
 
