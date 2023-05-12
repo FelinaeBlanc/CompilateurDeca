@@ -56,13 +56,13 @@ CBRACE: '}';
 
 SEMI: ';';
 COMMA: ',';
-EQUAL : '=';
+EQUALS : '=';
 
 // String
 
 
-fragment STRING_CAR: .;
-STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"';
+STRING_CAR: ~["\\\r\n];
+STRING: '"' (STRING_CAR | '\\' STRING_CAR)* '"';
 MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 
 COMMENT: '//' (~('\n'))* { skip(); };
