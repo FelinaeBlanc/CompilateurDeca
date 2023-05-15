@@ -1,4 +1,4 @@
-// Generated from /user/1/lennea/Projet_GL/examples/calc/src/main/antlr4/calc/CalcParser.g4 by ANTLR 4.9.2
+// Generated from /user/9/soriarag/Projet_GL/examples/calc/src/main/antlr4/calc/CalcParser.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;

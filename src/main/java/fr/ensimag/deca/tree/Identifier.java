@@ -170,6 +170,13 @@ public class Identifier extends AbstractIdentifier {
         //throw new UnsupportedOperationException("not yet implemented");
         //return;
         
+        Definition newDef = localEnv.get(name);
+        if (newDef != null) {
+            this.setDefinition(newDef);
+            return definition.getType();
+        }else{
+            throw new ContextualError("Identificateur non defini",getLocation());
+        }
         
     }
 
@@ -179,8 +186,17 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+
+            Type t =  compiler.environmentType.defOfType(name).getType();
+
+            if (t == null) {
+                throw new ContextualError("Type indefini", getLocation());
+            }else{
+                return t;
+            }
+            
     }
+    
     
     
     private Definition definition;

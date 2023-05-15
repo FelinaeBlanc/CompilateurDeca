@@ -1,7 +1,10 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.VariableDefinition;
+import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
@@ -32,15 +35,32 @@ public class DeclVar extends AbstractDeclVar {
     @Override
     protected void verifyDeclVar(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
         
+        Type varType;
         switch (type.getName().getName()) {
             case "int":
+                varType = compiler.environmentType.BOOLEAN;
+                break;
             case "float":
+                varType = compiler.environmentType.FLOAT;
+                break;
             case "string":
+                varType = compiler.environmentType.STRING;
+                break;
             case "boolean":
-                // Types valides, sortie de la méthode
-                return;
+                varType = compiler.environmentType.BOOLEAN;
+                break;
+            default:
+                throw new ContextualError("DeclVar Type Invalide !", this.getLocation() );
         }
-        throw new UnsupportedOperationException("DeclVar Type Invalide !");
+        try {
+            localEnv.declare(varName.getName(), new VariableDefinition(varType, this.getLocation()));
+            return;
+        } catch (DoubleDefException e) {
+            throw new ContextualError("DeclVar Type Invalide !", this.getLocation() );
+        }
+
+       
+        
     }
 
     @Override

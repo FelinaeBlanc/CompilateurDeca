@@ -39,8 +39,8 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,ClassDefinition currentClass, Type returnType) throws ContextualError {
         for (AbstractExpr a : getArguments().getList()) {
             Type t = a.verifyExpr(compiler, localEnv, null);
-            if (t != compiler.environmentType.STRING && t != compiler.environmentType.INT && t != compiler.environmentType.FLOAT){
-                throw new UnsupportedOperationException("ERREUR ARGUMENT PRINT NON VALIDE.");
+            if (!t.isInt() && !t.isFloat() && !t.isString()){
+                throw new ContextualError("ERREUR ARGUMENT PRINT NON VALIDE", getLocation());
             }
         }
     }
