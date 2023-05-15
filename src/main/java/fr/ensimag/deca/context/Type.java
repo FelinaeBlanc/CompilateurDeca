@@ -37,35 +37,35 @@ public abstract class Type {
     }
 
     public boolean isClass() {
-        return name.getName().equals("class");
+        return false;
     }
 
     public boolean isInt() {
-        return name.getName().equals("int");
+        return false;
     }
 
     public boolean isFloat() {
-        return name.getName().equals("float");
+        return false;
     }
 
     public boolean isBoolean() {
-        return name.getName().equals("boolean");
+        return false;
     }
 
     public boolean isVoid() {
-        return name.getName().equals("void");
+        return false;
     }
 
     public boolean isString() {
-        return name.getName().equals("string");
+        return false;
     }
 
     public boolean isNull() {
-        return name.getName().equals("null");
+        return false;
     }
 
     public boolean isClassOrNull() {
-        return isClass() || isNull();
+        return false;
     }
 
     /**
