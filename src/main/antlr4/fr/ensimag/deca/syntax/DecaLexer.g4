@@ -24,7 +24,7 @@ fragment DIGIT: '0' .. '9';
 
 fragment EOL: '\n';
 
-SPACES: (' ' | EOL) {skip(); };
+SPACES: (' ' | EOL | '\t' ) {skip(); };
 
 IDENT: (LETTER | '$' | '_') (LETTER | DIGIT | '$' | '_')*;
 

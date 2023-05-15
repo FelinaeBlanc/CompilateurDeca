@@ -87,20 +87,20 @@ list_decl_var[ListDeclVar l, AbstractIdentifier t]
     ;
 
 decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
-@init   {
-        AbstractInitialization init;
 
-        }
-        /* $tree = new DeclVar($t,$i.text, new Initialization());  getDecacCompiler().environmentType*/
     : i=ident {
-            init = new NoInitialization();
+            AbstractInitialization init = new NoInitialization();
+            $tree = new DeclVar($t, $i.tree, init);
+            setLocation($tree, $i.start);
+            setLocation(init, $i.start);
         }
       (EQUALS e=expr {
-            init = new Initialization($e.tree);
-         
+            AbstractInitialization init2 = new Initialization($e.tree);
+            $tree = new DeclVar($t, $i.tree, init2);
+            setLocation(init2, $e.start);
         }
       )? {
-         $tree = new DeclVar($t, $i.tree, init); 
+            setLocation($tree, $i.start);
         }
     ;
 
@@ -117,12 +117,15 @@ list_inst returns[ListInst tree]
 inst returns[AbstractInst tree]
     : e1=ident EQUALS e2=expr SEMI {
         $tree = new Assign($e1.tree,$e2.tree);
+        setLocation($tree, $e1.start);
     }
     | PRINT OPARENT e3=list_expr CPARENT SEMI {
         $tree = new Print(false,$e3.tree);
+        setLocation($tree, $PRINT);
     }
     | PRINTLN OPARENT e4=list_expr CPARENT SEMI {
         $tree = new Println(false,$e4.tree);
+        setLocation($tree, $PRINTLN);
     };
 
 
@@ -154,16 +157,21 @@ list_expr returns[ListExpr tree]
 
 expr returns[AbstractExpr tree]
    : e=INT {
+        System.out.println("eee");
         $tree = new IntLiteral(Integer.parseInt($e.text));
+        setLocation($tree, $e);
     }
     | e1=FLOAT {
         $tree = new FloatLiteral(Float.parseFloat($e1.text));
+        setLocation($tree, $e1);
     }
     | e2=STRING{
         $tree = new StringLiteral($e2.text);
+        setLocation($tree, $e2);
     }
     | e3=ident{
        $tree = $e3.tree;
+       setLocation($tree, $e3.start);
     };
 
 
@@ -361,6 +369,7 @@ literal returns[AbstractExpr tree]
 ident returns[AbstractIdentifier tree]
     : e=IDENT {
         $tree = new Identifier( getDecacCompiler().createSymbol($e.text));
+        setLocation($tree, $e);
     }
     ;
 

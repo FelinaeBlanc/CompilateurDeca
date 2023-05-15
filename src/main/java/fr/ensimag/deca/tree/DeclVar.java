@@ -13,7 +13,7 @@ import org.apache.commons.lang.Validate;
  * @author gl07
  * @date 21/04/2023
  */
-public class DeclVar extends AbstractDeclVar {4
+public class DeclVar extends AbstractDeclVar {
 
 
     final private AbstractIdentifier type;
@@ -30,16 +30,18 @@ public class DeclVar extends AbstractDeclVar {4
     }
 
     @Override
-    protected void verifyDeclVar(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
+    protected void verifyDeclVar(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
         
-
-        if (type.getType() == compiler.environmentType.VOID){
-            throw new UnsupportedOperationException("DeclVar Type Invalide ! (void)");
+        switch (type.getName().getName()) {
+            case "int":
+            case "float":
+            case "string":
+            case "boolean":
+                // Types valides, sortie de la méthode
+                return;
         }
-
-        //localEnv.declare(varName.getName(), null);
+        throw new UnsupportedOperationException("DeclVar Type Invalide !");
     }
-
 
     @Override
     public void decompile(IndentPrintStream s) {
