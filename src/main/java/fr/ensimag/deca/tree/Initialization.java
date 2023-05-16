@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -38,6 +40,11 @@ public class Initialization extends AbstractInitialization {
         this.setExpression(expression.verifyRValue(compiler, localEnv, currentClass, t));
     }
 
+
+    @Override
+    public void codeGenInit(DecacCompiler compiler){
+        expression.codeGenInst(compiler);
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {

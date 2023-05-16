@@ -38,6 +38,11 @@ public class Identifier extends AbstractIdentifier {
         return definition;
     }
 
+    @Override
+    DAddr getDAddr() {
+        return getExpDefinition().getOperand();
+    }
+
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a
      * ClassDefinition.

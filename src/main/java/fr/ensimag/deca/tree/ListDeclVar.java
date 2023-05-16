@@ -37,5 +37,9 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
         }
     }
 
-
+    public void codeGenListDeclVariable(DecacCompiler compiler) {
+        for (AbstractDeclVar i : getList()) {
+            i.codeGenDeclVar(compiler);
+        }
+    }
 }
