@@ -135,8 +135,18 @@ public class DecacCompiler {
      * @return true on error
      */
     public boolean compile() {
+
+        // Remove the file extension
+        String fileName = source.getName();
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            fileName = fileName.substring(0, dotIndex);
+        }
+        fileName = fileName+".ass";
+
         String sourceFile = source.getAbsolutePath();
-        String destFile = null;
+        String destFile = source.getParent()+"/"+fileName;
+        System.out.println(destFile);
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
         // A FAIRE: fichier .deca.
         PrintStream err = System.err;
@@ -178,9 +188,7 @@ public class DecacCompiler {
      *
      * @return true on error
      */
-    private boolean doCompile(String sourceName, String destName,
-            PrintStream out, PrintStream err)
-            throws DecacFatalError, LocationException {
+    private boolean doCompile(String sourceName, String destName,PrintStream out, PrintStream err) throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
 
         if (prog == null) {
