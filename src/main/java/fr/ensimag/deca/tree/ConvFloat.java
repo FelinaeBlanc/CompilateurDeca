@@ -1,10 +1,14 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.ImmediateFloat;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.EnvironmentExp;
+
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
  * Conversion of an int into a float. Used for implicit conversions.
@@ -21,20 +25,20 @@ public class ConvFloat extends AbstractUnaryExpr {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
                 
-                this.setType(compiler.environmentType.FLOAT);
+            this.setType(compiler.environmentType.FLOAT);
             Type t = getOperand().verifyExpr(compiler, localEnv, currentClass);
             
             if (t.isInt()) {
-                
                 return compiler.environmentType.FLOAT;
             } else {
                 throw new ContextualError("ConvFloat does not support type " + t.toString(), getLocation());
             }
     }
 
+
     @Override
-    public void decompile(IndentPrintStream s) {
-        s.print("ConvFloat["+ getOperand.decompile(s)+"]");
+    protected void codeGenInst(DecacCompiler compiler) {
+        //compiler.addInstruction(new LOAD(new ImmediateFloat(),Register.R1));
     }
 
     @Override
