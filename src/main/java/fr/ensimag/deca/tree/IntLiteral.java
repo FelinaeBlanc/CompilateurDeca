@@ -10,6 +10,9 @@ import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 /**
  * Integer literal
  *
@@ -39,6 +42,10 @@ public class IntLiteral extends AbstractExpr {
         compiler.addInstruction(new WINT(new ImmediateInteger(value)));
     }
 
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        compiler.addInstruction(new LOAD(new ImmediateInteger(value),Register.R1));
+    }
 
     @Override
     String prettyPrintNode() {

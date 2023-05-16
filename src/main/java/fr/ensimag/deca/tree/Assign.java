@@ -7,6 +7,9 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
 
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.Register;
+
 /**
  * Assignment, i.e. lvalue = expr.
  *
@@ -36,6 +39,11 @@ public class Assign extends AbstractBinaryExpr {
         return t;
     }
 
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        getRightOperand().codeGenInst(compiler);
+        compiler.addInstruction(new STORE(Register.R1,));
+    }
 
     @Override
     protected String getOperatorName() {

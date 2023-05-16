@@ -12,6 +12,10 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 /**
  * @author gl07
  * @date 21/04/2023
@@ -53,8 +57,12 @@ public class DeclVar extends AbstractDeclVar {
     }
 
     @Override
-    public void codeGenDeclVar(DecacCompiler compiler){
-
+    public void codeGenDeclVar(DecacCompiler compiler, int posPile){
+        // Assigne la var dans la l'espace suivante libre dans la pile ! + Fait la liaison uwu
+        varName.getExpDefinition().setOperand(new RegisterOffset(posPile,Register.LB));
+        
+        // Si initialisation =>
+        //  compiler.addInstruction(new LOAD(initialization.getExpression(),GPRegister("R",0)));
     }
 
     @Override

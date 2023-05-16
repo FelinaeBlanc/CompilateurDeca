@@ -232,4 +232,14 @@ public class Identifier extends AbstractIdentifier {
         }
     }
 
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("EEEEEEEEEEEEEEEEEEEEE");
+    }
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) {
+        System.out.println("EEEEEEEEEE888EEEEEEEEEEE");
+        //compiler.addInstruction(new WINT(new ImmediateInteger(value)));
+        //this.getExpDefinition().getOperand()
+    }
 }

@@ -1,1 +1,1 @@
-{int x;println(x);}
+{int x;x=5;println(x);}
