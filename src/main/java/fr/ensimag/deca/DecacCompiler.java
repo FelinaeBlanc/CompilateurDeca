@@ -142,8 +142,6 @@ public class DecacCompiler {
         String sourceFile = source.getAbsolutePath();
         String destFile = destNoExt+".ass";
 
-
-
         System.out.println(destFile);
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
         // A FAIRE: fichier .deca.
