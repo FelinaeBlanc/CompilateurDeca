@@ -20,15 +20,22 @@ public class ConvFloat extends AbstractUnaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        
+                
+                this.setType(compiler.environmentType.FLOAT);
             Type t = getOperand().verifyExpr(compiler, localEnv, currentClass);
+            
             if (t.isInt()) {
+                
                 return compiler.environmentType.FLOAT;
             } else {
                 throw new ContextualError("ConvFloat does not support type " + t.toString(), getLocation());
             }
     }
 
+    @Override
+    public void decompile(IndentPrintStream s) {
+        s.print("ConvFloat["+ getOperand.decompile(s)+"]");
+    }
 
     @Override
     protected String getOperatorName() {

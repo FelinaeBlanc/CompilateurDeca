@@ -84,7 +84,7 @@ public abstract class AbstractExpr extends AbstractInst {
             throws ContextualError {
 
             Type type2 = verifyExpr(compiler, localEnv, currentClass);
-            setType(type2);
+            setType(expectedType);
 
             if (expectedType.equals(type2)){
                 return this;

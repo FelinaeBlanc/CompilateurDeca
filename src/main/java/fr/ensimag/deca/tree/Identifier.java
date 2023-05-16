@@ -183,6 +183,7 @@ public class Identifier extends AbstractIdentifier {
         Definition newDef = localEnv.get(name);
         if (newDef != null) {
             this.setDefinition(newDef);
+            this.setType(definition.getType());
             return definition.getType();
         }else{
             throw new ContextualError("Identificateur non defini",getLocation());
@@ -200,6 +201,7 @@ public class Identifier extends AbstractIdentifier {
             Definition myDef = compiler.environmentType.defOfType(name);
             if (myDef != null) {
                 this.setDefinition(myDef);
+                this.setType(definition.getType());
                 return definition.getType();
             }else{
                 throw new ContextualError("Type indefini",getLocation());
@@ -245,13 +247,10 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("EEEEEEEEEEEEEEEEEEEEE LOAD !");
         compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        System.out.println("EEEEEEEEEE888EEEEEEEEEEE ");
-        
         compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
         
         Type leType = definition.getType();
