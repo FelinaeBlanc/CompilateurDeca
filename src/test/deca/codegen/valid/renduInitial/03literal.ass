@@ -1,8 +1,11 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	WSTR "hello "
-	WSTR "world!"
+	WSTR "1="
+	WINT #1
+	WNL
+	WSTR "3.14="
+	WFLOAT #0x1.91eb86p1
 	WNL
 	HALT
 ; end main program
