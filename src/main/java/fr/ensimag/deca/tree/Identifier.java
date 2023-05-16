@@ -18,6 +18,12 @@ import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 /**
  * Deca Identifier
  *
@@ -239,11 +245,23 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("EEEEEEEEEEEEEEEEEEEEE");
+        System.out.println("EEEEEEEEEEEEEEEEEEEEE LOAD !");
+        compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        System.out.println("EEEEEEEEEE888EEEEEEEEEEE");
+        System.out.println("EEEEEEEEEE888EEEEEEEEEEE ");
+        
+        compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
+        
+        Type leType = definition.getType();
+        if (leType.isInt()){
+            compiler.addInstruction(new WINT());
+        }else if(leType.isFloat()){
+            compiler.addInstruction(new WFLOAT());
+        }
+        
+
         //compiler.addInstruction(new WINT(new ImmediateInteger(value)));
         //this.getExpDefinition().getOperand()
     }

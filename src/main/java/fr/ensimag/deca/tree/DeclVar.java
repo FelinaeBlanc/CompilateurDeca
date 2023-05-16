@@ -15,6 +15,7 @@ import org.apache.commons.lang.Validate;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 /**
  * @author gl07
@@ -59,10 +60,19 @@ public class DeclVar extends AbstractDeclVar {
     @Override
     public void codeGenDeclVar(DecacCompiler compiler, int posPile){
         // Assigne la var dans la l'espace suivante libre dans la pile ! + Fait la liaison uwu
-        varName.getExpDefinition().setOperand(new RegisterOffset(posPile,Register.LB));
+        RegisterOffset registrePile = new RegisterOffset(posPile,Register.LB);
+        varName.getExpDefinition().setOperand(registrePile);
         
         // Si initialisation =>
         //  compiler.addInstruction(new LOAD(initialization.getExpression(),GPRegister("R",0)));
+        //compiler.addInstruction(new LOAD(,Register.R1));
+        
+        if (initialization instanceof Initialization){
+            AbstractExpr expr = ((Initialization) initialization).getExpression();
+            System.out.println("Areprzerez "+ expr );
+            expr.codeGenInst(compiler); // LOAD
+            compiler.addInstruction(new STORE(Register.R1,registrePile));
+        }
     }
 
     @Override

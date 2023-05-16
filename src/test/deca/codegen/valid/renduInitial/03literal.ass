@@ -2,10 +2,12 @@
 ; Main program
 ; Beginning of main instructions:
 	WSTR "1="
-	WINT #1
+	LOAD #1, R1
+	WINT
 	WNL
 	WSTR "3.14="
-	WFLOAT #0x1.91eb86p1
+	LOAD #0x1.91eb86p1, R1
+	WFLOAT
 	WNL
 	HALT
 ; end main program

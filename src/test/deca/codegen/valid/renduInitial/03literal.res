@@ -1,1 +1,2 @@
-LIGNE  5 -- erreur syntaxique
+1=1
+3.14=3.14000e+00

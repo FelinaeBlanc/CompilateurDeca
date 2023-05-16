@@ -1,12 +1,11 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R1
+	LOAD #2, R1
 	STORE R1, 1(LB)
+	WSTR "2="
 	LOAD 1(LB), R1
-	STORE R1, 1(LB)
-	LOAD 1(LB), R1
-	WINT
+	WFLOAT
 	WNL
 	HALT
 ; end main program

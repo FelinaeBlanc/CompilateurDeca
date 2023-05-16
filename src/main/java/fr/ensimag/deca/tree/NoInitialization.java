@@ -23,7 +23,9 @@ public class NoInitialization extends AbstractInitialization {
             throws ContextualError {
     }
 
-
+    @Override
+    public void codeGenInit(DecacCompiler compiler){
+    }
     /**
      * Node contains no real information, nothing to check.
      */

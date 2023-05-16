@@ -3,8 +3,7 @@
 ; Beginning of main instructions:
 	LOAD #1, R1
 	STORE R1, 1(LB)
-	LOAD 1(LB), R1
-	STORE R1, 1(LB)
+	WSTR "1="
 	LOAD 1(LB), R1
 	WINT
 	WNL

@@ -1,10 +1,15 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R1
+	LOAD #3, R1
 	STORE R1, 1(LB)
+	WSTR "3="
 	LOAD 1(LB), R1
+	WINT
+	WNL
+	LOAD #7, R1
 	STORE R1, 1(LB)
+	WSTR "7="
 	LOAD 1(LB), R1
 	WINT
 	WNL

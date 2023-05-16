@@ -32,8 +32,6 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         
     }
 
-    public codeGen(){
-        
-    }
+
 
 }

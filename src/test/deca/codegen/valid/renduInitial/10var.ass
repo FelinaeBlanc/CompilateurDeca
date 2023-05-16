@@ -1,0 +1,33 @@
+; start main program
+; Main program
+; Beginning of main instructions:
+	LOAD #5, R1
+	STORE R1, 1(LB)
+	LOAD #3, R1
+	STORE R1, 3(LB)
+	LOAD 1(LB), R1
+	STORE R1, 4(LB)
+	WSTR "3="
+	LOAD 3(LB), R1
+	WINT
+	WNL
+	WSTR "5="
+	LOAD 1(LB), R1
+	WINT
+	WNL
+	WSTR "swap"
+	WNL
+	LOAD 3(LB), R1
+	STORE R1, 1(LB)
+	LOAD 4(LB), R1
+	STORE R1, 3(LB)
+	WSTR "5="
+	LOAD 3(LB), R1
+	WINT
+	WNL
+	WSTR "3="
+	LOAD 1(LB), R1
+	WINT
+	WNL
+	HALT
+; end main program
