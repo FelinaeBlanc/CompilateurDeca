@@ -165,7 +165,8 @@ expr returns[AbstractExpr tree]
         setLocation($tree, $e1);
     }
     | e2=STRING{
-        $tree = new StringLiteral($e2.text);
+        int index = ($e2.text).lastIndexOf("\"");
+        $tree = new StringLiteral(($e2.text).substring(1, index));
         setLocation($tree, $e2);
     }
     | e3=ident{
