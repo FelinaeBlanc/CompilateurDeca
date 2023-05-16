@@ -1,0 +1,7 @@
+; start main program
+; Main program
+; Beginning of main instructions:
+	WSTR """eeeze"""
+	WNL
+	HALT
+; end main program

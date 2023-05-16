@@ -157,7 +157,6 @@ list_expr returns[ListExpr tree]
 
 expr returns[AbstractExpr tree]
    : e=INT {
-        System.out.println("eee");
         $tree = new IntLiteral(Integer.parseInt($e.text));
         setLocation($tree, $e);
     }
