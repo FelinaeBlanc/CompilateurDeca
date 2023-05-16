@@ -166,7 +166,7 @@ expr returns[AbstractExpr tree]
     }
     | e2=STRING{
         int index = ($e2.text).lastIndexOf("\"");
-        $tree = new StringLiteral(($e2.text).substring(1, index - 1));
+        $tree = new StringLiteral(($e2.text).substring(1, index));
         setLocation($tree, $e2);
     }
     | e3=ident{
