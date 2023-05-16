@@ -1,7 +1,7 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	WSTR """eeeze"""
+	WFLOAT #0x1.4p2
 	WNL
 	HALT
 ; end main program

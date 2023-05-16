@@ -47,7 +47,9 @@ public abstract class AbstractPrint extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        
         for (AbstractExpr a : getArguments().getList()) {
+            System.out.println("UWU !!!!!!!!! "+a);
             a.codeGenPrint(compiler);
         }
     }

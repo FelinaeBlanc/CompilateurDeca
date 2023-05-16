@@ -8,6 +8,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import fr.ensimag.ima.pseudocode.ImmediateFloat;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 
 /**
  * Single precision, floating-point literal
@@ -37,6 +39,11 @@ public class FloatLiteral extends AbstractExpr {
 
                 this.setType(compiler.environmentType.FLOAT);
                 return compiler.environmentType.FLOAT;      
+    }
+
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) {
+        compiler.addInstruction(new WFLOAT(new ImmediateFloat(value)));
     }
 
 
