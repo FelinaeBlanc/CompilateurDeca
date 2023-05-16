@@ -186,12 +186,12 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
 
-            Type t =  compiler.environmentType.defOfType(name).getType();
-
-            if (t == null) {
-                throw new ContextualError("Type indefini", getLocation());
+            Definition myDef = compiler.environmentType.defOfType(name);
+            if (myDef != null) {
+                this.setDefinition(myDef);
+                return definition.getType();
             }else{
-                return t;
+                throw new ContextualError("Type indefini",getLocation());
             }
             
     }
