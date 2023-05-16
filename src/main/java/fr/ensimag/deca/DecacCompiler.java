@@ -136,16 +136,14 @@ public class DecacCompiler {
      */
     public boolean compile() {
 
-        // Remove the file extension
-        String fileName = source.getName();
-        int dotIndex = fileName.lastIndexOf(".");
-        if (dotIndex > 0) {
-            fileName = fileName.substring(0, dotIndex);
-        }
-        fileName = fileName+".ass";
+        int index = source.getAbsolutePath().lastIndexOf(".");
+        String destNoExt = source.getAbsolutePath().substring(0, index);
 
         String sourceFile = source.getAbsolutePath();
-        String destFile = source.getParent()+"/"+fileName;
+        String destFile = destNoExt+".ass";
+
+
+
         System.out.println(destFile);
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
         // A FAIRE: fichier .deca.
