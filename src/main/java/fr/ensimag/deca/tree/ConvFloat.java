@@ -23,7 +23,7 @@ public class ConvFloat extends AbstractUnaryExpr {
         
             Type t = getOperand().verifyExpr(compiler, localEnv, currentClass);
             if (t.isInt()) {
-                return compiler.environmentType.INT;
+                return compiler.environmentType.FLOAT;
             } else {
                 throw new ContextualError("ConvFloat does not support type " + t.toString(), getLocation());
             }

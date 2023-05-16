@@ -34,32 +34,21 @@ public class DeclVar extends AbstractDeclVar {
 
     @Override
     protected void verifyDeclVar(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-        
-        Type varType;
-        switch (type.getName().getName()) {
-            case "int":
-                varType = compiler.environmentType.BOOLEAN;
-                break;
-            case "float":
-                varType = compiler.environmentType.FLOAT;
-                break;
-            case "string":
-                varType = compiler.environmentType.STRING;
-                break;
-            case "boolean":
-                varType = compiler.environmentType.BOOLEAN;
-                break;
-            default:
-                throw new ContextualError("DeclVar Type Invalide !", this.getLocation() );
-        }
-        try {
-            localEnv.declare(varName.getName(), new VariableDefinition(varType, this.getLocation()));
-            return;
-        } catch (DoubleDefException e) {
+
+
+        Type varType = type.verifyType(compiler);
+        Type name = varName.verifyExpr(compiler, localEnv, currentClass);
+        initialization.verifyInitialization(compiler, varType, localEnv, currentClass);
+        if (varType.isVoid()) {
             throw new ContextualError("DeclVar Type Invalide !", this.getLocation() );
         }
-
-       
+        
+        try {
+            localEnv.declare(name.getName(), new VariableDefinition(varType, getLocation()));
+            return;
+        } catch (DoubleDefException e) {
+            throw new ContextualError("DeclVar name Invalide !", this.getLocation() );
+        }
         
     }
 
