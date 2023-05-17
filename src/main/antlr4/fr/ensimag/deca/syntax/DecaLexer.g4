@@ -14,8 +14,31 @@ options {
 
 PRINTLN : 'println';
 PRINT : 'print';
+IF: 'if';
+ELSE: 'else';
+WHILE: 'while';
+READINT: 'readInt';
 
+//--------------------- special cars ---------------------------
 
+OPARENT: '(';
+
+CPARENT: ')';
+
+OBRACE: '{';
+
+CBRACE: '}';
+
+SEMI: ';';
+COMMA: ',';
+EQUALS : '=';
+
+OR: '||';
+AND: '&&';
+EQEQ : '==';
+EXCLAM: '!';
+LT:  '<';
+LEQ: '<=';
 
 // ------------------ Others -----------------
 fragment LETTER: 'a' .. 'z' | 'A' .. 'Z';
@@ -44,30 +67,7 @@ fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | /* epsilon */);
 FLOAT : FLOATDEC | FLOATHEX;
 
-//--------------------- special cars ---------------------------
 
-OPARENT: '(';
-
-CPARENT: ')';
-
-OBRACE: '{';
-
-CBRACE: '}';
-
-SEMI: ';';
-COMMA: ',';
-EQUALS : '=';
-
-IF: 'if';
-ELSE: 'else';
-WHILE: 'while';
-READINT: 'readInt';
-OR: '||';
-AND: '&&';
-EQEQ : '==';
-EXCLAM: '!';
-LT:  '<';
-LEQ: '<=';
 
 // String
 
