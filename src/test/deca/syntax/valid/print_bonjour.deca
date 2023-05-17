@@ -1,5 +1,11 @@
 {
     float x;
-    x=2;
-    println("2=", x);
+    while(5 < 8){
+        print(5);
+        if (8 <= 8){
+            print("NON");
+        }else {
+            print("UWU");
+        }
+    }
 }
