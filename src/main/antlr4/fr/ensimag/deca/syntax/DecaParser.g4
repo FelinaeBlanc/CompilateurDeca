@@ -31,7 +31,7 @@ options {
 
 @members {
     @Override
-    protected AbstractProgram parseProgram() {
+    protected AbstractProgram parseProgram() { 
         return prog().tree;
     }
 }
@@ -126,24 +126,38 @@ inst returns[AbstractInst tree]
     | PRINTLN OPARENT e4=list_expr CPARENT SEMI {
         $tree = new Println(false,$e4.tree);
         setLocation($tree, $PRINTLN);
-    };
+    }
+    | WHILE OPARENT e5=expr CPARENT OBRACE e6=list_inst CBRACE {
+        $tree = new While($e5.tree, $e6.tree);
+    }
+    | e7=if_then_else{
+        $tree = $e7.tree;
+    }
+    ;
 
 
 if_then_else returns[IfThenElse tree]
 @init {
-    AbstractExpr condition;
-    ListInst thenListInst;
+    ListInst elseB;
+    ListInst auxB;
+    List<ListInst> else_list;
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
-        condition = $condition.tree;
-        thenListInst = $li_if.tree;
+        elseB = new ListInst(); 
+        $tree = new IfThenElse($condition.tree, $li_if.tree, elseB);
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
+
+        ListInst else_auxB = new ListInst();
+        elseB.add(new IfThenElse($elsif_cond.tree, $elsif_li.tree, else_auxB));
+        elseB = else_auxB; 
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
-            $tree = new IfThenElse(condition,thenListInst,$li_else.tree);
+        for(AbstractInst i: $li_else.tree.getList()){
+            elseB.add(i);
         }
+      }
       )?
     ;
 
