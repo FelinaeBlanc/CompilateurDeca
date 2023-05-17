@@ -58,6 +58,17 @@ SEMI: ';';
 COMMA: ',';
 EQUALS : '=';
 
+IF: 'if';
+ELSE: 'else';
+WHILE: 'while';
+READINT: 'readInt';
+OR: '||';
+AND: '&&';
+EQEQ : '==';
+EXCLAM: '!';
+LT:  '<';
+LEQ: '<=';
+
 // String
 
 fragment STRING_CAR: ~["\\\r\n];

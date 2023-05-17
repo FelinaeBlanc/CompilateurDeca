@@ -78,14 +78,11 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param expectedType corresponds to the "type1" attribute            
      * @return this with an additional ConvFloat if needed...
      */
-    public AbstractExpr verifyRValue(DecacCompiler compiler,
-            EnvironmentExp localEnv, ClassDefinition currentClass, 
-            Type expectedType)
-            throws ContextualError {
+    public AbstractExpr verifyRValue(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition currentClass, Type expectedType) throws ContextualError {
 
             Type type2 = verifyExpr(compiler, localEnv, currentClass);
             setType(expectedType);
-            
+
             AbstractExpr ret;
             if (expectedType.equals(type2)){
                 return this;
