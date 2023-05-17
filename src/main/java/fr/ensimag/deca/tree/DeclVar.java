@@ -64,12 +64,8 @@ public class DeclVar extends AbstractDeclVar {
         varName.getExpDefinition().setOperand(registrePile);
         
         // Si initialisation =>
-        //  compiler.addInstruction(new LOAD(initialization.getExpression(),GPRegister("R",0)));
-        //compiler.addInstruction(new LOAD(,Register.R1));
-        
         if (initialization instanceof Initialization){
             AbstractExpr expr = ((Initialization) initialization).getExpression();
-            System.out.println("Areprzerez "+ expr );
             expr.codeGenInst(compiler); // LOAD
             compiler.addInstruction(new STORE(Register.R1,registrePile));
         }

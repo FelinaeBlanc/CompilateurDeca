@@ -47,30 +47,52 @@ FLOAT : FLOATDEC | FLOATHEX;
 //--------------------- special cars ---------------------------
 
 OPARENT: '(';
-
 CPARENT: ')';
-
 OBRACE: '{';
-
 CBRACE: '}';
-
 SEMI: ';';
 COMMA: ',';
 EQUALS : '=';
 
-IF: 'if';
-ELSE: 'else';
-WHILE: 'while';
-READINT: 'readInt';
 OR: '||';
 AND: '&&';
 EQEQ : '==';
+NEQ : '!=';
 EXCLAM: '!';
 LT:  '<';
 LEQ: '<=';
+GT: '>';
+GEQ: '>=';
+
+EXTENDS:'extends';
+CLASS:'class';
+PROTECTED:'protected';
+INSTANCEOF: 'instanceof';
+ASM:'asm';
+
+MINUS:'-';
+PLUS:'+';
+TIMES:'*';
+SLASH:'/';
+PERCENT:'%';
+DOT:'.';
+
+IF: 'if';
+ELSE: 'else';
+WHILE: 'while';
+
+READINT: 'readInt';
+READFLOAT: 'readFloat';
+
+
+TRUE:'true';
+FALSE:'false';
+NEW:'new';
+THIS:'this';
+NULL:'null';
+
 
 // String
-
 fragment STRING_CAR: ~["\\\r\n];
 STRING: '"' (STRING_CAR | '\\' STRING_CAR)* '"';
 MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
