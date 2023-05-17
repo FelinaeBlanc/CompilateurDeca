@@ -11,24 +11,15 @@ options {
 @members {
 }
 // -----------------special words --------------
-
+IF: 'if';
 PRINTLN : 'println';
 PRINT : 'print';
-IF: 'if';
-ELSE: 'else';
-WHILE: 'while';
-READINT: 'readInt';
 
-//--------------------- special cars ---------------------------
 
 OPARENT: '(';
-
 CPARENT: ')';
-
 OBRACE: '{';
-
 CBRACE: '}';
-
 SEMI: ';';
 COMMA: ',';
 EQUALS : '=';
@@ -36,9 +27,41 @@ EQUALS : '=';
 OR: '||';
 AND: '&&';
 EQEQ : '==';
+NEQ : '!=';
 EXCLAM: '!';
 LT:  '<';
 LEQ: '<=';
+GT: '>';
+GEQ: '>=';
+
+EXTENDS:'extends';
+CLASS:'class';
+PROTECTED:'protected';
+INSTANCEOF: 'instanceof';
+ASM:'asm';
+
+ELSE: 'else';
+WHILE: 'while';
+
+READINT: 'readInt';
+READFLOAT: 'readFloat';
+
+
+TRUE:'true';
+FALSE:'false';
+NEW:'new';
+THIS:'this';
+NULL:'null';
+
+
+//--------------------- special cars ---------------------------
+
+MINUS:'-';
+PLUS:'+';
+TIMES:'*';
+SLASH:'/';
+PERCENT:'%';
+DOT:'.';
 
 // ------------------ Others -----------------
 fragment LETTER: 'a' .. 'z' | 'A' .. 'Z';
@@ -66,53 +89,6 @@ fragment DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
 fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | /* epsilon */);
 FLOAT : FLOATDEC | FLOATHEX;
-
-
-OPARENT: '(';
-CPARENT: ')';
-OBRACE: '{';
-CBRACE: '}';
-SEMI: ';';
-COMMA: ',';
-EQUALS : '=';
-
-OR: '||';
-AND: '&&';
-EQEQ : '==';
-NEQ : '!=';
-EXCLAM: '!';
-LT:  '<';
-LEQ: '<=';
-GT: '>';
-GEQ: '>=';
-
-EXTENDS:'extends';
-CLASS:'class';
-PROTECTED:'protected';
-INSTANCEOF: 'instanceof';
-ASM:'asm';
-
-MINUS:'-';
-PLUS:'+';
-TIMES:'*';
-SLASH:'/';
-PERCENT:'%';
-DOT:'.';
-
-IF: 'if';
-ELSE: 'else';
-WHILE: 'while';
-
-READINT: 'readInt';
-READFLOAT: 'readFloat';
-
-
-TRUE:'true';
-FALSE:'false';
-NEW:'new';
-THIS:'this';
-NULL:'null';
-
 
 // String
 fragment STRING_CAR: ~["\\\r\n];

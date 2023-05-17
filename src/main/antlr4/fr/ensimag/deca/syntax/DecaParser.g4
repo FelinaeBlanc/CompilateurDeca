@@ -206,12 +206,13 @@ assign_expr returns[AbstractExpr tree]
             if (! ($e.tree instanceof AbstractLValue)) {
                 throw new InvalidLValue(this, $ctx);
             }
+            
         }
         EQUALS e2=assign_expr {
             assert($e.tree != null);
             assert($e2.tree != null);
 
-            $tree = new Assign($e.tree,$e2.tree);
+            $tree = new Assign((AbstractLValue) $e.tree,$e2.tree);
             setLocation($tree, $EQUALS);
         }
       | /* epsilon */ {
@@ -273,6 +274,7 @@ eq_neq_expr returns[AbstractExpr tree]
 inequality_expr returns[AbstractExpr tree]
     : e=sum_expr {
             assert($e.tree != null);
+            $tree=$e.tree;
         }
     | e1=inequality_expr LEQ e2=sum_expr {
             assert($e1.tree != null);
@@ -323,6 +325,7 @@ sum_expr returns[AbstractExpr tree]
 mult_expr returns[AbstractExpr tree]
     : e=unary_expr {
             assert($e.tree != null);
+            $tree = $e.tree;
         }
     | e1=mult_expr TIMES e2=unary_expr {
             assert($e1.tree != null);                                         
@@ -339,22 +342,24 @@ mult_expr returns[AbstractExpr tree]
     ;
 
 unary_expr returns[AbstractExpr tree]
-    : op=MINUS e=unary_expr {
+    : MINUS e=unary_expr {
             assert($e.tree != null);
         }
-    | op=EXCLAM e=unary_expr {
-            assert($e.tree != null);
-            $tree = new Not($e.tree);
+    | EXCLAM e1=unary_expr {
+            assert($e1.tree != null);
+            $tree = new Not($e1.tree);
             setLocation($tree, $EXCLAM);
         }
-    | select_expr {
-            assert($select_expr.tree != null);
+    | e2=select_expr {
+            assert($e2.tree != null);
+            $tree=$e2.tree;
         }
     ;
 
 select_expr returns[AbstractExpr tree]
     : e=primary_expr {
             assert($e.tree != null);
+            $tree=$e.tree;
         }
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
@@ -373,6 +378,7 @@ select_expr returns[AbstractExpr tree]
 primary_expr returns[AbstractExpr tree]
     : ident {
             assert($ident.tree != null);
+            $tree = $ident.tree;
         }
     | m=ident OPARENT args=list_expr CPARENT {
             assert($args.tree != null);
@@ -396,6 +402,7 @@ primary_expr returns[AbstractExpr tree]
         }
     | literal {
             assert($literal.tree != null);
+            $tree = $literal.tree;
         }
     ;
 
