@@ -36,7 +36,13 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        compiler.addLabel(Label("while"));
+
+        Label end_while = Label("end_while");
+        condition.codeGenCond(compiler, end_while);
+        
+        body.codeGenListInst(compiler);
+        compiler.addLabel(end_while);
     }
 
     @Override
