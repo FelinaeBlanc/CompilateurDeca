@@ -133,6 +133,10 @@ public abstract class AbstractExpr extends AbstractInst {
 
     }
 
+    protected void codeGenCondition(DecacCompiler compiler,bool value, Label e) {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
     /**
      * Generate code to print the expression
      *
