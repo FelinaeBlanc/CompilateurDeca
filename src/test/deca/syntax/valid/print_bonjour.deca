@@ -1,12 +1,7 @@
 {
     float x;
-    while( (5 < 8) || (8<9)){
+    x = 5;
+    while(x < 8){
         print(5);
-        if (8 <= 8){
-            print("NON");
-        }else {
-            print("UWU");
-        }
     }
-    print(x);
 }
