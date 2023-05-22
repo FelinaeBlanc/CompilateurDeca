@@ -129,6 +129,7 @@ inst returns[AbstractInst tree]
     }
     | WHILE OPARENT e5=expr CPARENT OBRACE e6=list_inst CBRACE {
         $tree = new While($e5.tree, $e6.tree);
+        setLocation($tree, $WHILE);
     }
     | e7=if_then_else{
         $tree = $e7.tree;
@@ -386,6 +387,7 @@ primary_expr returns[AbstractExpr tree]
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);
+            $tree = $expr.tree;
         }
     | READINT OPARENT CPARENT {
         $tree = new ReadInt();

@@ -1,6 +1,6 @@
 {
     float x;
-    while(5 < 8){
+    while( (5 < 8) || (8<9)){
         print(5);
         if (8 <= 8){
             print("NON");
@@ -8,4 +8,5 @@
             print("UWU");
         }
     }
+    print(x);
 }
