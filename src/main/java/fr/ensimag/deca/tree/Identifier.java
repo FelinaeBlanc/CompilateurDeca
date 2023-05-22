@@ -250,6 +250,11 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
     }
     @Override
+    protected void codeGenInst(DecacCompiler compiler, Register R) {
+        compiler.addInstruction(new LOAD(getDAddr(),R));
+    }
+
+    @Override
     protected void codeGenPrint(DecacCompiler compiler) {
         compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
         

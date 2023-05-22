@@ -17,5 +17,9 @@ public class Or extends AbstractOpBool {
         return "||";
     }
 
-
+    @Override
+    protected void codeGenCond(DecacCompiler compiler, bool value, Label e) {
+        leftOperand.codeGenCond(compiler,value,e);
+        rightOperand.codeGenCond(compiler,value,e);
+    }
 }

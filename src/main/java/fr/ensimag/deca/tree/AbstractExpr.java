@@ -143,16 +143,20 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        throw new UnsupportedOperationException("codeGenPrint not yet implemented");
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        throw new UnsupportedOperationException("codeGenInst not yet implemented");
+    }
+    @Override
+    protected void codeGenInst(DecacCompiler compiler, Register R){
+        throw new UnsupportedOperationException("codeGenInst 2 not yet implemented");
     }
 
-    protected void codeGenCond(DecacCompiler compiler, Label notLabel) {
-        throw new UnsupportedOperationException("not yet implemented");
+    protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
+        throw new UnsupportedOperationException("codeGenCond not yet implemented");
     }
     
 

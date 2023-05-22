@@ -30,6 +30,10 @@ public class Not extends AbstractUnaryExpr {
                 }
     }
 
+    @Override
+    protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
+        getOperand().codeGenInst(compiler,!value,e); // Inverse value !
+    }
 
     @Override
     protected String getOperatorName() {
