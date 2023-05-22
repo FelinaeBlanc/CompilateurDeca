@@ -11,6 +11,8 @@ import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
+import fr.ensimag.ima.pseudocode.GPRegister;
+
 /**
  * Expression, i.e. anything that has a value.
  *
@@ -42,6 +44,7 @@ public abstract class AbstractExpr extends AbstractInst {
     @Override
     protected void checkDecoration() {
         if (getType() == null) {
+            System.out.println(this);
             throw new DecacInternalError("Expression " + decompile() + " has no Type decoration");
         }
     }
@@ -133,7 +136,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
     }
 
-    protected void codeGenCondition(DecacCompiler compiler, boolean value, Label e) {
+    protected void codeGenCondition(DecacCompiler compiler,boolean value, Label e) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -143,16 +146,21 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        throw new UnsupportedOperationException("codeGenPrint not yet implemented");
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        throw new UnsupportedOperationException("codeGenInst 1 not yet implemented");
+    }
+    
+    protected void codeGenInst(DecacCompiler compiler, GPRegister R){
+        System.out.println(this);
+        throw new UnsupportedOperationException("codeGenInst 2 not yet implemented");
     }
 
-    protected void codeGenCond(DecacCompiler compiler, Label notLabel) {
-        throw new UnsupportedOperationException("not yet implemented");
+    protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
+        throw new UnsupportedOperationException("codeGenCond not yet implemented");
     }
     
     public void codeGenOp(DecacCompiler compiler, int lastFreeReg){

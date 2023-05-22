@@ -1,11 +1,24 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	LOAD #0x1.0p1, R1
+	WSTR "Etnez un entier:"
+	RINT
+	BOV io_error0
 	STORE R1, 1(LB)
-	WSTR "2="
+	LOAD #9, R2
+	LOAD 1(LB), R3
+	CMP R3, R2
+	BEQ else1
+	WSTR "17 <"
 	LOAD 1(LB), R1
-	WFLOAT
+	WINT
 	WNL
+	BRA enf_if2
+else1:
+	LOAD 1(LB), R1
+	WINT
+	WSTR " <= 17"
+	WNL
+enf_if2:
 	HALT
 ; end main program

@@ -11,6 +11,7 @@ import fr.ensimag.ima.pseudocode.instructions.WINT;
 import java.io.PrintStream;
 
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
@@ -46,6 +47,10 @@ public class IntLiteral extends AbstractExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         compiler.addInstruction(new LOAD(new ImmediateInteger(value),Register.R1));
+    }
+    @Override
+    protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
+        compiler.addInstruction(new LOAD(new ImmediateInteger(value),R));
     }
 
     @Override
