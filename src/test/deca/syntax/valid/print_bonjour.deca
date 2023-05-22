@@ -1,6 +1,6 @@
 {
     int x = 7;
-    while(x < 15){
+    while(x < readInt()){
         x = 15;
     }
 }

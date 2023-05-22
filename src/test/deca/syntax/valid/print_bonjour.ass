@@ -3,14 +3,20 @@
 ; Beginning of main instructions:
 	LOAD #7, R1
 	STORE R1, 1(LB)
-while0:
+while1:
 	LOAD 1(LB), R2
-	LOAD #15, R3
+	RINT
+	BOV io_error0
+	LOAD R1, R3
 	CMP R3, R2
-	BGE end_while1
+	BGE end_while2
 	LOAD #15, R1
 	STORE R1, 1(LB)
-	BRA while0
-end_while1:
+	BRA while1
+end_while2:
 	HALT
+io_error0:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
 ; end main program

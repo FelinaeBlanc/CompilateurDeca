@@ -7,7 +7,7 @@ import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
-
+import fr.ensimag.deca.context.tree.IOError;
 /**
  * Deca complete program (class definition plus main block)
  *
@@ -45,6 +45,8 @@ public class Program extends AbstractProgram {
         compiler.addComment("Main program");
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
+
+        IOError.codeGenInst(compiler);
     }
 
     @Override
