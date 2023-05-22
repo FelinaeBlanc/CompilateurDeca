@@ -1,10 +1,6 @@
 {
-    int x;
-    print("Etnez un entier:");
-    x = readInt();
-    if ( ! ( (9 == x)&&(17 < x) ) ){
-        println("17 <",x);
-    } else {
-        println(x," <= 17");
+    int x = 7;
+    while(x < 15){
+        x = 15;
     }
 }

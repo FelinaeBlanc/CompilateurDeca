@@ -9,7 +9,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-
+import fr.ensimag.ima.pseudocode.instructions.BRA;
 /**
  *
  * @author gl07
@@ -36,12 +36,15 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addLabel(new Label("while"));
+        Label start_while = new Label("while");
+        compiler.addLabel(start_while);
 
         Label end_while = new Label("end_while");
         condition.codeGenCond(compiler,false ,end_while);
         
         body.codeGenListInst(compiler);
+
+        compiler.addInstruction(new BRA(start_while));
         compiler.addLabel(end_while);
     }
 

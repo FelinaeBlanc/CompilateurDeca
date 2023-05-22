@@ -20,15 +20,17 @@ public class Or extends AbstractOpBool {
     @Override
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
         if (value){
-            Label end_not_or = new Label("end_not_or");
 
-            getLeftOperand().codeGenCond(compiler,value,end_not_or);
-            getRightOperand().codeGenCond(compiler,value,e);
-
-            compiler.addLabel(end_not_or);
-        } else {
             getLeftOperand().codeGenCond(compiler,value,e);
             getRightOperand().codeGenCond(compiler,value,e);
+
+        } else {
+            Label end_or = new Label("end_or");
+
+            getLeftOperand().codeGenCond(compiler,!value,end_or);
+            getRightOperand().codeGenCond(compiler,value,e);
+
+            compiler.addLabel(end_or);
         }
     }
 }

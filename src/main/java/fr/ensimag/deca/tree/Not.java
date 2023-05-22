@@ -18,16 +18,16 @@ public class Not extends AbstractUnaryExpr {
     }
 
     @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
-                Type t = getOperand().verifyExpr(compiler, localEnv, currentClass);
-                if (t.isBoolean()) {
-                    setType(t);
-                    return compiler.environmentType.BOOLEAN;
-                    
-                }else{
-                    throw new ContextualError("Not does not support type " + t.toString(), getLocation());
-                }
+    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,ClassDefinition currentClass) throws ContextualError {
+  
+        Type t = getOperand().verifyExpr(compiler, localEnv, currentClass);
+        if (t.isBoolean()) {
+            setType(t);
+            return compiler.environmentType.BOOLEAN;
+            
+        }else{
+            throw new ContextualError("Not does not support type " + t.toString(), getLocation());
+        }
     }
 
     @Override

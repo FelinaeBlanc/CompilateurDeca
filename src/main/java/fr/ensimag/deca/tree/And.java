@@ -21,16 +21,17 @@ public class And extends AbstractOpBool {
     @Override
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
         if (value){
+            Label end_not_and = new Label("end_not_and");
+
+            getLeftOperand().codeGenCond(compiler,!value,end_not_and);
+            getRightOperand().codeGenCond(compiler,value,e);
+            
+            compiler.addLabel(end_not_and);
+        } else {
+            
             getLeftOperand().codeGenCond(compiler,value,e);
             getRightOperand().codeGenCond(compiler,value,e);
 
-        } else {
-            Label end_not_and = new Label("end_not_and");
-
-            getLeftOperand().codeGenCond(compiler,value,end_not_and);
-            getRightOperand().codeGenCond(compiler,value,e);
-
-            compiler.addLabel(end_not_and);
         }
     }
 

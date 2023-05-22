@@ -28,6 +28,8 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
                     , getLocation());
                     
                 }
+
+                this.setType(compiler.environmentType.BOOLEAN);
                 return compiler.environmentType.BOOLEAN;
         
     }
