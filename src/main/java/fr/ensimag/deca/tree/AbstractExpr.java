@@ -133,7 +133,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
     }
 
-    protected void codeGenCondition(DecacCompiler compiler,bool value, Label e) {
+    protected void codeGenCondition(DecacCompiler compiler, boolean value, Label e) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -155,6 +155,9 @@ public abstract class AbstractExpr extends AbstractInst {
         throw new UnsupportedOperationException("not yet implemented");
     }
     
+    public void codeGenOp(DecacCompiler compiler, int lastFreeReg){
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     protected void decompileInst(IndentPrintStream s) {

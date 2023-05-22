@@ -44,15 +44,20 @@ public class DecacCompiler {
     /**
      * Portable newline character.
      */
-    private static final String nl = System.getProperty("line.separator", "\n");
 
-    int getLastFreeReg(){
-    }
+    private Label iOErrorLabel;
+
+    private static final String nl = System.getProperty("line.separator", "\n");
 
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
+        this.iOErrorLabel = new Label("io_error");
+    }
+
+    public Label getIOErrorLabel() {
+        return iOErrorLabel;
     }
 
     /**

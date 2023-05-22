@@ -6,7 +6,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.instructions.RFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
 
@@ -24,10 +24,10 @@ public class ReadFloat extends AbstractReadExpr {
         return compiler.environmentType.FLOAT;
     }
 
-    @Override
-    public codeGenInst(DecacCompiler compiler){
-        compiler.addInstruction(RFLOAT());
-        compiler.addInstruction(BOV(new Label("io_error")));
+    public void codeGenInst(DecacCompiler compiler, int lastFreeReg){
+        compiler.addInstruction(new RFLOAT());
+        compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
+        compiler.addInstruction(new LOAD(Register.getR(1), Register.getR(lastFreeReg)));
     }
 
     @Override
