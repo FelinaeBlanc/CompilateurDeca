@@ -163,6 +163,9 @@ public abstract class AbstractExpr extends AbstractInst {
         throw new UnsupportedOperationException("codeGenCond not yet implemented");
     }
     
+    public void codeGenOp(DecacCompiler compiler, int lastFreeReg){
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     protected void decompileInst(IndentPrintStream s) {

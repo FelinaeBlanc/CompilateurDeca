@@ -37,4 +37,10 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         }
 
     }
+
+    public void codeGenInst(DecacCompiler compiler){
+        codeGenOp(compiler, 2);
+    }
+
+
 }
