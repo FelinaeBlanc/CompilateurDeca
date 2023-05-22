@@ -12,6 +12,7 @@ import fr.ensimag.ima.pseudocode.ImmediateFloat;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 /**
  * Single precision, floating-point literal
@@ -53,7 +54,7 @@ public class FloatLiteral extends AbstractExpr {
         compiler.addInstruction(new LOAD(new ImmediateFloat(value),Register.R1));
     }
     @Override
-    protected void codeGenInst(DecacCompiler compiler, Register R) {
+    protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
         compiler.addInstruction(new LOAD(new ImmediateFloat(value),R));
     }
 

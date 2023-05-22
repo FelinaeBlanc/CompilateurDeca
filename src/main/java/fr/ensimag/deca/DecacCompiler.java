@@ -46,8 +46,6 @@ public class DecacCompiler {
      */
     private static final String nl = System.getProperty("line.separator", "\n");
 
-    int getLastFreeReg(){
-    }
 
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();

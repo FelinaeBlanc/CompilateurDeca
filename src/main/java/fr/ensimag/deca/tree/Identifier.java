@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
@@ -250,7 +251,7 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
     }
     @Override
-    protected void codeGenInst(DecacCompiler compiler, Register R) {
+    protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
         compiler.addInstruction(new LOAD(getDAddr(),R));
     }
 

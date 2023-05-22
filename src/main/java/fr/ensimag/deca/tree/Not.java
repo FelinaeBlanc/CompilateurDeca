@@ -5,7 +5,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
-
+import fr.ensimag.ima.pseudocode.Label;
 /**
  *
  * @author gl07
@@ -32,7 +32,7 @@ public class Not extends AbstractUnaryExpr {
 
     @Override
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
-        getOperand().codeGenInst(compiler,!value,e); // Inverse value !
+        getOperand().codeGenCond(compiler,!value,e); // Inverse value !
     }
 
     @Override

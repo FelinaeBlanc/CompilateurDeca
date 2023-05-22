@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
-
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.Label;
 
 /**
  *
@@ -18,9 +19,20 @@ public class And extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenCond(DecacCompiler compiler, bool value, Label e) {
-        leftOperand.codeGenCond(compiler,value,e);
-        rightOperand.codeGenCond(compiler,value,e);
+    protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
+        if (value){
+            getLeftOperand().codeGenCond(compiler,value,e);
+            getRightOperand().codeGenCond(compiler,value,e);
+
+        } else {
+            Label end_not_and = new Label("end_not_and");
+
+            getLeftOperand().codeGenCond(compiler,value,end_not_and);
+            getRightOperand().codeGenCond(compiler,value,e);
+
+            compiler.addLabel(end_not_and);
+        }
     }
 
 }
+

@@ -6,6 +6,7 @@ import fr.ensimag.ima.pseudocode.instructions.BLT;
 import fr.ensimag.ima.pseudocode.instructions.BGE;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+
 /**
  *
  * @author gl07
@@ -28,7 +29,7 @@ public class Lower extends AbstractOpIneq {
         getLeftOperand().codeGenInst(compiler,Register.getR(2));
         getRightOperand().codeGenInst(compiler,Register.getR(3));
 
-        compiler.addInstruction(new CMP(Register.getR(2),Register.getR(3)));
+        compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         if (value){ // SAUTE SI x < x
             compiler.addInstruction(new BLT(e));
         } else {  // SAUTE SI x >= x

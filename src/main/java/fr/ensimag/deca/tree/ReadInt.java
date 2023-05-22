@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.RINT;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.Label;
 
 import java.io.PrintStream;
@@ -25,9 +27,9 @@ public class ReadInt extends AbstractReadExpr {
     }
 
     @Override
-    public codeGenInst(DecacCompiler compiler){
-        compiler.addInstruction(RINT());
-        compiler.addInstruction(BOV(new Label("io_error")));
+    public void codeGenInst(DecacCompiler compiler){
+        compiler.addInstruction(new RINT());
+        compiler.addInstruction(new BOV(new Label("io_error")));
     }
 
     @Override

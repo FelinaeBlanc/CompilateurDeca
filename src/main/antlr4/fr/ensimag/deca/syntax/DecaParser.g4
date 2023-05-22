@@ -146,7 +146,8 @@ if_then_else returns[IfThenElse tree]
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
         elseB = new ListInst(); 
         $tree = new IfThenElse($condition.tree, $li_if.tree, elseB);
-        }
+        setLocation($tree, $if1);
+      }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
 
         ListInst else_auxB = new ListInst();

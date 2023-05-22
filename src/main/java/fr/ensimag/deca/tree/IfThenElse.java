@@ -48,14 +48,15 @@ public class IfThenElse extends AbstractInst {
 
         Label elseBlLabel = new Label("else");
         Label endLabel = new Label("enf_if");
-        condition.codeGenCond(compiler, elseBlLabel);
+        condition.codeGenCond(compiler, false,elseBlLabel);
         thenBranch.codeGenListInst(compiler);
         
         compiler.addInstruction(new BRA(endLabel));
         
+        compiler.addLabel(elseBlLabel);
         elseBranch.codeGenListInst(compiler);
 
-
+        compiler.addLabel(endLabel);
     }
 
     @Override
