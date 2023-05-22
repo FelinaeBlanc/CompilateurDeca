@@ -1,6 +1,11 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.ima.pseudocode.instructions.SUB;
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 /**
  * @author gl07
@@ -32,7 +37,7 @@ public class Minus extends AbstractOpArith {
 
         getRightOperand().codeGenOp(compiler, auxReg);
 
-        compiler.addInstruction(new SUB(auxReg, retReg), getOperatorName());
+        compiler.addInstruction(new SUB(Register.getR(auxReg), Register.getR(retReg)), getOperatorName());
 
         if (lastFreeReg + 1 >= 16) {
             compiler.addInstruction(new POP(Register.getR(auxReg)), getOperatorName());

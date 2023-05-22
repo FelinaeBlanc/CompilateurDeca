@@ -33,7 +33,7 @@ public class Plus extends AbstractOpArith {
 
         getRightOperand().codeGenOp(compiler, auxReg);
 
-        compiler.addInstruction(new ADD(auxReg, retReg), getOperatorName());
+        compiler.addInstruction(new SUB(Register.getR(auxReg), Register.getR(retReg)), getOperatorName());
 
         if (lastFreeReg + 1 >= 16) {
             compiler.addInstruction(new POP(Register.getR(auxReg)), getOperatorName());
