@@ -27,6 +27,12 @@ public class ReadInt extends AbstractReadExpr {
         return compiler.environmentType.INT;
     }
 
+    @Override
+    public void codeGenInst(DecacCompiler compiler){
+        compiler.addInstruction(new RINT());
+        compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
+    }
+
     public void codeGenInst(DecacCompiler compiler, int lastFreeReg){
         compiler.addInstruction(new RINT());
         compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
