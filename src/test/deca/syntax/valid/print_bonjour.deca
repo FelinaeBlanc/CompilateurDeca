@@ -11,6 +11,12 @@
             print("Trop grand !");
         }
 
+        if (user == 2 && secret < user){
+
+        }else if (user == 2) {
+
+        }
+
         println(" Autre proposition ?");
         user = readInt();
     }

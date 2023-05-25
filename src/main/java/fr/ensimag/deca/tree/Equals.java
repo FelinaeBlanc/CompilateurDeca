@@ -23,7 +23,7 @@ public class Equals extends AbstractOpExactCmp {
     protected String getOperatorName() {
         return "==";
     }    
-    
+
     @Override
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
         getLeftOperand().codeGenInst(compiler,Register.getR(2));
