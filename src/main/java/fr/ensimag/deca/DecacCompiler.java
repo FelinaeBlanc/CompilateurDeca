@@ -152,7 +152,6 @@ public class DecacCompiler {
         String sourceFile = source.getAbsolutePath();
         String destFile = destNoExt+".ass";
 
-        System.out.println(destFile);
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
         // A FAIRE: fichier .deca.
         PrintStream err = System.err;
@@ -207,6 +206,12 @@ public class DecacCompiler {
         prog.verifyProgram(this);
         assert(prog.checkAllDecorations());
 
+        if (getCompilerOptions().getOnlyVerification()){ return false; } // Arrête si on voulait juste vérifier le programme
+        if (getCompilerOptions().getDoDecompile()){ // Si on veut juste décompiler, on arrête le programme ensuite
+            prog.decompile(out);
+            return false;
+        }
+        
         addComment("start main program");
         prog.codeGenProgram(this);
         addComment("end main program");

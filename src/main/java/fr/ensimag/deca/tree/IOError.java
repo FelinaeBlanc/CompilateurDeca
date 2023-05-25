@@ -25,13 +25,16 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
  * @date 21/04/2023
  */
 public class IOError {
+    static boolean alreadyMade = false;
 
-
-    protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addLabel(compiler.getIOErrorLabel());
-        compiler.addInstruction(new WSTR("Error: Input/Output error"));
-        compiler.addInstruction(new WNL(), null);
-        compiler.addInstruction(new ERROR(), null);
+    public static void codeGenInst(DecacCompiler compiler) {
+        if (!alreadyMade){
+            compiler.addLabel(compiler.getIOErrorLabel());
+            compiler.addInstruction(new WSTR("Error: Input/Output error"));
+            compiler.addInstruction(new WNL(), null);
+            compiler.addInstruction(new ERROR(), null);
+            alreadyMade = true;
+        }
     }
 
 }

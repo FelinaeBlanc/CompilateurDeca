@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
@@ -26,10 +27,22 @@ public class ReadInt extends AbstractReadExpr {
         return compiler.environmentType.INT;
     }
 
+    @Override
+    public void codeGenInst(DecacCompiler compiler){
+        compiler.addInstruction(new RINT());
+        compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
+    }
+
     public void codeGenInst(DecacCompiler compiler, int lastFreeReg){
-        compiler.addInstruction(new RFLOAT());
+        compiler.addInstruction(new RINT());
         compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
         compiler.addInstruction(new LOAD(Register.getR(1), Register.getR(lastFreeReg)));
+    }
+    @Override
+    protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
+        compiler.addInstruction(new RINT());
+        compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
+        compiler.addInstruction(new LOAD(Register.R1, R));
     }
 
     @Override

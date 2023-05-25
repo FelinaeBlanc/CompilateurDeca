@@ -1,6 +1,18 @@
 {
-    int x = 7;
-    while(x < 15){
-        x = 15;
+    int secret, user;
+    secret = 421;
+    println("Quel est mon nombre entre 0 et 1000 ?");
+    user = readInt();
+    
+    while (! (user == secret)) {
+        if (user < secret) {
+            print("Trop petit !");
+        } else {
+            print("Trop grand !");
+        }
+
+        println(" Autre proposition ?");
+        user = readInt();
     }
+    println("Bravo...");
 }

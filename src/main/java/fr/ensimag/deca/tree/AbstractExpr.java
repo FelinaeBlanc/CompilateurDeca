@@ -151,6 +151,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println(this);
         throw new UnsupportedOperationException("codeGenInst 1 not yet implemented");
     }
     

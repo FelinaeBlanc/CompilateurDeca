@@ -31,7 +31,15 @@ public class CompilerOptions {
     public boolean getPrintBanner() {
         return printBanner;
     }
-    
+
+    public boolean getOnlyVerification() {
+        return onlyVerification;
+    }
+
+    public boolean getDoDecompile(){
+        return doDecompile;
+    }
+
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
     }
@@ -39,6 +47,8 @@ public class CompilerOptions {
     private int debug = 0;
     private boolean parallel = false;
     private boolean printBanner = false;
+    private boolean onlyVerification = false;
+    private boolean doDecompile = false;
     private List<File> sourceFiles = new ArrayList<File>();
 
     
@@ -47,12 +57,16 @@ public class CompilerOptions {
             for (String option : args){
                 switch (option){
                     case "-b":
-                    case "-p":
-                    case "-v":
                     case "-n":
                     case "-r":
                     case "-d":
                     case "-P":
+                        break;
+                    case "-p":
+                        doDecompile = true;
+                        break;
+                    case "-v":
+                        onlyVerification = true;
                         break;
                     default:
                         File f = new File(option);
