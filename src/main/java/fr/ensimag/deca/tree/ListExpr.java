@@ -19,7 +19,7 @@ public class ListExpr extends TreeList<AbstractExpr> {
     @Override
     public void decompile(IndentPrintStream s) {
         for (AbstractExpr i : getList()) {
-            i.decompileInst(s);
+            i.decompile(s);
         }
     }
 }
