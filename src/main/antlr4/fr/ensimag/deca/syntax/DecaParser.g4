@@ -151,10 +151,10 @@ if_then_else returns[IfThenElse tree]
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
 
         ListInst else_auxB = new ListInst();
-        IfThenElse unIf = new IfThenElse($elsif_cond.tree, $elsif_li.tree, else_auxB);
-        elseB.add(unIf);
-        elseB = else_auxB; 
-        setLocation(unIf,$elsif);
+        IfThenElse newIf = new IfThenElse($elsif_cond.tree, $elsif_li.tree, else_auxB);
+        elseB.add(newIf);
+        elseB = else_auxB;
+        setLocation(newIf, $elsif);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
