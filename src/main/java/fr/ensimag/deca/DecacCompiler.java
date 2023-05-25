@@ -206,7 +206,11 @@ public class DecacCompiler {
         prog.verifyProgram(this);
         assert(prog.checkAllDecorations());
 
-        if (getCompilerOptions().getOnlyVerification()){ return false; }
+        if (getCompilerOptions().getOnlyVerification()){ return false; } // Arrête si on voulait juste vérifier le programme
+        if (getCompilerOptions().getDoDecompile()){ // Si on veut juste décompiler, on arrête le programme ensuite
+            prog.decompile(out);
+            return false;
+        }
         
         addComment("start main program");
         prog.codeGenProgram(this);

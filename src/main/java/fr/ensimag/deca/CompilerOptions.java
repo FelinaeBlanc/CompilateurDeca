@@ -36,6 +36,10 @@ public class CompilerOptions {
         return onlyVerification;
     }
 
+    public boolean getDoDecompile(){
+        return doDecompile;
+    }
+
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
     }
@@ -44,6 +48,7 @@ public class CompilerOptions {
     private boolean parallel = false;
     private boolean printBanner = false;
     private boolean onlyVerification = false;
+    private boolean doDecompile = false;
     private List<File> sourceFiles = new ArrayList<File>();
 
     
@@ -58,7 +63,7 @@ public class CompilerOptions {
                     case "-P":
                         break;
                     case "-p":
-
+                        doDecompile = true;
                         break;
                     case "-v":
                         onlyVerification = true;
