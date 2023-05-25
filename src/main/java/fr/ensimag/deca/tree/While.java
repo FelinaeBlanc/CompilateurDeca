@@ -40,7 +40,7 @@ public class While extends AbstractInst {
         compiler.addLabel(start_while);
 
         Label end_while = new Label("end_while");
-        condition.codeGenCond(compiler,false ,end_while);
+        condition.codeGenCond(compiler, false, end_while);
         
         body.codeGenListInst(compiler);
 
@@ -57,7 +57,7 @@ public class While extends AbstractInst {
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("while (");
-        getCondition().decompile(s);
+        condition.decompile(s);
         s.println(") {");
         s.indent();
         getBody().decompile(s);

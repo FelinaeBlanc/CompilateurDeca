@@ -28,7 +28,7 @@ public class Lower extends AbstractOpIneq {
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
         getLeftOperand().codeGenInst(compiler,Register.getR(2));
         getRightOperand().codeGenInst(compiler,Register.getR(3));
-
+        
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         if (value){ // SAUTE SI x < x
             compiler.addInstruction(new BLT(e));
