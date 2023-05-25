@@ -44,6 +44,7 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
 
     @Override
     public void decompile(IndentPrintStream s) {
+        System.out.println(getOperatorName());
         getLeftOperand().decompile(s);
         s.print(" " + getOperatorName() + " ");
         getRightOperand().decompile(s);

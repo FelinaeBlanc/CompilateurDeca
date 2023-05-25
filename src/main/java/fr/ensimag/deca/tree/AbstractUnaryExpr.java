@@ -27,7 +27,9 @@ public abstract class AbstractUnaryExpr extends AbstractExpr {
     @Override
     public void decompile(IndentPrintStream s) {
         s.print(getOperatorName());
+        s.print("(");
         this.getOperand().decompile();
+        s.print(")");
     }
 
     @Override
