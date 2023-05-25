@@ -7,7 +7,7 @@
     while (! (user == secret)) {
         if (user < secret) {
             print("Trop petit !");
-        } else {
+        } else if (user > 8) {
             print("Trop grand !");
         }
 
