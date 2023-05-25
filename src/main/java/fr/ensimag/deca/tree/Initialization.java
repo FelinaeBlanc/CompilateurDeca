@@ -46,12 +46,11 @@ public class Initialization extends AbstractInitialization {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        getExpression().decompile(s);
     }
 
     @Override
-    protected
-    void iterChildren(TreeFunction f) {
+    protected void iterChildren(TreeFunction f) {
         expression.iter(f);
     }
 
