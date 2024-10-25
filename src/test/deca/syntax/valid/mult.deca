@@ -1,0 +1,51 @@
+{
+    int a, b,c,d,e,f;
+    a = 10;
+    b = 5; 
+
+    c = a * b; 
+
+    d = 4 * 3; 
+
+    e = a * 10; 
+
+    f = 40 * b; 
+    
+    if (c == 50) {
+        print("OK");
+    } else {
+        print("KO");
+    }      
+
+    if (d == 12) {
+        print("OK");
+    } else {
+        print("KO");
+    }   
+
+    if (e == 100) {
+        print("OK");
+    } else {
+        print("KO");
+    }    
+
+    if (f == 200) {
+        print("OK");
+    } else {
+        print("KO");
+    }
+
+    if( 2*3 == 6)
+    {
+        print("OK");
+    } else {
+        print("KO");
+    } 
+
+    if(0*0==0){
+        print("OK");
+    }
+    else {
+        print("KO");
+    } 
+}

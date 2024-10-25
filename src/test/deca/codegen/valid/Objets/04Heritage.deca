@@ -1,0 +1,37 @@
+class A {
+    protected int x ;
+    int a = 3;
+    void setX(int x) {
+        this.x = x ;
+    }
+    int getX() {
+        return x ;
+    }
+    void init() {
+        x = 0 ;
+    }
+}
+
+class B extends A {
+    int y ;
+    void init() {
+        this.setX(7) ;
+        y = 0 ;
+        println(a);
+    }
+}
+
+class C extends A {
+    int z ;
+    void init() {
+        this.setX(0) ;
+        z = 1 ;
+    }
+}
+
+{
+    B b = new B();
+    b.init();
+    println(b.a);
+    println(b.getX());
+}

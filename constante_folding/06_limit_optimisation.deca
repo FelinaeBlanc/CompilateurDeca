@@ -1,0 +1,16 @@
+{
+    int i = 5;
+
+
+
+    if (i>=5){
+        print(i+5);
+    }
+
+
+    while(i < 8){
+
+        print("coucou");
+        i = i + 1;
+    }
+}

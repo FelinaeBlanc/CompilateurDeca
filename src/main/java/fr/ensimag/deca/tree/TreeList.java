@@ -32,7 +32,8 @@ public abstract class TreeList<TreeType extends Tree> extends Tree {
      *         if you need to change elements of the list.
      */
     public List<TreeType> getList() {
-        return Collections.unmodifiableList(list);
+        //return Collections.getModifiableList();
+        return list; // Liste modifiable, c'est à nous de s'occuper de si ça foire ou non, pas la classe TreeList.
     }
 
     public TreeType set(int index, TreeType element) {

@@ -1,0 +1,123 @@
+#include "ListBool.deca"
+
+/**
+* A ship represents one ship on the board, each of its cells is initialized to "true".
+* A ship is still floating if at least one of its cells has the value "true"
+*/
+class Ship {
+    protected int size;
+    protected int x;
+    protected int y;
+    protected boolean vertical;
+    protected ListBool shipCells = new ListBool();
+
+    void initialize(int size, boolean isVertical, int x, int y) {
+        this.size = size;
+        shipCells.setMaxSize(size);
+        shipCells.fillValue(true, true);
+        this.vertical = isVertical;
+        this.x = x;
+        this.y = y;
+    }
+
+    boolean getVertical() {
+        return this.vertical;
+    }
+
+    int getX() {
+        return this.x;
+    }
+
+    int getY() {
+        return this.y;
+    }
+
+    int getSize() {
+        return this.size;
+    }
+
+    /**
+    * Check if the ship still float by cheacking if at least one of its cells is untouched
+    * @returns (boolean) : true if the ship still floats, false otherwise.
+    */
+    boolean stillFloat() {
+        boolean currentValue = false;
+        int index = 0;
+        // for each cell of the ship 
+        while (index < size) {
+            // -> check if one is still floating
+            currentValue = shipCells.get(index);
+
+            if (currentValue == true) {
+                return true;
+            }
+            index = index + 1;
+        }
+        return false;
+    }
+
+    /**
+    * Intercept the arrinving missile by checking if it touched any part of the ship
+    * @param x (int) : x-axis position of the missile
+    * @param y (int) : y-axis position of the missile
+    * @returns (boolean) : true if the ship is touched, false otherwise
+    */
+    boolean intercept(int x, int y) {
+        int destroyedIndex;
+
+        if (this.vertical) {
+            // the missile is at the right x-axis and is in range for the y-axis
+            if ((x == this.x) && ((y <= this.y + size - 1) && (y >= this.y))) {
+                // destroy the corresponding cell
+                destroyedIndex = y - this.y;
+                shipCells.set(destroyedIndex, false);
+
+                return true;
+
+            } else {
+                return false;
+            }
+        } else {
+            // the missile is at the right y-axis and is in range for the x-axis
+            if ((y == this.y) && ((x <= this.x + size - 1) && (x >= this.x))) {
+                // destroy the corresponding cell
+                destroyedIndex = x - this.x;
+                shipCells.set(destroyedIndex, false);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
+    /**
+    * Check if the cell of the boat is still floating
+    */
+    boolean isTouched(int x, int y) {
+        int destroyedIndex;
+
+        if (this.vertical) {
+            // the missile is at the right x-axis and is in range for the y-axis
+            if ((x == this.x) && ((y <= this.y + size - 1) && (y >= this.y))) {
+                // destroy the corresponding cell
+                destroyedIndex = y - this.y;
+                
+                return (!shipCells.get(destroyedIndex));
+
+            } else {
+                return false;
+            }
+        } else {
+            // the missile is at the right y-axis and is in range for the x-axis
+            if ((y == this.y) && ((x <= this.x + size - 1) && (x >= this.x))) {
+                // destroy the corresponding cell
+                destroyedIndex = x - this.x;
+                return (!shipCells.get(destroyedIndex));
+            } else {
+                return false;
+            }
+        }
+    }
+
+}

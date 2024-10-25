@@ -1,0 +1,28 @@
+class A {
+
+    int x;
+    int y = x;
+    
+    int setField() {
+        int x = 16;
+
+        this.x = 5;
+        x = 7 ;
+
+        return x;
+    }
+}
+
+{
+    A obj = new A();
+
+
+    int x = obj.setField();
+
+
+    if ( x == 7 && obj.x == 5) {
+        print("OK");
+    } else {
+        print("KO");
+    }
+}

@@ -8,10 +8,12 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.deca.context.EnvironmentVarValue;
+import fr.ensimag.deca.tree.BooleanLiteral;
 
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-
+import java.util.List;
 /**
  * Full if/else if/else statement.
  *
@@ -20,7 +22,7 @@ import org.apache.commons.lang.Validate;
  */
 public class IfThenElse extends AbstractInst {
     
-    private final AbstractExpr condition; 
+    private AbstractExpr condition; 
     private final ListInst thenBranch;
     private ListInst elseBranch;
 
@@ -34,10 +36,35 @@ public class IfThenElse extends AbstractInst {
     }
     
     @Override
+    protected void optimizeInst(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError {
+        this.condition = this.condition.optimizeExp(compiler, envVar);
+
+        envVar.invalidateEnv(); // Invalide l'env, on ne connait plus les valeurs des éléments pour la suite
+
+        // Optimise aussi les lists inst de ses branches !
+        this.thenBranch.optimizeListInst(compiler, envVar);
+        this.elseBranch.optimizeListInst(compiler, envVar);
+
+        envVar.invalidateEnv(); // Invalide l'env, on ne connait plus les valeurs des éléments
+    }
+    @Override
+    protected List<AbstractInst> optimizeInsts(){
+        if (this.condition instanceof BooleanLiteral){
+            boolean val = ((BooleanLiteral)this.condition).getValue();
+            if (val){
+                return this.thenBranch.getList();
+            }else{
+                return this.elseBranch.getList();
+            }
+        }
+        return null;
+    }
+
+    @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-
+                ;
             condition.verifyCondition(compiler, localEnv, currentClass);
             thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
             elseBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
@@ -47,7 +74,7 @@ public class IfThenElse extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
 
         Label elseBlLabel = new Label("else");
-        Label endLabel = new Label("enf_if");
+        Label endLabel = new Label("end_if");
         condition.codeGenCond(compiler, false,elseBlLabel);
         thenBranch.codeGenListInst(compiler);
         
@@ -68,11 +95,13 @@ public class IfThenElse extends AbstractInst {
         thenBranch.decompile(s);
         s.unindent();
         s.print("} ");
-        s.println("else {");
-        s.indent();
-        elseBranch.decompile(s);
-        s.unindent();
-        s.print("}");
+        if (elseBranch.getList().size() != 0) {
+            s.println("else {");
+            s.indent();
+            elseBranch.decompile(s);
+            s.unindent();
+            s.print("}");
+        }
     }
 
     @Override

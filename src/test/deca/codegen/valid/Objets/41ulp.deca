@@ -1,0 +1,142 @@
+class math{
+    int TWO_31 = 2147483647; //(0x1.0p31);
+
+    float _pow(float x, int n) {
+        int i = 0;
+        float res = 1;
+        if (n < 0) {
+            while (i > n) {
+                res = res / x;
+                i = i - 1;
+            }
+        } else {
+            while(i < n) {
+                res = res * x;
+                i = i + 1;
+            }
+        }
+        return res;
+    }
+
+    int convertToIEEE754(float value) {
+        /*
+        * This convert a float to it IEEE754 int 
+        * It doesn't handle special cases (Infinity, NaN)
+        */
+        
+        int bits = 0;
+        int significand;
+        int exponent = 0;
+
+        // Extracting the sign bit
+        if (value < 0) {
+            bits = bits + TWO_31;
+            value = -value;
+        }
+        // Handling special cases: positive/negative infinity and NaN
+        if (value == 0) { return 0; }
+
+        // Extracting the exponent and significand bits
+        while (value >= 2.0f) {
+            value = value / 2.0f;
+            exponent = exponent +1;
+        }
+        while (value < 1.0f) {
+            value = value * 2.0f;
+            exponent = exponent -1;
+        }
+
+        exponent = exponent + 127;  // Bias for single-precision float
+        
+        significand = (int) ((value - 1.0f) * (int)(0x1.0p23));
+        bits = bits + (exponent * (int)(0x1.0p23)) + significand;
+        
+        return bits;
+    }
+
+    float convertFromIEEE754(int bits) {
+
+        int sign = bits / TWO_31;  // Extracting the sign bit
+        int exponent = ((bits*2) / (int)(0x1.0p24)) ;
+        int significand = (bits * (int)(0x1.0p9)) / (int)(0x1.0p9); // bits & 0x7FFFFF
+        int significandBits;
+        int biasedExponent = exponent - 127;
+        float value;
+        int pow;
+        
+        // Constructing the significand value
+        if (exponent == 0)  {significandBits = significand ;}
+        else{ significandBits = (significand + (int)(0x1.0p23));}
+        
+        // Calculating the actual value
+        value = (float) (significandBits) * this._pow(2, biasedExponent - 23);
+        
+        if (sign == 0){ return value ; }
+        return -value;
+    }
+
+    float ulp(float value){ //Totally stolen form java
+        float res;
+        float pow;
+
+        int bits = this.convertToIEEE754(value);
+        // extract exponent
+        int exponent = (bits / (int)(0x1.0p23) ) - 127;
+
+        // NaN or Infinity
+        if (exponent == 128) {
+           // TO DO : appelle la methode asm   
+        } 
+        
+        // 0 or subnormal
+        else if (exponent == -126 - 1) {
+            // minimum value of a float
+            res = 0x0.1p-145f;
+        }
+
+        else {
+            exponent = exponent - (24 - 1);
+            if (exponent >= -126) {
+                res = this.convertFromIEEE754( (exponent + 127) * (int)(0x1.0p23)  );
+            } else {
+                pow = this._pow(2, exponent+149);
+                res = this.convertFromIEEE754((int)(pow));
+            }
+        }
+
+        return res;
+
+    }
+
+    float approx_sqrt(float x){//from a C implementation Wikipedia
+        int bits = this.convertToIEEE754(x);	/* Convert type; preserving bit pattern */
+        /*
+         * To justify the following code; prove that
+         *
+         * ((((val.i / 2^m) - b) / 2) + b) * 2^m = ((val.i - 2^m) / 2) + ((b + 1) / 2) * 2^m)
+         *
+         * where
+         *
+         * b = exponent bias
+         * m = number of mantissa bits
+         */
+
+        bits = bits - (int)(0x1.0p23);
+        bits = bits/2;		
+        bits = bits + (int)(0x1.0p29);
+        
+        return this.convertFromIEEE754(bits);		/* Interpret again as float */
+    }
+    
+}
+{
+    math m = new math();
+    println(m.ulp(0));
+    printlnx(m.ulp(0));
+
+    println(m.ulp(0.5));
+    printlnx(m.ulp(0.5));
+
+    println(m.ulp(1));
+    printlnx(m.ulp(1));
+}

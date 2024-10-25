@@ -1,0 +1,277 @@
+class A {
+    protected float a ;
+    protected float b ;
+    protected float c ;
+    protected float d ;
+    protected float e ;
+    protected float f ;
+    protected float g ;
+
+    float geta() {
+        return a;
+    }
+    void seta(float x) {
+    this.a = x ;
+    }
+
+    float getb() {
+    return b ;
+    }
+    void setb(float x) {
+    this.b = x ;
+    }
+
+    float getc() {
+    return c ;
+    }
+    void setc(float x) {
+    this.c = x ;
+    }
+
+    float getd() {
+    return d ;
+    }
+    void setd(float x) {
+    this.d = x ;
+    }
+
+    float gete() {
+    return e ;
+    }
+    void sete(float x) {
+    this.e = x ;
+    }
+
+    float getf() {
+    return f ;
+    }
+    void setf(float x) {
+    this.f = x ;
+    }
+
+    float getg() {
+    return g ;
+    }
+    void setg(float x) {
+    this.g = x ;
+    }
+
+}
+
+class B extends A {
+    protected int h ;
+    protected int i ;
+    protected int j ;
+    protected int k ;
+    protected int l ;
+    protected int m ;
+    protected int n ;
+
+    int geth() {
+    return h ;
+    }
+    void seth(int x) {
+    this.h = x ;
+    }
+
+    int geti() {
+    return i ;
+    }
+    void seti(int x) {
+    this.i = x ;
+    }
+
+    int getj() {
+    return j ;
+    }
+    void setj(int x) {
+    this.j = x ;
+    }
+
+    int getk() {
+    return k ;
+    }
+    void setk(int x) {
+    this.k = x ;
+    }
+
+    int getl() {
+    return l ;
+    }
+    void setl(int x) {
+    this.l = x ;
+    }
+
+    int getm() {
+    return m ;
+    }
+    void setm(int x) {
+    this.m = x ;
+    }
+
+    int getn() {
+    return n ;
+    }
+    void setn(int x) {
+    this.n = x ;
+    }
+
+}
+
+class C extends B {
+
+    protected boolean o1;
+    protected boolean p;
+    protected boolean q;
+    protected boolean r;
+    protected boolean s;
+    protected boolean t;
+    protected boolean u;
+
+    boolean geto() {
+    return o1 ;
+    }
+    void seto(boolean x) {
+    this.o1 = x ;
+    }
+
+    boolean getp() {
+    return p ;
+    }
+    void setp(boolean x) {
+    this.p = x ;
+    }
+
+    boolean getq() {
+    return q ;
+    }
+    void setq(boolean x) {
+    this.q = x ;
+    }
+
+    boolean getr() {
+    return r ;
+    }
+    void setr(boolean x) {
+    this.r = x ;
+    }
+
+    boolean gets() {
+    return s ;
+    }
+    void sets(boolean x) {
+    this.s = x ;
+    }
+
+    boolean gett() {
+    return t ;
+    }
+    void sett(boolean x) {
+    this.t = x ;
+    }
+
+    boolean getu() {
+    return u ;
+    }
+    void setu(boolean x) {
+    this.u = x ;
+    }
+
+}
+
+
+
+{
+    C obj = new C();
+
+    obj.seta(1.0);
+    obj.setb(2.0);
+    obj.setc(3.0);
+    obj.setd(4.0);
+    obj.sete(5.0);
+    obj.setf(6.0);
+    obj.setg(7.0);
+
+
+    obj.seth(8);
+    obj.seti(9);
+    obj.setj(10);
+    obj.setk(11);
+    obj.setl(12);
+    obj.setm(13);
+    obj.setn(14);
+
+    obj.seto(true);
+    obj.setp(false);
+    obj.setq(true);
+    obj.setr(false);
+    obj.sets(true);
+    obj.sett(false);
+    obj.setu(true);
+
+    println(obj.geta());
+    println(obj.getb());
+    println(obj.getc());
+    println(obj.getd());
+    println(obj.gete());
+    println(obj.getf());
+    println(obj.getg());
+
+    println(obj.geth());
+    println(obj.geti());
+    println(obj.getj());
+    println(obj.getk());
+    println(obj.getl());
+    println(obj.getm());
+    println(obj.getn());
+
+    if(obj.geto()){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+    if(obj.getp()){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+    if(obj.getq()){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+    if(obj.getr()){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+    if(obj.gets()){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+    if(obj.gett()){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+    if(obj.getu()){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+}

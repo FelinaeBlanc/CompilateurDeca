@@ -1,0 +1,51 @@
+class A {
+    int x = 5*5*5*5*5%15;
+    int y = 4*4*4*4*4*4;
+
+    int Test(int x, int y, int z){
+        int l = 15+5+63+3+3;
+        return l*x*y*z;
+    }
+}
+
+
+{
+    A a = new A();
+    int b,c,d;
+
+    a = new A();
+    a = new A();
+    b = 1515;
+    c = 1010 - b + b + b+5 + 6 * 5-8 +6 +4 *8 *8 *8*8*8*8*8+8+6+5-8;
+    d = 32* (c/15) ;
+
+    print(b+c+d+8*4);
+
+    if (d < b){
+        print(" BBBBBBBBBBBBBBBBBBBBBBBBBBB ");
+        print(" BBBBBBBBBBBBBBBBBBBBBBBBBBB ");
+        print(" BBBBBBBBBBBBBBBBBBBBBBBBBBB ");
+        print(" BBBBBBBBBBBBBBBBBBBBBBBBBBB ");
+        print(" BBBBBBBBBBBBBBBBBBBBBBBBBBB ");
+        print(" BBBBBBBBBBBBBBBBBBBBBBBBBBB ");
+        print(" BBBBBBBBBBBBBBBBBBBBBBBBBBB ");
+    } else {
+        print(" AAAAAAAAAAAAAAAAAAAAAAAAAAA ");
+        print(" AAAAAAAAAAAAAAAAAAAAAAAAAAA ");
+        print(" AAAAAAAAAAAAAAAAAAAAAAAAAAA ");
+        print(" AAAAAAAAAAAAAAAAAAAAAAAAAAA ");
+        print(" AAAAAAAAAAAAAAAAAAAAAAAAAAA ");
+        print(" AAAAAAAAAAAAAAAAAAAAAAAAAAA ");
+    }
+
+    b = 1515;
+    c = 1010 - b + b + b+5 + 6 * 5-8 +6 +4 *8 *8 *8*8*8*8*8+8+6+5-8;
+    d = 32* (c/15) ;
+
+    if (b+c > d + a.Test(b-c%15, c/c+4,d+c+b) ){
+        print("oui");
+    } else {
+        print("non");
+    }
+
+}

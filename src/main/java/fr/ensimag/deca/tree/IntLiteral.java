@@ -11,9 +11,8 @@ import fr.ensimag.ima.pseudocode.instructions.WINT;
 import java.io.PrintStream;
 
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
-
+import fr.ensimag.ima.pseudocode.DVal;
 /**
  * Integer literal
  *
@@ -32,25 +31,30 @@ public class IntLiteral extends AbstractExpr {
     }
 
     @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
+    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
             this.setType(compiler.environmentType.INT);
             return compiler.environmentType.INT;   
     }
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        codeGenInst(compiler);
+        codeExp(compiler,1);
         compiler.addInstruction(new WINT());
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(new ImmediateInteger(value),Register.R1));
+    protected DVal dval(){
+        return new ImmediateInteger(value);
     }
+
     @Override
-    protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
-        compiler.addInstruction(new LOAD(new ImmediateInteger(value),R));
+    protected void codeExp( DecacCompiler compiler, int registreNb){
+        compiler.addInstruction(new LOAD(new ImmediateInteger(value),Register.getR(registreNb)));
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        codeExp(compiler,2);
     }
 
     @Override

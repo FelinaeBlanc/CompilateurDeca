@@ -1,0 +1,12 @@
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    
+    float res1 = m.sin(0.0);
+    float res2 = m.sin(m.PI/2);
+    float res3 = m.sin(-m.PI/2);
+    println(res1);
+    println(res2);
+    println(res3);
+}

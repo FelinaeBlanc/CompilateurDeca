@@ -1,0 +1,12 @@
+// Description:
+//    tests de programme incorrect syntaxiquement (; sans rien devant)
+//
+// Historique:
+//    @DATE@
+
+{
+    Truc x = 5;
+    if (x < 7) {
+        print("ok");;
+    }
+}

@@ -1,7 +1,21 @@
 package fr.ensimag.deca.context;
 
-import fr.ensimag.deca.tree.Location;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.deca.tree.AbstractDeclMethod;
+import fr.ensimag.deca.tree.DeclField;
+import fr.ensimag.deca.tree.DeclMethod;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import fr.ensimag.deca.tree.Location;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -12,36 +26,49 @@ import org.apache.commons.lang.Validate;
  */
 public class ClassDefinition extends TypeDefinition {
 
+    private final EnvironmentExp members;
+    private final ClassDefinition superClass; 
 
-    public void setNumberOfFields(int numberOfFields) {
-        this.numberOfFields = numberOfFields;
-    }
+    List<AbstractDeclMethod> vTable;
+    List<DeclField> fieldTable;
+    Label initLabel;
 
-    public int getNumberOfFields() {
-        return numberOfFields;
-    }
+    private DAddr addrVtable = new RegisterOffset(1, GPRegister.GB); 
 
-    public void incNumberOfFields() {
-        this.numberOfFields++;
+    public ClassDefinition(ClassType type, Location location, ClassDefinition superClass) {
+        super(type, location);
+        this.superClass = superClass;
+        
+        if (superClass != null) {
+            // Prend la Vtable et la Field table du parent
+            vTable = new ArrayList<>(superClass.vTable); 
+            fieldTable = new ArrayList<>(superClass.fieldTable);
+
+            members = new EnvironmentExp(superClass.getMembers());
+        } else { // Classe Object
+
+            members = new EnvironmentExp(null);
+            vTable = new ArrayList<>();
+            fieldTable = new ArrayList<>();
+        }
     }
 
     public int getNumberOfMethods() {
-        return numberOfMethods;
+        return vTable.size();
+    }
+    public int getNumberOfFields() {
+        return fieldTable.size();
+    }
+    public Label getInitLabel(){
+        return initLabel;
+    }
+    public EnvironmentExp getMembers() {
+        return members;
     }
 
-    public void setNumberOfMethods(int n) {
-        Validate.isTrue(n >= 0);
-        numberOfMethods = n;
+    public void setInitLabel(Label initLabel){
+        this.initLabel = initLabel;
     }
-    
-    public int incNumberOfMethods() {
-        numberOfMethods++;
-        return numberOfMethods;
-    }
-
-    private int numberOfFields = 0;
-    private int numberOfMethods = 0;
-    
     @Override
     public boolean isClass() {
         return true;
@@ -58,23 +85,20 @@ public class ClassDefinition extends TypeDefinition {
         return superClass;
     }
 
-    private final EnvironmentExp members;
-    private final ClassDefinition superClass; 
-
-    public EnvironmentExp getMembers() {
-        return members;
-    }
-
-    public ClassDefinition(ClassType type, Location location, ClassDefinition superClass) {
-        super(type, location);
-        EnvironmentExp parent;
-        if (superClass != null) {
-            parent = superClass.getMembers();
-        } else {
-            parent = null;
-        }
-        members = new EnvironmentExp(parent);
-        this.superClass = superClass;
+    public DAddr getAddrVtable() {
+        return addrVtable;
     }
     
+    public void setAddrVtable(DAddr addrVtable) {
+        this.addrVtable = addrVtable;
+    }
+
+    public List<AbstractDeclMethod> getVTable() {
+        return vTable;
+    }
+    public List<DeclField> getFieldTable(){
+        return fieldTable;
+    }
+
+
 }

@@ -1,0 +1,46 @@
+{
+    int x = 1;
+    int y = 0;
+    int z = 1;    
+    if (y < x) {
+        println("OK <"); 
+    } 
+    else{
+        println("KO <");
+    }
+    
+    if (x<=z) {
+        println("OK <=");
+    }
+    else{
+        println("KO <=");
+    }
+
+    if (x>y){
+        println("OK >");
+    }
+    else{
+        println("KO >");
+    }
+
+    if (x>=z){
+        println("OK >=");
+    }
+    else{
+        println("KO >=");
+    }
+
+    if (x==z){
+        println("OK ==");
+    }
+    else {
+        println("KO ==");
+    }
+
+    if (x!=y){
+        println("OK !=");
+    }
+    else {
+        println("KO !=");
+    }
+}

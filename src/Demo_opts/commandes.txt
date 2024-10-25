@@ -1,0 +1,28 @@
+decac -b
+
+-v : vérifie le fichier decac, ne produit aucune sortie si aucune erreur
+
+decac -v src/Demo/Demo_opts/opt-v-d.deca
+decac -v src/Demo/Demo_opts/opt-v_wrong_syntax.deca
+
+-p : décompile l'arbre abstrait obtenu par l'analyseur syntaxique en code texte 
+
+decac -p src/Demo/Demo_opts/opt-v-d.deca
+
+-d : compilation en mode debug, peut être utilsé sur trois niveaux : -d -d -d
+
+decac -d -d -d src/Demo/Demo_opts/opt-v-d.deca
+
+-P : compile plusieurs fichiers decac en parallèle
+
+decac -P src/Demo/Demo_opts/opt-v-d.deca src/Demo/Demo_opts/opt-r.deca src/Demo/Demo_opts/opt-P.deca
+
+-r : limite le nombre de registres disponnibles entre 4 et 16
+
+decac -r 4 src/Demo/Demo_opts/opt-r.deca
+
+-n : permet de lancer la compilation sans les tests à l'exécution
+
+decac -n src/Demo/Demo_opts/opt-v_wrong_exec.deca
+
+ima src/Demo/Demo_opts/opt-v_wrong_exec.ass

@@ -1,0 +1,20 @@
+class Invalid {
+    boolean b = true;
+
+}
+
+class BebeInvalid extends Invalid {
+    boolean bebeb = false;
+    protected float test;
+
+    float getTest() {
+        return test;
+    }
+}
+
+{
+    BebeInvalid b = new BebeInvalid();
+
+    print(b.getTest());
+    print(b.test);
+}

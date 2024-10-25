@@ -1,0 +1,62 @@
+{
+    int a, b,c,d,e,f,g;
+    float x;
+    a = 10;
+    b = 5; 
+
+    c = a + b; 
+
+    d = 4 + 3; 
+
+    e = a + 10; 
+
+    f = 40 + b; 
+
+    
+    if (c == 15) {
+        println("OK1");
+    } else {
+        println("KO1");
+    }      
+
+    if (d == 7) {
+        println("OK2");
+    } else {
+        println("KO2");
+    }   
+
+    if (e == 20) {
+        println("OK3");
+    } else {
+        println("KO3");
+    }    
+
+    if (f == 45) {
+        println("OK4");
+    } else {
+        println("KO4");
+    }
+
+    if( 2 + 3.0 == 5)
+    {
+        println("OK5");
+    } else {
+        println("KO5");
+    } 
+
+    x = 4.6 + 1;
+    if (4.4 + x == 10.0) {
+        println("OK6");
+    } else {
+        println("KO6");
+    }
+
+    if (4.4 + 5.6 == 10.0) {
+        println("OK7");
+    } else {
+        println("KO7");
+    }
+ 
+
+  
+}

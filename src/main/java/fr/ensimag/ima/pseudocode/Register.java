@@ -48,6 +48,16 @@ public class Register extends DVal {
      * Convenience shortcut for R[1]
      */
     public static final GPRegister R1 = R[1];
+        /**
+     * Convenience shortcut for R[2]
+     */
+    public static final GPRegister R2 = R[2];
+
+    /**
+     * Convenience shortcut for R[3]
+     */
+    public static final GPRegister R3 = R[3];
+
     static private GPRegister[] initRegisters() {
         GPRegister [] res = new GPRegister[16];
         for (int i = 0; i <= 15; i++) {

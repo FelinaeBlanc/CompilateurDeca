@@ -1,0 +1,5 @@
+{
+    float x = 4.0;
+    boolean y = true;
+    x = x*y;
+}

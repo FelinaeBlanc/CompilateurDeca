@@ -1,0 +1,16 @@
+class A {
+    protected int slt = 12; 
+
+}
+
+{
+    A a = new A() ;
+    println(a.slt);
+
+    if (!(a.slt || true) ){
+        println("true"); 
+    }
+    else{
+        println("false"); 
+    }
+}

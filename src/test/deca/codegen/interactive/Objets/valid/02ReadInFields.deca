@@ -1,0 +1,19 @@
+class A {
+    float x = readFloat(); 
+    int y = readInt(); 
+
+    float getX(){
+        return x;  
+    }
+    
+    int getY(){
+        return y;  
+    }
+
+}
+
+{
+    A a = new A() ;
+    println(a.getX()); 
+    println(a.getY()); 
+}

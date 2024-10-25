@@ -1,0 +1,12 @@
+class Invalid {
+    float test = 12.5;
+
+    float getTest() {
+        return test;
+    }
+}
+
+{
+    Invalid invalid = new Invalid();
+    println(getTest);
+}

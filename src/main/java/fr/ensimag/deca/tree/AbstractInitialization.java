@@ -5,6 +5,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.EnvironmentVarValue;
 
 /**
  * Initialization (of variable, field, ...)
@@ -13,6 +14,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
  * @date 21/04/2023
  */
 public abstract class AbstractInitialization extends Tree {
+    
+    protected abstract void optimizeInitialization(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError;
     
     /**
      * Implements non-terminal "initialization" of [SyntaxeContextuelle] in pass 3
@@ -26,5 +29,4 @@ public abstract class AbstractInitialization extends Tree {
             Type t, EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError;
 
-    protected abstract void codeGenInit(DecacCompiler compiler);
 }

@@ -1,0 +1,32 @@
+class Math {
+    float _pow(float x, int n) {
+        int i = 0;
+        float res = 1;
+        if (n < 0) {
+            while (i > n) {
+                res = res / x;
+                i = i - 1;
+            }
+        } else {
+            while(i < n) {
+                res = res * x;
+                i = i + 1;
+            }
+        }
+        return res;
+    }
+}
+
+{
+    Math m = new Math();
+    float res1 = m._pow(5.0, 2);
+    float res2 = m._pow(5.0, 1);
+    float res3 = m._pow(5.0, 0);
+    float res4 = m._pow(2.0, -1);
+    float res5 = m._pow(2.0, -2);
+    println(res1);
+    println(res2);
+    println(res3);
+    println(res4);
+    println(res5);
+}

@@ -1,0 +1,14 @@
+#include "testIncludeSelf.decah"
+
+class A{
+
+    float x = 45.0154521; 
+
+    void display_A(){
+        printlnx(x); 
+    }
+
+    float getX_A(){
+        return x; 
+    }
+}

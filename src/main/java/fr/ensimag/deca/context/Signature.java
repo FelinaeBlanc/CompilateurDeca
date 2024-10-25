@@ -24,4 +24,12 @@ public class Signature {
         return args.size();
     }
 
+    public List<Type> getArgs() {
+        return args;
+    }
+
+    public boolean equals(Signature obj) {
+        return this.args.equals(obj.getArgs()); 
+    }
+
 }

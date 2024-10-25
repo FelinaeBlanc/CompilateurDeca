@@ -1,0 +1,7 @@
+class Invalid {
+    boolean b = false;
+
+    int getB() {
+        return b;
+    }
+}

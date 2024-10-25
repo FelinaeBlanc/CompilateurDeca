@@ -1,0 +1,9 @@
+{
+    float x = 4.0;
+    boolean y = true;
+    if( x>y ){
+        print("OK");
+    } else {
+        print("KO");
+    }
+}

@@ -1,0 +1,95 @@
+class math{
+
+    float PI = 3.141592653589793f; //totally stolen from JAVA
+    float TWO_27 = 0x1.0p27; // Long bits 0x41a0000000000000L.
+    float TWO_66 = 0x1.0p66;
+    float TWO_29 = 0x1.0p29;
+    float S1 = -0.16666666666666632f; // Long bits 0xbfc5555555555549L.
+    float S2 = 8.33333333332249e-3f; // Long bits 0x3f8111111110f8a6L.
+    float S3 = -1.984126982985795e-4f; // Long bits 0xbf2a01a019c161d5L.
+    float S4 = 2.7557313707070068e-6f; // Long bits 0x3ec71de357b1fe7dL.
+    float S5 = -2.5050760253406863e-8f; // Long bits 0xbe5ae5e68a2b9cebL.
+    float S6 = 1.58969099521155e-10f; // Long bits 0x3de5d93a5acfd57cL.
+    float SQRT2 = 0.70710678118f;
+    float C1 = 0.0416666666666666f; // Long bits 0x3fa555555555554cL.
+    float C2 = -1.388888888887411e-3f; // Long bits 0xbf56c16c16c15177L.
+    float C3 = 2.480158728947673e-5f; // Long bits 0x3efa01a019cb1590L.
+    float C4 = -2.7557314351390663e-7f; // Long bits 0xbe927e4f809c52adL.
+    float C5 = 2.087572321298175e-9f; // Long bits 0x3e21ee9ebdb4b1c4L.
+    float C6 = -1.1359647557788195e-11f; // Long bits 0xbda8fae9be8838d4L.
+
+    float abs(float x){
+        float y = x;
+        if (x<0){ 
+            y = -x;
+        }
+        return y; 
+    }
+
+    float _cos(float value) //Totally stolen from java 
+    {
+        float x = this.abs(value);
+
+        float z = x * x;
+        float r = z * (C1 + z * (C2 + z * (C3 + z * (C4 + z * (C5 + z * C6)))));
+        
+        float qx ;
+        if (x > 0.78125f) {
+            qx = 0.28125f;
+        }else {
+            qx = (x * 0.25f);
+        }
+
+        if (x < 1 / TWO_27){
+            return 1; 
+        } // If |x| ~< 2**-27; already know answer.
+
+        if (x < 0.3f){
+            return 1 - (0.5f * z - (z * r ));
+        }
+
+        return 1 - qx - ((0.5f * z - qx) - (z * r ));
+    }
+
+    float _sin(float value) //Totally stolen from java 
+    {
+        float x = this.abs(value);
+        float res = x;
+        float z = x * x;
+        float v = z * x;
+        float r = S2 + z * (S3 + z * (S4 + z * (S5 + z * S6)));
+
+        if (this.abs(x) >= 1 / TWO_27){ // If |x| ~< 2**-27; already know answer.
+            res = x + v * (S1 + z * r);
+        }
+        if(value <0){ 
+            return -res; 
+        }
+        return res;
+    }
+
+    float cos(float value){
+
+        int q = (int)(2.0*value/PI);
+        float x = (float)(2*q + 1)*PI/4.0 - value; // x in [-PI/4; PI/4]
+        int sisign = q%2;
+        int cosign = (q+1)%2;
+
+        if ( this.abs(value)<= PI/4.0 ){ return this._cos(value);}
+        else {
+
+            if (q%4 == 3) {sisign = -sisign;}
+            if (q%4 == 2) {cosign = -cosign;}
+
+            return ( (float)(cosign-sisign)*this._cos(x) +
+            (float)(cosign+sisign)*this._sin(x) ) * SQRT2 ;
+        }
+    }
+}
+{
+    math M = new math();
+    println(M.cos(0.0));
+    println(M.cos(M.PI));
+    println(M.cos(M.PI/2.0));
+    
+}

@@ -1,0 +1,22 @@
+class A {
+    protected int p = 5;
+
+    int getP() {
+        return p;
+    }
+}
+
+class B extends A {
+
+    int addToP(int a) {
+        p = p + a;
+        return p;
+    }
+}
+
+{
+    B b = new B();
+    b.addToP(5);
+
+    printlnx(b.getP());
+}

@@ -1,0 +1,9 @@
+class A {
+    void toto() asm("WSTR \"testASM\"
+    RTS");
+}
+
+{
+    A a = new A();
+    a.toto();
+}

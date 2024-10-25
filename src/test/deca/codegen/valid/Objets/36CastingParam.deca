@@ -1,0 +1,24 @@
+class A {
+    int x = 7;
+}
+
+class B extends A {
+    int y = 9;
+
+    int getY() {
+        return y;
+    }
+}
+
+class Testing {
+    void test_fct(B b) {
+        println(b.getY());
+    }
+}
+
+{
+    Testing test_class = new Testing();
+    A b = new B();
+
+    test_class.test_fct((B) (b));
+}

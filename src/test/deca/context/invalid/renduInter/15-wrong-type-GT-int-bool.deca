@@ -1,0 +1,9 @@
+{
+    int x = 4;
+    boolean y = true;
+    if( x>y ){
+        print("OK");
+    } else {
+        print("KO");
+    }
+}

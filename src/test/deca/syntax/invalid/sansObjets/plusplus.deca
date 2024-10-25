@@ -1,0 +1,10 @@
+// Description:
+//    tests de programme incorrect lexicalement (++ non supporte)
+//
+// Historique:
+//    @DATE@
+
+{
+    int y = 7;
+    y++;
+}

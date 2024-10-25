@@ -1,0 +1,68 @@
+#include "Math.decah"
+{
+    Math m = new Math();
+    float x = m.ulp(4.20390e-45);
+    print("ulp(0) = ", x);
+    printx("          ", x);
+    println("             Java value : 0x0.000002p-126" );
+
+    print("ulp(0.25) = ", m.ulp(0.25));
+    printx("          ", m.ulp(0.25));
+    println("             Java value : 0x1.0p-25" );
+
+    print("ulp(0.5) = ", m.ulp(0.5));
+    printx("          ", m.ulp(0.5));
+    println("             Java value : 0x1.0p-24" );
+
+    print("ulp(1) = ", m.ulp(1));
+    printx("          ", m.ulp(1));
+    println("             Java value : 0x1.0p-23" );
+
+    print("ulp(10) = ", m.ulp(10));
+    printx("          ", m.ulp(10));
+    println("             Java value : 0x1.0p-20" );
+
+    print("ulp(100) = ", m.ulp(100));
+    printx("          ", m.ulp(100));
+    println("             Java value : 0x1.0p-17" );
+
+    print("ulp(0x1.0p8) = ", m.ulp(256));
+    printx("          ", m.ulp(256));
+    println("             Java value : 0x1.0p-15" );
+
+    print("ulp(0x1p10) = ", m.ulp(0x1.0p10));
+    printx("          ", m.ulp(0x1.0p10));
+    println("             Java value : 0x1.0p-13" );
+
+    print("ulp(0x1p20) = ", m.ulp(0x1.0p20));
+    printx("          ", m.ulp(0x1.0p20));
+    println("             Java value : 0x1.0p-3" );
+
+    print("ulp(2147483647) = ", m.ulp(2147483647));
+    printx("          ", m.ulp(2147483647));
+    println("             Java value : 0x1.0p8" );
+
+    print("ulp(0x1p40) = ", m.ulp(0x1.0p40));
+    printx("          ", m.ulp(0x1.0p40));
+    println("             Java value : 0x1.0p17" );
+
+    print("ulp(-0.25) = ", m.ulp(-0.25));
+    printx("          ", m.ulp(-0.25));
+    println("             Java value : -0x1.0p-25" );
+
+    print("ulp(-0.5) = ", m.ulp(-0.5));
+    printx("          ", m.ulp(-0.5));
+    println("             Java value : -0x1.0p-24" );
+
+    print("ulp(-1) = ", m.ulp(-1));
+    printx("          ", m.ulp(-1));
+    println("             Java value : -0x1.0p-23" );
+
+    print("ulp(-10) = ", m.ulp(-10));
+    printx("          ", m.ulp(-10));
+    println("             Java value : -0x1.0p-20" );
+
+    print("ulp(-100) = ", m.ulp(-100));
+    printx("          ", m.ulp(-100));
+    println("             Java value : -0x1.0p-17" );
+}

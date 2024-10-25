@@ -13,22 +13,32 @@ public class Or extends AbstractOpBool {
     }
 
     @Override
+    protected boolean preCalculateBool(boolean val1, boolean val2){ 
+        return val1 || val2;
+    }
+
+    @Override
     protected String getOperatorName() {
         return "||";
     }
 
     @Override
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
-        if (value){
+        codeExpGenCond( compiler, 2, value, e);
+    }
 
-            getLeftOperand().codeGenCond(compiler,value,e);
-            getRightOperand().codeGenCond(compiler,value,e);
+    @Override
+    protected void codeExpGenCond(DecacCompiler compiler, int registerNb, boolean value, Label e){
+        if (value){ // On inverse
+
+            getLeftOperand().codeExpGenCond(compiler,registerNb, value,e);
+            getRightOperand().codeExpGenCond(compiler,registerNb, value,e);
 
         } else {
             Label end_or = new Label("end_or");
 
-            getLeftOperand().codeGenCond(compiler,!value,end_or);
-            getRightOperand().codeGenCond(compiler,value,e);
+            getLeftOperand().codeExpGenCond(compiler,registerNb, !value,end_or);
+            getRightOperand().codeExpGenCond(compiler,registerNb, value,e);
 
             compiler.addLabel(end_or);
         }

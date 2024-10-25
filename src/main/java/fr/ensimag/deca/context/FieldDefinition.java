@@ -24,8 +24,7 @@ public class FieldDefinition extends ExpDefinition {
     private final Visibility visibility;
     private final ClassDefinition containingClass;
     
-    public FieldDefinition(Type type, Location location, Visibility visibility,
-            ClassDefinition memberOf, int index) {
+    public FieldDefinition(Type type, Location location, Visibility visibility, ClassDefinition memberOf, int index) {
         super(type, location);
         this.visibility = visibility;
         this.containingClass = memberOf;

@@ -1,0 +1,4 @@
+class A {
+    float x = 0.05f;
+    protected int y = 5;
+}

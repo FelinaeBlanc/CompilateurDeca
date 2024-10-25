@@ -5,11 +5,8 @@
 //    Hello
 //
 // Historique:
-//    cree le 21/04/2023
+//    cree le @DATE@
 
 {
-        if (1){
-                println("Hello, world!");
-        }
-        //println("Hello, world!");
+        println("Hello, world!");
 }

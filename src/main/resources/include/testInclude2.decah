@@ -1,0 +1,13 @@
+#include "testInclude.decah"
+
+class B extends A{
+
+    void display_B(){
+        display_A(); 
+        println("B OK"); 
+    }
+
+    float getX_B(){
+        return (getX_A() + 1); 
+    }
+}

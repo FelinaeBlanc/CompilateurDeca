@@ -1,0 +1,11 @@
+{
+    float x = 132.02;
+    int a, t;
+
+    t = (int)(15.025);
+    x = t;
+
+    a = (int)(x);
+    println(a);
+
+}

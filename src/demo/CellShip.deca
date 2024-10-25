@@ -1,0 +1,26 @@
+#include "Ship.deca"
+
+class CellShip {
+    protected Ship value;
+    protected CellShip next;
+
+    boolean hasNext() {
+        return next != null;
+    }
+
+    CellShip getNext() {
+        return next;
+    }
+
+    Ship getValue() {
+        return value;
+    }
+
+    void setNext(CellShip newCell) {
+        this.next = newCell;
+    }
+
+    void setValue(Ship value) {
+        this.value = value;
+    }
+}

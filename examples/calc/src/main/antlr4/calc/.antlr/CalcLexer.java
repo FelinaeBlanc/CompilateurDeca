@@ -1,4 +1,4 @@
-// Generated from /user/9/soriarag/Projet_GL/examples/calc/src/main/antlr4/calc/CalcLexer.g4 by ANTLR 4.9.2
+// Generated from /user/3/.base/kasprzac/home/Documents/1aa/projet_gl/examples/calc/src/main/antlr4/calc/CalcLexer.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

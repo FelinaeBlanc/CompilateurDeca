@@ -1,0 +1,8 @@
+{
+    int x = null;
+    if (x == null) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+}

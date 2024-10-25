@@ -1,7 +1,5 @@
 package fr.ensimag.deca.context;
 
-import fr.ensimag.deca.context.ClassType;
-import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.Location;
 
@@ -75,8 +73,7 @@ public abstract class Type {
      * Can be seen as a cast, but throws an explicit contextual error when the
      * cast fails.
      */
-    public ClassType asClassType(String errorMessage, Location l)
-            throws ContextualError {
+    public ClassType asClassType(String errorMessage, Location l) throws ContextualError {
                 
         throw new ContextualError(errorMessage, l);
     }

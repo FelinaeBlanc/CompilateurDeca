@@ -1,0 +1,17 @@
+class A {
+    int x = 4;
+}
+
+class B extends A {
+    int x = 5;
+}
+
+{
+    A b = new B();
+
+    if (b.x == 4) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+}

@@ -1,0 +1,55 @@
+#include "Math.decah"
+{
+    Math m = new Math();
+
+    print("atan(0) = ", m.atan(0));
+    println("             Java value : 0.0" );
+
+    print("atan(0.25) = ", m.atan(0.25));
+    println("             Java value : 0.24740395925452294" );
+
+    print("atan(0.5) = ", m.atan(0.5));
+    println("             Java value : 0.4636476090008061" );
+
+    print("atan(0.75) = ", m.atan(0.75));
+    println("             Java value : 0.6435011087932844" );
+
+    print("atan(1) = ", m.atan(1));
+    println("             Java value : 0.7853981633974483" );
+
+    print("atan(10) = ", m.atan(10));
+    println("             Java value : 1.4711276743037347" );
+
+    print("atan(100) = ", m.atan(100));
+    println("             Java value : 1.5607966601082315" );
+
+    print("atan(0x1.0p8) = ", m.atan(256));
+    println("             Java value : 1.5668900966629296" );
+
+    print("atan(0x1p10) = ", m.atan(0x1.0p10));
+    println("             Java value : 1.5698197646053373" );
+
+    print("atan(0x1p20) = ", m.atan(0x1.0p20));
+    println("             Java value : 1.5707953731205802" );
+
+    print("atan(-0.25) = ", m.atan(-0.25));
+    println("             Java value : -0.24740395925452294" );
+
+    print("atan(-0.5) = ", m.atan(-0.5));
+    println("             Java value : -0.4636476090008061" );
+
+    print("atan(-1) = ", m.atan(-1));
+    println("             Java value : -0.7853981633974483" );
+
+    print("atan(-100) = ", m.atan(-100));
+    println("             Java value : -1.5607966601082315" );
+
+    print("atan(-0x1.0p8) = ", m.atan(-256));
+    println("             Java value : -1.5668900966629296" );
+
+    print("atan(-0x1p10) = ", m.atan(-0x1.0p10));
+    println("             Java value : -1.5698197646053373" );
+
+    print("atan(-0x1p20) = ", m.atan(-0x1.0p20));
+    println("             Java value : -1.5707953731205802" );
+}

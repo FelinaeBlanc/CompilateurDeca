@@ -6,9 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.Label;
-
+import fr.ensimag.deca.context.EnvironmentVarValue;
+import java.util.List;
 /**
  * Instruction
  *
@@ -16,6 +15,9 @@ import fr.ensimag.ima.pseudocode.Label;
  * @date 21/04/2023
  */
 public abstract class AbstractInst extends Tree {
+    
+    protected void optimizeInst(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError { throw new UnsupportedOperationException("optimizeInst not yet implemented "+ this);}
+    protected List<AbstractInst> optimizeInsts() throws ContextualError {return null;}
     
     /**
      * Implements non-terminal "inst" of [SyntaxeContextuelle] in pass 3
@@ -43,5 +45,8 @@ public abstract class AbstractInst extends Tree {
      */
     protected void decompileInst(IndentPrintStream s) {
         decompile(s);
+    }
+
+    protected void codeGenPrintHex(DecacCompiler compiler) {
     }
 }

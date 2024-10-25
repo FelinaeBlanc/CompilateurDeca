@@ -1,0 +1,20 @@
+class A {
+   int getVal(){
+        return 1;
+   }
+}
+
+class B extends A {
+
+   int getVal(){
+        return 2;
+   }
+
+}
+
+{
+  A a = new A();
+  A b = new B();
+  println("a.getVal() = ", a.getVal());
+  println("b.getVal() = ", b.getVal());
+}

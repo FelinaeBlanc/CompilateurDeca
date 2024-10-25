@@ -1,0 +1,27 @@
+{
+    float x;
+    int y;
+
+    x = -3;
+    println(x);
+
+    x= -3 *16 + (15/3);
+    println(x);
+
+    x = 1 * -26;
+    println(x);
+
+    
+    y = -5;
+    println(y);
+    
+    y = -3*16 + (15/3);
+    println(y);
+
+    y = 1*-26;
+    println(y);
+
+    y = (5+3) / -8;
+    println(y);
+
+}

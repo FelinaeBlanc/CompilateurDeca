@@ -1,0 +1,46 @@
+class Point2D {
+    protected int x;
+    protected int y;
+
+    int getX() {
+        return x;
+    }
+
+    int getY() {
+        return y;
+    }
+
+    void setX(int x) {
+        this.x = x;
+    }
+
+    void setY(int y) {
+        this.y = y;
+    }
+}
+
+class Rectangle {
+    protected Point2D origin;
+    float lenth;
+    float width;
+
+    void setOrigin(Point2D pt) {
+        this.origin = pt;
+    }
+
+    Point2D getOrigin() {
+        return origin;
+    }
+}
+
+{
+    Rectangle rect = new Rectangle();
+    Point2D pt = new Point2D();
+
+    pt.setX(5);
+    pt.setY(8);
+    rect.setOrigin(pt);
+
+    println("x : ", rect.getOrigin().getX());
+    println("y : ", rect.getOrigin().getY());
+}

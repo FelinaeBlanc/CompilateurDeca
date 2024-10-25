@@ -1,12 +1,14 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.ClassType;
+import fr.ensimag.deca.context.UndefinedVar;
+import fr.ensimag.deca.context.UnknowVar;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.EnvironmentVarValue;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.ExpDefinition;
@@ -16,15 +18,25 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
 
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
+
+import fr.ensimag.ima.pseudocode.DVal;
+
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label; 
+
 /**
  * Deca Identifier
  *
@@ -176,19 +188,35 @@ public class Identifier extends AbstractIdentifier {
         this.name = name;
     }
 
+    
     @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
-        //return;
+    public AbstractExpr optimizeExp(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError {
+        AbstractExpr actualVal = envVar.getCurrentValue(getName());
         
-        Definition newDef = localEnv.get(name);
-        if (newDef != null) {
-            this.setDefinition(newDef);
-            this.setType(definition.getType());
-            return definition.getType();
-        }else{
-            throw new ContextualError("Identificateur non defini",getLocation());
+        // actualVal possède la valeur actuel du champ ! on retourne soit  soit sa valeur si elle peut être donné directement, ou soit l'identifiant,
+        if (actualVal != null){
+            if (actualVal instanceof FloatLiteral || actualVal instanceof IntLiteral || actualVal instanceof BooleanLiteral){
+                return actualVal;
+            } else { // Sinon, on utilise sa référence, donc elle est utilisé, on le met dans la map
+                envVar.declareUsed(name);
+            }
         }
+
+        return this;
+    }
+
+    @Override
+    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,ClassDefinition currentClass) throws ContextualError {
+        Definition newDef = localEnv.get(name);
+
+        if (newDef == null){ // On accède à un identifiant qui n'est pas définie dans l'environnement !
+            throw new ContextualError("Identifiant non déclaré !", getLocation());
+        }
+            
+        this.setDefinition(newDef);
+        this.setType(newDef.getType());
+
+        return newDef.getType();
         
     }
 
@@ -248,17 +276,27 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
+        compiler.addInstruction(new LOAD(getDAddr(),Register.R2), getName() + " -> " + Register.R2.toString());
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
-        compiler.addInstruction(new LOAD(getDAddr(),R));
+        if (getDefinition().isField()){
+            FieldDefinition def = (FieldDefinition) getDefinition();
+
+            compiler.addInstruction( new LOAD( new RegisterOffset(-2, Register.LB),R)); // charge le this
+            compiler.addInstruction(new LOAD( new RegisterOffset(def.getIndex() + 1, R),R));
+
+        } else {
+            compiler.addInstruction(new LOAD(getDAddr(),R), getName() + " -> " + R.toString());
+        }
     }
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(getDAddr(),Register.R1));
         
+        codeExp(compiler,2);
+        compiler.addInstruction(new LOAD(GPRegister.getR(2),GPRegister.getR(1)));
+
         Type leType = definition.getType();
         if (leType.isInt()){
             compiler.addInstruction(new WINT());
@@ -270,4 +308,47 @@ public class Identifier extends AbstractIdentifier {
         //compiler.addInstruction(new WINT(new ImmediateInteger(value)));
         //this.getExpDefinition().getOperand()
     }
+
+
+    @Override
+    protected void codeGenPrintHex(DecacCompiler compiler) {
+        codeExp(compiler,2);
+        compiler.addInstruction(new LOAD(GPRegister.getR(2),GPRegister.getR(1)));
+        compiler.addInstruction(new WFLOATX());
+    }
+
+
+    protected DVal dval(){
+        return (DVal) getDAddr();
+    }
+
+    protected void codeExp( DecacCompiler compiler, int registreNb){
+        codeGenInst(compiler,GPRegister.getR(registreNb));
+    }
+
+    protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
+        Type leType = definition.getType();
+
+        if (leType.isBoolean()){
+            codeExpGenCond(compiler, 2, value, e);
+        } else {
+            codeExp(compiler,2,value,e );
+        }
+        
+    }
+
+    @Override
+    protected void codeExpGenCond(DecacCompiler compiler, int registerNb, boolean value, Label e) {
+            //Load Addr value in R1
+            //compiler.addInstruction(new LOAD(getDAddr(), Register.getR(registerNb)));
+            codeGenInst(compiler,GPRegister.getR(registerNb) );
+            //CMP Constante 1 avec valeur Indent
+            compiler.addInstruction(new CMP(new ImmediateInteger(1), Register.getR(registerNb)));
+            if (value){ // SAUTE SI x == x
+                compiler.addInstruction(new BEQ(e));
+            } else {  // SAUTE SI x > x
+                compiler.addInstruction(new BNE(e));
+            }
+    }
+    
 }

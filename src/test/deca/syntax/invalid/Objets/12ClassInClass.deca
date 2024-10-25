@@ -1,0 +1,9 @@
+class Invalid {
+    class A {
+        int x;
+    }
+
+    void printTest() {
+        println("test");
+    }
+}

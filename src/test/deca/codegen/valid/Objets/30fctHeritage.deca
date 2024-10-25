@@ -1,0 +1,20 @@
+class A {
+    int x = 5;
+
+    void fct() {
+        println("KO");
+    }
+}
+
+class B extends A {
+    void fct() {
+        println("OK");
+    }
+}
+
+{
+    B b = new B();
+    A a = (A) (b);
+
+    a.fct();
+}

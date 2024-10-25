@@ -1,0 +1,16 @@
+class A {
+    boolean b;
+
+    boolean getB() {
+        return b;
+    }
+}
+
+{
+    A a = new A();
+    if (a.getB()) {
+        print("KO");
+    } else {
+        print("OK");
+    }
+}

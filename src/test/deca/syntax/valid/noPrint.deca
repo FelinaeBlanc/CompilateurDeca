@@ -1,0 +1,16 @@
+// Description:
+//    tests de programme incorrect syntaxiquement (pas de print pour la chaine)
+//
+// Historique:
+//    @DATE@
+
+{
+    int x = readInt();
+    int y = readInt();
+
+    x = x * y / (x - y) + 10;
+
+    if (x < 0) {
+        "x est negatif";
+    }
+}

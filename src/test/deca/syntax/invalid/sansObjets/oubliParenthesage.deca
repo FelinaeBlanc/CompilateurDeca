@@ -1,0 +1,9 @@
+// Description:
+//    tests de programme incorrect lexicalement (oubli de parenthese)
+//
+// Historique:
+//    @DATE@
+
+{
+    int x = ((5 + 7) / 7 - 9 * 5));
+}

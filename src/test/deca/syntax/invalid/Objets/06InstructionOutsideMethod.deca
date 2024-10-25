@@ -1,0 +1,11 @@
+class Test {
+    int x, y;
+    float a;
+    booelan b;
+
+    x = x + 1;
+
+    void printA() {
+        print(a);
+    }
+}

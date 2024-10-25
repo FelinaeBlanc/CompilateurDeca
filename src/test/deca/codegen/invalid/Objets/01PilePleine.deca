@@ -1,0 +1,65 @@
+
+class Bicycle {
+    // the Bicycle class has two fields
+    int gear;
+    int speed;
+  
+    void setGear(int gear){
+        this.gear = gear ; 
+    }
+
+    void setSpeed(int speed){
+        this.speed = speed ;
+    }
+
+    // the Bicycle class has three methods
+    void applyBrake(int decrement)
+    {
+        speed = speed - decrement;
+    }
+  
+    void speedUp(int increment)
+    {
+        speed = speed + increment;
+    }
+  
+    // toString() method to print info of Bicycle
+    void display()
+    {
+        println("No of gears are ", gear,  "speed of bicycle is ", speed);
+    }
+}
+  
+// derived class
+class MountainBike extends Bicycle {
+  
+    // the MountainBike subclass adds one more field
+    int seatHeight;
+  
+    void setGear(int gear){
+        ((Bicycle) (this)).setGear(speed);
+    }
+
+    void setSpeed(int speed){
+        ((Bicycle) (this)).setSpeed(speed); 
+    }
+
+    void setHeight(int seatHeight){
+        this.seatHeight = seatHeight; 
+    }
+  
+    void display()
+    {
+        ((Bicycle) (this)).display(); 
+        println("seat height is ", seatHeight);
+    }
+}
+  
+{
+
+    MountainBike mb = new MountainBike();
+    mb.setGear(3); 
+    mb.setSpeed(100); 
+    mb.setHeight(25); 
+    mb.display(); 
+}

@@ -1,0 +1,48 @@
+{
+    int x=5;
+
+    if (true) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    if (true || x==3 ){
+        println("OK");
+    }
+    else {
+        println("KO");
+    } 
+
+    if ( x==3 || true){
+        println("OK");
+    }
+    else{
+        println("KO");
+    }
+
+    if (!!true){
+        println("OK");
+    }
+    else {
+        println("KO");
+    }
+
+    if (true && x==3){
+        println("KO");
+    }
+    else{
+        println("OK");
+    }
+
+    if (!false){
+        println("OK");
+    }
+    else{
+        println("KO");
+    }
+
+    if(false){
+        println("KO");
+    }
+}

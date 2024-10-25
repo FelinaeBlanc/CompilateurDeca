@@ -1,0 +1,31 @@
+
+class A {
+
+   int getVal(){
+        return 2;
+   }
+
+}
+
+class B extends A {
+
+   int getVal(){
+        return 2;
+   }
+
+}
+
+class C extends B {
+
+   int getVal(){
+        return 3;
+   }
+
+}
+
+{
+  A b = new B();
+  B c = new C();
+  println("b.getVal() = ", b.getVal());
+  println("c.getVal() = ", c.getVal());
+}

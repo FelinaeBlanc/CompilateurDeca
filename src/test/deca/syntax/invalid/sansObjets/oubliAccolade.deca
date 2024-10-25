@@ -1,0 +1,15 @@
+// Description:
+//    tests de programme incorrect syntaxiquement (oubli accolade)
+//
+// Historique:
+//    @DATE@
+
+{
+
+    int x = 5;
+    if (x == 5) {
+        print("Waw, je ne m'y attendais pas");
+    } else {
+        print("Pas normal");
+    
+}

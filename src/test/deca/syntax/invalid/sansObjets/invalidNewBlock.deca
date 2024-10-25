@@ -1,0 +1,20 @@
+// Description:
+//    tests de programme incorrect syntaxiquement (pas le droit de creer des blocs de code)
+//
+// Historique:
+//    @DATE@
+
+{
+    int x, y;
+
+    if (x > y) {
+        print("x above y");
+    }
+
+    {
+        while (x < 10) {
+            x = x + 1;
+            print(x, " < 10");
+        }
+    }
+}

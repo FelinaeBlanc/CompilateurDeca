@@ -1,0 +1,8 @@
+class A {
+    int y;
+}
+
+{
+    A a = new A();
+    a.y = 2;
+}

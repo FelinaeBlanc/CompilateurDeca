@@ -1,0 +1,12 @@
+// Description:
+//    tests de programme incorrect syntaxiquement (oubli point virgule)
+//
+// Historique:
+//    @DATE@
+
+{
+    int x = 5;
+    float y = 8.5;
+
+    print(x)
+}

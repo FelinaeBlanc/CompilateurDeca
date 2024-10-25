@@ -1,0 +1,56 @@
+{
+    boolean v = true, f = false;
+    boolean x = !!!!!!!!!f;
+    boolean m = ((8 >= 9) || (8 < 4) || (4+8+9 > 1)) && (9-1+8-8 > 4);
+
+    if (x){
+        println("Vrai");
+    }else{
+        println("Faux");
+    }
+
+    x = !!!!!!!!!v;
+    if (x){
+        println("Vrai");
+    }else{
+        println("Faux");
+    }
+
+    if ( (5 >= 9) || true ){
+        println("Vrai");
+    }else{
+        println("Faux");
+    }
+
+    if(  10 >= 10 && 10 >= 1 && 10 <= 10 && 10 <= 11 && 10 == 10 && 10 > 5 && 10 < 15 && -10 <= 0 && !!true && !!!false  ){
+        println("Vrai");
+    }else{
+        println("Faux");
+    }
+
+    if (false || true){
+        println("Vrai");
+    }else {
+        println("Faux");
+    }
+
+    if ( !(false || true) ){
+        println("Vrai");
+    }else {
+        println("Faux");
+    }
+    
+    if ( !(false || false) ){
+        println("Vrai");
+    }else {
+        println("Faux");
+    }
+
+    
+    if ( m ){
+        println("Vrai");
+    }else {
+        println("Faux");
+    }
+
+}

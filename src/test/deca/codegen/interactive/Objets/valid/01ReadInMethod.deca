@@ -1,0 +1,31 @@
+class A {
+
+    int getInt() {
+        return readInt();
+    }
+
+    void displayInt() {
+       int x = readInt();
+       println(x);  
+    }
+
+    float getFloat(){
+        return readFloat(); 
+    }
+
+    void displayFloat(){
+        float y = readFloat(); 
+        println(y);
+        printlnx(y);
+    }
+    
+
+}
+
+{
+    A a = new A() ;
+    println(a.getInt());
+    a.displayInt();
+    println(a.getFloat());
+    a.displayFloat(); 
+}

@@ -1,15 +1,16 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.ima.pseudocode.ImmediateFloat;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.tree.IntLiteral;
+import fr.ensimag.deca.context.FloatType;
 
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.deca.context.EnvironmentVarValue;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+
 
 /**
  * Conversion of an int into a float. Used for implicit conversions.
@@ -23,24 +24,28 @@ public class ConvFloat extends AbstractUnaryExpr {
     }
 
     @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
-                
-            this.setType(compiler.environmentType.FLOAT);
-            Type t = getOperand().verifyExpr(compiler, localEnv, currentClass);
-            
-            if (t.isInt()) {
-                return compiler.environmentType.FLOAT;
-            } else {
-                throw new ContextualError("ConvFloat does not support type " + t.toString(), getLocation());
-            }
+    public AbstractExpr optimizeExp(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError {
+        AbstractExpr expr1  = this.getOperand().optimizeExp(compiler, envVar);
+        this.setOperand(expr1);
+
+        if ( expr1 instanceof FloatLiteral){
+            return expr1;
+        }
+
+        return this;
     }
 
+    @Override
+    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
+            ClassDefinition currentClass) throws ContextualError {
+        Type t = new FloatType(compiler.symbolTable.create("float"));
+        this.setType(t);
+        return t;  
+    }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        IntLiteral i = (IntLiteral)(this.getOperand());
-        compiler.addInstruction(new LOAD(new ImmediateFloat(i.getValue()),Register.R1));
+    protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
+        compiler.addInstruction(new FLOAT(R,R));
     }
 
     @Override

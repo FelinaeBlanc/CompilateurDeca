@@ -1,0 +1,81 @@
+#include "Math.decah"
+{
+    Math m = new Math();
+
+    print("cos(0) = ", m.cos(0));
+    //printx("          ", m.cos(0));
+    println("             Java value : 1.0" );
+
+    print("cos(0.25) = ", m.cos(0.25));
+    //printx("          ", m.cos(0.25));
+    println("             Java value : 0.9689124217106447" );
+
+    print("cos(0.5) = ", m.cos(0.5));
+    //printx("          ", m.cos(0.5));
+    println("             Java value : 0.8775825618903728" );
+
+    print("cos(1) = ", m.cos(1));
+    //printx("          ", m.cos(1));
+    println("             Java value : 0.5403023058681398" );
+
+    print("cos(10) = ", m.cos(10));
+    //printx("          ", m.cos(10));
+    println("             Java value : -0.8390715290764524" );
+
+    print("cos(100) = ", m.cos(100));
+    //printx("          ", m.cos(100));
+    println("             Java value : 0.8623188722876839" );
+
+    print("cos(0x1.0p8) = ", m.cos(256));
+    //printx("          ", m.cos(256));
+    println("             Java value : -0.03979075993115771" );
+
+    print("cos(0x1p10) = ", m.cos(0x1.0p10));
+    //printx("          ", m.cos(0x1.0p10));
+    println("             Java value : 0.9873536182198484" );
+
+    print("cos(0x1p20) = ", m.cos(0x1.0p20));
+    //printx("          ", m.cos(0x1.0p20));
+    println("             Java value : 0.943808393901312" );
+
+    print("cos(2147483647) = ", m.cos(2147483647)); // Limite des fonctions
+    ////printx("          ", m.cos(2147483647));
+    println("             Java value : 0x1.0p8" );
+
+    print("cos(0x1p40) = ", m.cos(0x1.0p40));
+    ////printx("          ", m.cos(0x1.0p40));
+    println("             Java value : 0x1.0p17" );
+
+    print("cos(-0.25) = ", m.cos(-0.25));
+    //printx("          ", m.cos(0.25));
+    println("             Java value : 0.9689124217106447" );
+
+    print("cos(-0.5) = ", m.cos(-0.5));
+    //printx("          ", m.cos(0.5));
+    println("             Java value : 0.8775825618903728" );
+
+    print("cos(-1) = ", m.cos(-1));
+    //printx("          ", m.cos(1));
+    println("             Java value : 0.5403023058681398" );
+
+    print("cos(-10) = ", m.cos(-10));
+    //printx("          ", m.cos(10));
+    println("             Java value : -0.8390715290764524" );
+
+    print("cos(-100) = ", m.cos(-100));
+    //printx("          ", m.cos(100));
+    println("             Java value : 0.8623188722876839" );
+
+    print("cos(-0x1.0p8) = ", m.cos(-256));
+    //printx("          ", m.cos(256));
+    println("             Java value : -0.03979075993115771" );
+
+    print("cos(-0x1p10) = ", m.cos(-0x1.0p10));
+    //printx("          ", m.cos(0x1.0p10));
+    println("             Java value : 0.9873536182198484" );
+
+    print("cos(-0x1p20) = ", m.cos(-0x1.0p20));
+    //printx("          ", m.cos(0x1.0p20));
+    println("             Java value : 0.943808393901312" );
+
+}

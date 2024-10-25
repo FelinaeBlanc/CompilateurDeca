@@ -1,0 +1,14 @@
+{
+    float a = 2.25; 
+    float b = 1.5; 
+
+    printx(a + b);
+    println(); 
+    printx(a - b); 
+    println(); 
+    printx(a * b); 
+    println(); 
+    printx(a / b); 
+    println(); 
+    printx(-b); 
+}

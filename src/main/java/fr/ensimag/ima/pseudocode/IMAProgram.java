@@ -3,6 +3,9 @@ package fr.ensimag.ima.pseudocode;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Abstract representation of an IMA program, i.e. set of Lines.
@@ -31,6 +34,17 @@ public class IMAProgram {
 
     public void addInstruction(Instruction i, String s) {
         lines.add(new Line(null, i, s));
+    }
+
+    // CheckPoint systeme
+    public void addInstruction(Instruction i, CheckPoint checkPoint){
+        int checkPointPos = lines.indexOf(checkPoint.getLine());
+        if (checkPointPos == -1){checkPointPos = 0;} // Si le check a en ref null, ça implique qu'il a été créer quand il n'y avait pas d'instructions, donc index 0.
+        
+        lines.add(checkPointPos+1, new Line(i)); // Ajoute après 
+    }
+    public CheckPoint makeCheckPoint(){
+        return new CheckPoint(lines.getLast());
     }
 
     /**

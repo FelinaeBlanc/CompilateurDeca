@@ -1,0 +1,194 @@
+#include "Board.deca"
+
+class BatailleNavale {
+    protected Board player1;
+    protected Board player2;
+
+
+    void initPlayer1ForDemo() {
+        ListShip playerShips;
+        Ship currentShip;
+        player1 = new Board();
+
+        playerShips = player1.getListShip();
+        
+        currentShip = new Ship();
+        currentShip.initialize(5, true, 0, 2);
+        playerShips.addShip(currentShip);
+
+        currentShip = new Ship();
+        currentShip.initialize(4, false, 2, 5);
+        playerShips.addShip(currentShip);
+
+        currentShip = new Ship();
+        currentShip.initialize(3, true, 8, 4);
+        playerShips.addShip(currentShip);
+
+        currentShip = new Ship();
+        currentShip.initialize(3, false, 6, 8);
+        playerShips.addShip(currentShip);
+
+        currentShip = new Ship();
+        currentShip.initialize(2, false, 6, 1);
+        playerShips.addShip(currentShip);
+
+    }
+
+    void initPlayer2ForDemo() {
+        ListShip Listships2 ; // init de la liste de bateaux
+        Ship new_ship;
+        player2 = new Board(); // init du board
+        Listships2 = player2.getListShip();
+        
+        new_ship = new Ship();
+        new_ship.initialize(5, true, 9, 0);
+        Listships2.addShip(new_ship);
+
+        new_ship = new Ship();
+        new_ship.initialize(4, false, 5, 8);
+        Listships2.addShip(new_ship);
+
+        new_ship = new Ship();
+        new_ship.initialize(3, false, 2, 1);
+        Listships2.addShip(new_ship);
+
+        new_ship = new Ship();
+        new_ship.initialize(3, true, 0, 7);
+        Listships2.addShip(new_ship);
+
+        new_ship = new Ship();
+        new_ship.initialize(2, false, 5, 3);
+        Listships2.addShip(new_ship);
+
+    }
+
+    void play() {
+        // pas encore
+        println("Not yet implemented");
+    }
+
+    void playDemo() {
+        boolean isP1Turn = true;
+        int rocketX, rocketY;
+        
+        initPlayer1ForDemo();
+        initPlayer2ForDemo();
+
+        while (player1.anyShipFloat() && player2.anyShipFloat()) {
+            if (isP1Turn) {
+                println();
+                println("-----------------------------");
+                println("Player1 : this is your turn.");
+                println("Here is your current board :");
+
+                player2.display();
+
+                println("Choose where you want to launch your rocket :");
+                print("Choose rocket x-axis position : ");
+                rocketX = readInt();
+
+                while (rocketX < 0 || rocketX > player2.getBoardSize()) {
+                    println();
+                    println("Please choose a number between 0 and ", player2.getBoardSize());
+                    print("Choose rocket x-axis position : ");
+                    rocketX = readInt();
+                }
+
+                print("Choose rocket y-axis position : ");
+                rocketY = readInt();
+
+                while (rocketY < 0 || rocketY >= player2.getBoardSize()) {
+                    println();
+                    println("Please choose a number between 0 and ", player2.getBoardSize() - 1);
+                    print("Choose rocket x-axis position : ");
+                    rocketY = readInt();
+                }
+
+                println();
+                if (player2.interceptAllShip(rocketX, rocketY)) {
+                    println("You have touched a ship...");
+
+                    if (player2.anyShipSank(rocketX, rocketY)) {
+                        println("... And it sank !");
+                    } else {
+                        println("... But it still floats.");
+                    }
+                } else {
+                    println("You've missed.");
+                }
+
+                isP1Turn = false;
+
+                
+            } else {
+                println();
+                println("-----------------------------");
+                println("Player2 : this is your turn.");
+                println("Here is your current board :");
+
+                player1.display();
+
+                println("Choose where you want to launch your rocket :");
+                print("Choose rocket x-axis position : ");
+                rocketX = readInt();
+
+                while (rocketX < 0 || rocketX > player1.getBoardSize()) {
+                    println();
+                    println("Please choose a number between 0 and ", player2.getBoardSize());
+                    print("Choose rocket x-axis position : ");
+                    rocketX = readInt();
+                }
+
+                print("Choose rocket y-axis position : ");
+                rocketY = readInt();
+
+                while (rocketY < 0 || rocketY >= player1.getBoardSize()) {
+                    println();
+                    println("Please choose a number between 0 and ", player2.getBoardSize() - 1);
+                    print("Choose rocket x-axis position : ");
+                    rocketY = readInt();
+                    
+                }
+
+                println();
+                if (player1.interceptAllShip(rocketX, rocketY)) {
+                    println("You have touched a ship...");
+
+                    if (player1.anyShipSank(rocketX, rocketY)) {
+                        println("... And it sank !");
+                    } else {
+                        println("... But it still floats.");
+                    }
+                } else {
+                    println("You've missed.");
+                }
+
+                isP1Turn = true;
+                
+            }
+        }
+
+        if (player1.anyShipFloat()) {
+            println();
+            println("---------------------");
+            player2.display();
+            println("Player 1 won !");
+
+        } else {
+            println();
+            println("---------------------");
+            player1.display();
+            println("Player 2 won !");
+        }
+
+        println("Thanks for playing.");
+        println("---------------------");
+
+    }
+}
+
+{
+    BatailleNavale game = new BatailleNavale();
+
+    game.playDemo();
+}

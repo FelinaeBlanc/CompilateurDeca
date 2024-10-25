@@ -1,0 +1,5 @@
+{
+boolean x = true;
+int y = 4;
+x = y;
+}

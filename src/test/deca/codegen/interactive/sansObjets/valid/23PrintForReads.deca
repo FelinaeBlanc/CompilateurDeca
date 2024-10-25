@@ -1,0 +1,15 @@
+{
+
+    print(readInt());
+    println();
+    println(readInt()); 
+
+
+    print(readFloat()); 
+    println();
+    println(readFloat()); 
+
+    printx(readFloat()); 
+    println();
+    printlnx(readFloat()); 
+}

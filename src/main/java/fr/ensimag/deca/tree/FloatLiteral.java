@@ -10,10 +10,12 @@ import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import fr.ensimag.ima.pseudocode.ImmediateFloat;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.DVal;
 /**
  * Single precision, floating-point literal
  *
@@ -37,31 +39,42 @@ public class FloatLiteral extends AbstractExpr {
     }
 
     @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
-
+    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
                 this.setType(compiler.environmentType.FLOAT);
                 return compiler.environmentType.FLOAT;      
     }
 
     @Override
-    protected void codeGenPrint(DecacCompiler compiler) {
-        codeGenInst(compiler);
-        compiler.addInstruction(new WFLOAT());
-    }
-    @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(new ImmediateFloat(value),Register.R1));
-    }
-    @Override
-    protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
-        compiler.addInstruction(new LOAD(new ImmediateFloat(value),R));
+    protected void codeGenPrintHex(DecacCompiler compiler) {
+        codeExp(compiler,1);
+        compiler.addInstruction(new WFLOATX());
     }
 
-    
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) {
+        codeExp(compiler,1);
+        compiler.addInstruction(new WFLOAT());
+    }
+
+    @Override
+    protected DVal dval(){
+        return new ImmediateFloat(value);
+    }
+
+    @Override
+    protected void codeExp( DecacCompiler compiler, int registreNb){
+        compiler.addInstruction(new LOAD(new ImmediateFloat(value),Register.getR(registreNb)));
+    }
+
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        codeExp(compiler,2);
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print(java.lang.Float.toHexString(value));
+        s.print(Float.toString(value));
     }
 
     @Override

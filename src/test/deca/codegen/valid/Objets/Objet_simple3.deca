@@ -1,0 +1,12 @@
+class A {
+    int x = 0;
+    int y = 0;
+}
+
+{
+    int x = 1;
+    int y = 1;
+    A a = new A() ;
+
+    print(a.x,x,y,a.y);
+}

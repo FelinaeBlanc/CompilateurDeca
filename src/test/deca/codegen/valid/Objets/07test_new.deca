@@ -1,0 +1,9 @@
+class A {
+    int x = 13;
+    int y = 15;
+}
+
+{
+    A a = new A() ;
+
+}

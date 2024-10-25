@@ -4,11 +4,13 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.context.EnvironmentVarValue;
+
+import fr.ensimag.deca.context.EnvironmentVarValue;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
-import fr.ensimag.deca.context.EnvironmentExp;
 /**
  * @author gl07
  * @date 21/04/2023
@@ -26,6 +28,22 @@ public class Main extends AbstractMain {
     }
 
     @Override
+    protected void optimizeMain(DecacCompiler compiler) throws ContextualError{
+        LOG.debug("optimize Main: start");
+        
+        // Passe 1 (Constant Folding)
+        EnvironmentVarValue envVar = new EnvironmentVarValue(); // Env pour la valeur actuel des variables.
+        declVariables.optimizeListDeclVariable(compiler, envVar); // Remplie envVar
+        insts.optimizeListInst(compiler, envVar); // Remplie envVar
+
+        // Passe 2 (Reduction du code mort)
+        declVariables.rmDeadCodeDeclVariable(compiler, envVar); // envVar est utilisé pour savoir si une variable est déclaré à un moment
+        insts.rmDeadCodeListInst(compiler,envVar);
+
+        LOG.debug("optimize Main: end");
+    }
+
+    @Override
     protected void verifyMain(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify Main: start");
 
@@ -40,8 +58,11 @@ public class Main extends AbstractMain {
     protected void codeGenMain(DecacCompiler compiler) {
         // A FAIRE: traiter les déclarations de variables.
         compiler.addComment("Beginning of main instructions:");
+        compiler.addComment("Beginning of var declaration:");
         declVariables.codeGenListDeclVariable(compiler);
-        insts.codeGenListInst(compiler);
+
+        compiler.addComment("Beginning of Instructions:");
+        insts.codeGenListInst(compiler);        
     }
     
     @Override

@@ -1,0 +1,13 @@
+class A {
+
+}
+
+{
+    A a = new A();
+
+    if (!(a instanceof A)) {
+        println("KO");
+    } else {
+        println("OK");
+    }
+}

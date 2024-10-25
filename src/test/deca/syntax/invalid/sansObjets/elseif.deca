@@ -1,0 +1,16 @@
+// Description:
+//    tests de programme incorrect lexicalement (oubli du if de else if)
+//
+// Historique:
+//    @DATE@
+
+
+    int y = readInt();
+
+    if (y < 9) {
+        print("y is below 9");
+    } else (y == 9) {
+        print("y equals 9");
+    } else {
+        print("y is above 9");
+    }

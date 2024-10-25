@@ -1,0 +1,24 @@
+class CellBool {
+    protected boolean value;
+    protected CellBool next;
+
+    boolean hasNext() {
+        return next != null;
+    }
+
+    CellBool getNext() {
+        return next;
+    }
+
+    boolean getValue() {
+        return value;
+    }
+
+    void setNext(CellBool newCell) {
+        this.next = newCell;
+    }
+
+    void setValue(boolean value) {
+        this.value = value;
+    }
+}

@@ -1,0 +1,10 @@
+{
+    int userInt;
+    float user;
+    println("Entrez un nombre entier");
+    userInt = readInt();
+    println("votre nombre entier est : ", userInt);
+    println("Entrez un nombre flotant");
+    user = readFloat();
+    println("votre nombre flotant est : ", user);
+}

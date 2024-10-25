@@ -1,0 +1,14 @@
+class A {
+    boolean b;
+
+    int get0() {
+        return 0;
+    }
+}
+
+{
+    A a = new A();
+    int x = 5;
+
+    println(x / a.get0());
+}

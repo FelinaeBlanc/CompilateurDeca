@@ -10,9 +10,6 @@ import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
 /**
  * String literal
  *
@@ -37,11 +34,17 @@ public class StringLiteral extends AbstractStringLiteral {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
         setType(compiler.environmentType.STRING);
         return compiler.environmentType.STRING;
-}
+    }
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        compiler.addComment(value);
+    }
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        compiler.addInstruction(new WSTR(new ImmediateString(value)));
+        String replaced = (value).replace("\\\\","\\");
+        replaced = (replaced).replace("\\\"","\"");
+        compiler.addInstruction(new WSTR(new ImmediateString(replaced)));
     }
 
     @Override

@@ -1,10 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
 /**
@@ -18,8 +13,14 @@ public class ListExpr extends TreeList<AbstractExpr> {
 
     @Override
     public void decompile(IndentPrintStream s) {
+        int curr =0;
+        int last = getList().size()-1;
         for (AbstractExpr i : getList()) {
             i.decompile(s);
+            if(curr < last){
+                s.print(",");
+                curr++;
+            }
         }
     }
 }

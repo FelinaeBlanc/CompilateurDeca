@@ -1,0 +1,33 @@
+
+class A {
+	void print_A() { println("Class A"); }
+}
+
+class B extends A {
+	void print_B() { println("Class B"); }
+}
+
+class C extends A {
+	void print_C() { println("Class C"); }
+}
+
+class D extends A {
+	void print_D() { println("Class D"); }
+}
+
+
+{
+    C obj_C = new C();
+    B obj_B = new B();
+    D obj_D = new D();
+
+    obj_B.print_A();
+    obj_B.print_B();
+    
+    obj_C.print_A();
+    obj_C.print_C();
+    
+    obj_D.print_A();
+    obj_D.print_D();
+}
+

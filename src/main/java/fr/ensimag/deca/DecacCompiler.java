@@ -1,24 +1,37 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.deca.tree.AbstractDeclMethod;
 import fr.ensimag.deca.tree.AbstractProgram;
+import fr.ensimag.deca.tree.DeclMethod;
 import fr.ensimag.deca.tree.LocationException;
+
 import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.CheckPoint;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Instruction;
-import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.Label; 
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
@@ -40,12 +53,25 @@ import org.apache.log4j.Logger;
  */
 public class DecacCompiler {
     private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
+
+    private final GestionnaireErreur gestionnaireErreur;
+    private final GestionnaireMemoire gestionnaireMemoire;
+    private final CompilerOptions compilerOptions;
+    private final File source;
+    /**
+     * The main program. Every instruction generated will eventually end up here.
+     */
+    private final IMAProgram program = new IMAProgram();
+ 
+
+    /** The global environment for types (and the symbolTable) */
+    public final SymbolTable symbolTable = new SymbolTable();
+    public final EnvironmentType environmentType = new EnvironmentType(this);
+    public final List<AbstractDeclMethod> methodGlobalList = new ArrayList<>();
     
     /**
      * Portable newline character.
      */
-
-    private Label iOErrorLabel;
 
     private static final String nl = System.getProperty("line.separator", "\n");
 
@@ -53,27 +79,18 @@ public class DecacCompiler {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
-        this.iOErrorLabel = new Label("io_error");
+        this.gestionnaireErreur = new GestionnaireErreur();
+        this.gestionnaireMemoire = new GestionnaireMemoire();
     }
 
-    public Label getIOErrorLabel() {
-        return iOErrorLabel;
-    }
 
     /**
-     * Source file associated with this compiler instance.
+     * Les getteurs 
      */
-    public File getSource() {
-        return source;
-    }
-
-    /**
-     * Compilation options (e.g. when to stop compilation, number of registers
-     * to use, ...).
-     */
-    public CompilerOptions getCompilerOptions() {
-        return compilerOptions;
-    }
+    public File getSource() { return source; }
+    public CompilerOptions getCompilerOptions() { return compilerOptions; }
+    public GestionnaireErreur getGestionnaireErreur(){ return gestionnaireErreur; }
+    public GestionnaireMemoire getGestionnaireMemoire(){ return gestionnaireMemoire; }
 
     /**
      * @see
@@ -98,12 +115,27 @@ public class DecacCompiler {
         program.addLabel(label);
     }
 
+    
+    // Checkpoints, edéclarer les méthodes de IMAProgram dans DecacCompiler car il est private, et pour centraliser le passage pour le gestionnaire de memoire  
+    public void addInstruction(Instruction instruction, CheckPoint checkPoint, boolean updateContext){
+        if (updateContext){ getGestionnaireMemoire().updateContext(this, instruction); }
+        program.addInstruction(instruction,checkPoint);
+    }
+
+    public void addInstruction(Instruction instruction, CheckPoint checkPoint){ addInstruction(instruction,checkPoint,true); }
+    public CheckPoint makeCheckPoint(){ return program.makeCheckPoint(); }
+
     /**
      * @see
      * fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
      */
     public void addInstruction(Instruction instruction) {
+        getGestionnaireMemoire().updateContext(this, instruction);
         program.addInstruction(instruction);
+    }
+
+    public IMAProgram getProgram() {
+        return program;
     }
 
     /**
@@ -112,6 +144,7 @@ public class DecacCompiler {
      * java.lang.String)
      */
     public void addInstruction(Instruction instruction, String comment) {
+        getGestionnaireMemoire().updateContext(this, instruction);
         program.addInstruction(instruction, comment);
     }
     
@@ -123,17 +156,6 @@ public class DecacCompiler {
         return program.display();
     }
     
-    private final CompilerOptions compilerOptions;
-    private final File source;
-    /**
-     * The main program. Every instruction generated will eventually end up here.
-     */
-    private final IMAProgram program = new IMAProgram();
- 
-
-    /** The global environment for types (and the symbolTable) */
-    public final SymbolTable symbolTable = new SymbolTable();
-    public final EnvironmentType environmentType = new EnvironmentType(this);
 
     public Symbol createSymbol(String name) {
         return symbolTable.create(name);
@@ -193,9 +215,9 @@ public class DecacCompiler {
      *
      * @return true on error
      */
-    private boolean doCompile(String sourceName, String destName,PrintStream out, PrintStream err) throws DecacFatalError, LocationException {
+    private boolean doCompile(String sourceName, String destName,PrintStream out, PrintStream err) throws DecacFatalError, LocationException, EnvironmentExp.DoubleDefException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
-
+        
         if (prog == null) {
             LOG.info("Parsing failed");
             return true;
@@ -203,21 +225,33 @@ public class DecacCompiler {
         assert(prog.checkAllLocations());
 
 
-        prog.verifyProgram(this);
-        assert(prog.checkAllDecorations());
-
-        if (getCompilerOptions().getOnlyVerification()){ return false; } // Arrête si on voulait juste vérifier le programme
         if (getCompilerOptions().getDoDecompile()){ // Si on veut juste décompiler, on arrête le programme ensuite
+            LOG.info("Decompilation en cours..."); 
             prog.decompile(out);
             return false;
         }
         
+        LOG.info("Vérification du programme en cours...");
+        prog.verifyProgram(this);
+        LOG.info("Vérification des décorations en cours...");
+        assert(prog.checkAllDecorations());
+        
+        if (getCompilerOptions().getOnlyVerification()){ return false; } // Arrête si on voulait juste vérifier le programme
+        
+        if (getCompilerOptions().getDoOptimize()) { // Optimisation du programme après l'enrichissement
+            prog.optimizeProgram(this);
+        }
+
         addComment("start main program");
+        LOG.info("Génération du code en cours..."); 
         prog.codeGenProgram(this);
         addComment("end main program");
-        LOG.debug("Generated assembly code:" + nl + program.display());
-        LOG.info("Output file assembly file is: " + destName);
 
+        // Génère les erreurs
+        prog.codeGenErrors(this);
+        
+        LOG.debug("Le code assembleur est :" + nl + program.display());
+        
         FileOutputStream fstream = null;
         try {
             fstream = new FileOutputStream(destName);
@@ -225,10 +259,11 @@ public class DecacCompiler {
             throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
         }
 
-        LOG.info("Writing assembler file ...");
+        LOG.info("Ecriture du fichier assembleur en cours ...");
+        LOG.info("Le fichier de sortie est : " + destName);
 
         program.display(new PrintStream(fstream));
-        LOG.info("Compilation of " + sourceName + " successful.");
+        LOG.info("Compilation du fichier " + sourceName + " réussi !");
         return false;
     }
 

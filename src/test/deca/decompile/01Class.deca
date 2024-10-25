@@ -1,0 +1,17 @@
+class A {
+    float x = 0.05f ;
+    int y = 5;
+    boolean z = true;
+
+    float getX() {
+        return x;
+    }
+
+     int getY() {
+        return y;
+    }
+
+    boolean getZ() {
+        return z;
+    }
+}

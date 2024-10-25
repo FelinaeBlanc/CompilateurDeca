@@ -1,0 +1,49 @@
+class A {
+    int x = 12;
+    float y = 45.5f;
+}
+
+class B extends A {
+    float y = 9.3f;
+}
+
+class C extends B {
+    int r;
+}
+
+class D extends C {
+    float aled;
+    int x = 4;
+}
+
+{
+    A a = new D();
+
+    // Should have the value of class D
+    if (((D) (a)).x == 4) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    // Sould have the value of class A
+    if (a.x == 12) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    // Should have the value of class A
+    if (a.y == 45.5f) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    // Should have the value of class B
+    if (((D) (a)).y == 9.3f) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+}

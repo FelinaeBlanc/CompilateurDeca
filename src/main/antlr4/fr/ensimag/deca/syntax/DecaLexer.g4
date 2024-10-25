@@ -10,95 +10,106 @@ options {
 
 @members {
 }
-// -----------------special words --------------
+
+// Deca lexer rules.
+// Reserved words
+ASM: 'asm';
+CLASS: 'class';
+EXTENDS: 'extends';
+ELSE: 'else';
+FALSE: 'false';
 IF: 'if';
-PRINTLN : 'println';
-PRINT : 'print';
+INSTANCEOF: 'instanceof';
+NEW: 'new';
+NULL: 'null';
+READINT: 'readInt';
+READFLOAT: 'readFloat';
+PRINT: 'print';
+PRINTLN: 'println';
+PRINTX: 'printx';
+PRINTLNX: 'printlnx';
+PROTECTED: 'protected';
+RETURN: 'return';
+THIS: 'this';
+TRUE: 'true';
+WHILE: 'while';
 
-
+// Special char
+LT: '<';
+GT: '>';
+EQUALS: '=';
+PLUS: '+';
+MINUS: '-';
+TIMES: '*';
+SLASH: '/';
+PERCENT: '%';
+DOT: '.';
+COMMA: ',';
 OPARENT: '(';
 CPARENT: ')';
 OBRACE: '{';
 CBRACE: '}';
-SEMI: ';';
-COMMA: ',';
-EQUALS : '=';
-
-OR: '||';
-AND: '&&';
-EQEQ : '==';
-NEQ : '!=';
 EXCLAM: '!';
-LT:  '<';
-LEQ: '<=';
-GT: '>';
+SEMI : ';';
+EQEQ: '==';
+NEQ: '!=';
 GEQ: '>=';
+LEQ: '<=';
+AND: '&&';
+OR: '||';
 
-EXTENDS:'extends';
-CLASS:'class';
-PROTECTED:'protected';
-INSTANCEOF: 'instanceof';
-ASM:'asm';
+SPACES: ('\n'|' '|'\t') {skip();};
+EOL: '\n';
 
-ELSE: 'else';
-WHILE: 'while';
+// Identificators
+fragment LETTER: 'a'..'z' | 'A'..'Z';
+fragment DIGIT: ('0'..'9');
+IDENT: (LETTER|'$'|'_')(LETTER|DIGIT|'$'|'_')*;
 
-READINT: 'readInt';
-READFLOAT: 'readFloat';
+// Numbers
+fragment POSITIVE_DIGIT: ('1'..'9');
+INT: ('0'|POSITIVE_DIGIT DIGIT*);
 
-
-TRUE:'true';
-FALSE:'false';
-NEW:'new';
-THIS:'this';
-NULL:'null';
-
-
-//--------------------- special cars ---------------------------
-
-MINUS:'-';
-PLUS:'+';
-TIMES:'*';
-SLASH:'/';
-PERCENT:'%';
-DOT:'.';
-
-// ------------------ Others -----------------
-fragment LETTER: 'a' .. 'z' | 'A' .. 'Z';
-
-fragment DIGIT: '0' .. '9';
-
-fragment EOL: '\n';
-
-SPACES: (' ' | EOL | '\t' ) {skip(); };
-
-IDENT: (LETTER | '$' | '_') (LETTER | DIGIT | '$' | '_')*;
-
-fragment POSITIVE_DIGIT: '1' .. '9';
-
-INT: '0' | POSITIVE_DIGIT DIGIT*;
-
-//------- FLOAT --------
-
-fragment NUM : DIGIT+;
-fragment SIGN : '+' | '-' | /* epsilon */;
-fragment EXP : ('E' | 'e') SIGN NUM;
-fragment DEC : NUM '.' NUM;
-fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | /* epsilon */ );
-fragment DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
-fragment NUMHEX : DIGITHEX+;
-fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | /* epsilon */);
-FLOAT : FLOATDEC | FLOATHEX;
+fragment NUM: DIGIT+;
+fragment SIGN: ('+'|'-'|/*e*/);
+fragment EXP: ('E'|'e') SIGN NUM;
+fragment DEC: NUM '.' NUM;
+fragment FLOATDEC: (DEC|DEC EXP)('F'|'f'|/*e*/);
+fragment DIGITHEX: ('0'..'9') | ('a'..'f') | ('A'..'F');
+fragment NUMHEX: DIGITHEX+;
+fragment FLOATHEX: ('0x'|'0X') NUMHEX '.' NUMHEX ('P'|'p') SIGN NUM ('F'|'f'|/*e*/);
+FLOAT: FLOATDEC|FLOATHEX;
 
 // String
-fragment STRING_CAR: ~["\\\r\n];
-STRING: '"' (STRING_CAR | '\\' STRING_CAR)* '"';
-MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
+fragment STRING_CAR: ~('"'|'\\'|'\n');
+STRING: '"' (STRING_CAR|'\\"'|'\\\\')* '"'
+   {
+      String text = getText();
+      text = (text).substring(1, text.length() - 1);
+  //    text = (text).replace("\\\\","\\");
+  //    text = (text).replace("\\\"","\"");
+      setText(text);
+   }
+;
+MULTI_LINE_STRING: '"'(STRING_CAR|EOL|'\\"'|'\\\\')*'"'
+   {
+      String text = getText();
+      text = (text).substring(1, text.length() - 1);
+   //   text = (text).replace("\\\\","\\");
+   //   text = (text).replace("\\\"","\"");
+      setText(text);
+   }
+;
 
-COMMENT: '//' (~('\n'))* { skip(); };
+// Files include
+fragment FILENAME: (LETTER|DIGIT|'.'|'-'|'_')+;
+INCLUDE: '#include' (' ')* '"'FILENAME'"'
+   { 
+   doInclude(getText());
+   } 
+;
 
-MULTI_LINE_COMMENT : '/*' (STRING_CAR | EOL)* '*/' { skip(); };
-
-// Deca lexer rules.
-DUMMY_TOKEN: .; // A FAIRE : Règle bidon qui reconnait tous les caractères.
-                // A FAIRE : Il faut la supprimer et la remplacer par les vraies règles.
+// Comments
+fragment ONE_LINE_COMMENT: '//'~('\n')*EOL;
+fragment MULTI_LINE_COMMENT: '/*'.*?'*/';
+COMMENT: (ONE_LINE_COMMENT|MULTI_LINE_COMMENT) {skip();};

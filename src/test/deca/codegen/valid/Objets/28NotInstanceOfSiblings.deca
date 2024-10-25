@@ -1,0 +1,29 @@
+class A {
+    int x = 1;
+    int y = 2;
+}
+
+class X extends A {
+    int w;
+} 
+
+class Y extends A {
+    int w;
+}
+
+{
+    A x = new X();
+    Y y = new Y();
+
+    if (x instanceof Y) {
+        println("KO");
+    } else {
+        println("OK");
+    }
+
+    if (y instanceof X) {
+        println("KO");
+    } else {
+        println("OK");
+    }
+}

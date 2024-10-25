@@ -1,0 +1,120 @@
+#include "CellBool.deca"
+
+class ListBool {
+    protected CellBool head;
+    protected int size;
+    protected int maxSize = -1;
+
+    // effet de bord -> si hors de la liste return false
+    boolean get(int index) {
+        
+        CellBool res = head;
+
+        if (index >= size) {
+            return false;
+        } 
+
+        while (index > 0) {
+            if (res.hasNext()) {
+                res = res.getNext();
+            }
+
+            index = index - 1;
+        }
+
+        if (res != null) {
+            return res.getValue();
+        }
+
+        // effet de bord
+        return false;
+    }
+
+    int getSize() {
+        return size;
+    }
+
+    int getMaxSize() {
+        return maxSize;
+    }
+
+    void setMaxSize(int newSize) {
+        this.maxSize = newSize;
+    }
+
+    void addCell(CellBool cell) {
+        CellBool currentCell = head;
+
+        if (head == null) {
+            this.head = cell;
+            this.size = 1;
+        } else if (size < maxSize || (maxSize < 0)) {
+            while (currentCell.hasNext()) {
+                currentCell = currentCell.getNext();
+            }
+
+            currentCell.setNext(cell);
+            this.size = this.size + 1;
+        } else {
+            println("Cannot add to the list, max size reached.");
+        }
+    }
+
+    void addBool(boolean value) {
+        CellBool currentCell = head;
+        CellBool newCell = new CellBool();
+        newCell.setValue(value);
+
+        if (head == null) {
+            this.head = newCell;
+            this.size = 1;
+        } else if (size < maxSize || (maxSize < 0)) {
+            while (currentCell.hasNext()) {
+                currentCell = currentCell.getNext();
+            }
+
+            currentCell.setNext(newCell);
+            this.size = this.size + 1;
+        } else {
+            println("Cannot add to the list, max size reached.");
+        }
+    }
+
+    /**
+    * Fill the list with the given value
+    * @param value (boolean) : value to fill the list with
+    * @param toMaxSize (boolean) : if true, the list will be filled with the given value and new cells will be created if needed
+    */
+    void fillValue(boolean value, boolean toMaxSize) {
+        CellBool currentCell = this.head;
+
+        while (currentCell != null && currentCell.hasNext()) {
+            currentCell.setValue(value);
+            currentCell = currentCell.getNext();
+        }
+
+        while (size < maxSize) {
+            this.addBool(value);
+        }
+    }
+
+    /**
+    * Set the value of the cell at the given index
+    * @param index (int) : index of the cell to change
+    * @param value (boolean) : new value for the cell
+    */
+    void set(int index, boolean value) {
+        CellBool currentCell = this.head;
+
+        if (index < size) {
+            while (currentCell.hasNext() && index > 0) {
+                currentCell = currentCell.getNext();
+                index = index - 1;
+            }
+
+            if (index == 0) {
+                currentCell.setValue(value);
+            }
+        }
+    }
+}

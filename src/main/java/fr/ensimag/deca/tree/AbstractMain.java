@@ -11,6 +11,7 @@ import fr.ensimag.deca.context.ContextualError;
  */
 public abstract class AbstractMain extends Tree {
 
+    protected abstract void optimizeMain(DecacCompiler compiler) throws ContextualError;
     protected abstract void codeGenMain(DecacCompiler compiler);
 
 

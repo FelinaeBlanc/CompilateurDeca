@@ -1,0 +1,15 @@
+// Description:
+//    tests de programme incorrect syntaxiquement (; dans une condition)
+//
+// Historique:
+//    @DATE@
+
+{
+    float x = false;
+
+    if (x == false) {
+        print("ok");
+    } else if (x > 0;) {
+        print("ko");
+    }
+}

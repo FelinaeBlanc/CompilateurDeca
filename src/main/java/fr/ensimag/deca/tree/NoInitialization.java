@@ -5,6 +5,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.EnvironmentVarValue;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
@@ -18,14 +19,16 @@ import java.io.PrintStream;
 public class NoInitialization extends AbstractInitialization {
 
     @Override
+    protected void optimizeInitialization(DecacCompiler compiler, EnvironmentVarValue envVar){
+        return;
+    }
+    
+    @Override
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
     }
 
-    @Override
-    public void codeGenInit(DecacCompiler compiler){
-    }
     /**
      * Node contains no real information, nothing to check.
      */

@@ -1,0 +1,33 @@
+// Description:
+//    Test les differents print et print hex
+//
+// Resultats:
+//    
+//
+// Historique:
+//    cree le @DATE@
+
+{
+    int x = 5;
+    float a = 10.5;
+
+
+    // test print simple int
+    println("print int: ", x);
+
+    // test print simple float
+    println("print float: ", a);
+
+    // test print hex float
+    printlnx("print hex float: ", a);
+
+    // test print float et int (+ string)
+    println("print float et int: ", a, x);
+
+    // test print expressions (int)
+    println("print expr type int: ", (x + 15) / 2);
+
+    // test print expressions (float)
+    print("print expr type float: ", (a + 10) / 2.0);
+
+}

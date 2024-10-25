@@ -14,23 +14,33 @@ public class And extends AbstractOpBool {
     }
 
     @Override
+    protected boolean preCalculateBool(boolean val1, boolean val2){ 
+        return val1 && val2;
+    }
+
+    @Override
     protected String getOperatorName() {
         return "&&";
     }
 
     @Override
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
+        codeExpGenCond(compiler,2, value, e);
+    }
+
+    @Override
+    protected void codeExpGenCond(DecacCompiler compiler, int registerNb, boolean value, Label e){
         if (value){
             Label end_not_and = new Label("end_not_and");
 
-            getLeftOperand().codeGenCond(compiler,!value,end_not_and);
-            getRightOperand().codeGenCond(compiler,value,e);
+            getLeftOperand().codeExpGenCond(compiler,registerNb, !value,end_not_and);
+            getRightOperand().codeExpGenCond(compiler,registerNb, value,e);
             
             compiler.addLabel(end_not_and);
         } else {
             
-            getLeftOperand().codeGenCond(compiler,value,e);
-            getRightOperand().codeGenCond(compiler,value,e);
+            getLeftOperand().codeExpGenCond(compiler,registerNb, value,e);
+            getRightOperand().codeExpGenCond(compiler,registerNb, value,e);
 
         }
     }

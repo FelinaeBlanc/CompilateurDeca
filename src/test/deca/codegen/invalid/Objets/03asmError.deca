@@ -1,0 +1,10 @@
+class A {
+    void toto() asm("WSTR \"Error: Input/Output error\"
+    WNL
+    ERROR");
+}
+
+{
+    A a = new A();
+    a.toto();
+}

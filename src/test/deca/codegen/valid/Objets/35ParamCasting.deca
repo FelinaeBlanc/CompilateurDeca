@@ -1,0 +1,20 @@
+class A {
+    int x = 4;
+}
+
+class B extends A {
+    int y = 8;
+}
+
+class Test {
+    void printXFromA(A a) {
+        println(a.x);
+    }
+}
+
+{
+    Test test = new Test();
+    B b = new B();
+
+    test.printXFromA(b);
+}

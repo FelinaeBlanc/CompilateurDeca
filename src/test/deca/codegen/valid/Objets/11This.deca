@@ -1,0 +1,17 @@
+class A {
+    int x = -4 ;
+    int y = 3;
+    int z = 2;
+
+    float a = 0+5;
+    float b = 13.02;
+    float c = this.a ;
+}
+
+{
+    A a = new A() ;
+    println(a.x);
+    println(a.y + a.x);
+    println(a.c);
+
+}

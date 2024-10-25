@@ -1,0 +1,53 @@
+#include "Float2Float.decah"
+
+class Integrale extends Float2Float {
+    float _fma(float a, float b, float c)
+        asm("
+        LOAD -3(LB), R0
+        LOAD -5(LB), R1
+        FMA -4(LB), R0
+        RTS
+        ");
+    
+    float Simpson(float a, float b, int n){
+        float h = (a+b)/n;
+        float res=function(a)+function(b);
+        int i = 1;
+        if (n<=0){
+            println("subdivision cannot less or equal to 0");
+            ErrorNaN();
+        }
+        res =  _fma(4, function(a+h/2 + i*h), res);
+        while(i<n){
+            res = _fma(2, function(a + i*h), _fma(4, function(a + h/2 + i*h), res)) ;
+            i=i+1;
+        }
+        res = res*h/6;
+        return res;
+    }
+}
+class carre extends Integrale {
+    float function(float value){
+        return value*value;
+    }
+}
+
+{
+    carre f = new carre();
+
+    println("Integrale x² entre 0 et 1 (valeur precise : 0.33333333333333333....)");
+    println("LeftRectangle(0,1,10) : ",f.LeftRectangle(0,1,10));
+    println("MidPoint(0,1,10) : ",f.MidPoint(0,1,10));
+    println("Trapezoid(0,1,10) : ",f.Trapezoid(0,1,10));
+    println("Simpson(0,1,10) : ",f.Simpson(0,1,10));
+    println();
+    println("LeftRectangle(0,1,100) : ",f.LeftRectangle(0,1,100));
+    println("MidPoint(0,1,100) : ",f.MidPoint(0,1,100));
+    println("Trapezoid(0,1,100) : ",f.Trapezoid(0,1,100));
+    println("Simpson(0,1,100) : ",f.Simpson(0,1,100));
+    println();
+    println("LeftRectangle(0,1,1000) : ",f.LeftRectangle(0,1,1000));
+    println("MidPoint(0,1,1000) : ",f.MidPoint(0,1,1000));
+    println("Trapezoid(0,1,1000) : ",f.Trapezoid(0,1,1000));
+    println("Simpson(0,1,1000) : ",f.Simpson(0,1,1000));
+}

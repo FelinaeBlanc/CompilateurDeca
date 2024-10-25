@@ -1,6 +1,13 @@
 package fr.ensimag.deca;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -26,18 +33,49 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-            throw new UnsupportedOperationException("decac -b not yet implemented");
+            System.out.print("=====================================================================================\n");
+            System.out.print(banner);
+            System.out.print("=====================================================================================\n");
+            System.out.println();
+            System.out.println();
+            System.out.println(banner_image1);
         }
-        if (options.getSourceFiles().isEmpty()) {
-            throw new UnsupportedOperationException("decac without argument not yet implemented");
+        if (options.getSourceFiles().isEmpty() && !options.getPrintBanner())   {
+            //TODO : à implémenter (donner les options possibles)
+            System.out.println("DECAC Options:");
+            System.out.println("Afficher la bannière: -b");
+            System.out.println("Limiter le nombre de registres utilisées: -r [4-16]");
+            System.out.println("Compiler les fichiers en parallèle: -P");
+            System.out.println("Décompiler le code: -p");
+            System.out.println("Uniquement vérifier le code: -v");
+            System.out.println("Optimiser le code: -o");
+            System.out.println("Ne pas vérifier : -n");
+            System.out.println("Debug : -d");
         }
         if (options.getParallel()) {
-            // A FAIRE : instancier DecacCompiler pour chaque fichier à
-            // compiler, et lancer l'exécution des méthodes compile() de chaque
-            // instance en parallèle. Il est conseillé d'utiliser
-            // java.util.concurrent de la bibliothèque standard Java.
-            throw new UnsupportedOperationException("Parallel build not yet implemented");
-        } else {
+
+            int nbProcesseursDispo = java.lang.Runtime.getRuntime().availableProcessors();
+            ExecutorService executorService = Executors.newFixedThreadPool(nbProcesseursDispo);
+
+            List<Future<Boolean>> futures = new ArrayList<>();
+            for (File file : options.getSourceFiles()) {
+                futures.add(executorService.submit(new CompilerTask(options, file)));
+            }
+
+            for (Future<Boolean> future : futures) {
+                try {
+                    future.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+            executorService.shutdown();
+
+            error = false;
+
+            LOG.info("Compilation parallèle terminée");
+
+        } else { 
             for (File source : options.getSourceFiles()) {
                 DecacCompiler compiler = new DecacCompiler(options, source);
                 if (compiler.compile()) {
@@ -46,5 +84,44 @@ public class DecacMain {
             }
         }
         System.exit(error ? 1 : 0);
+
+        LOG.info("Fin de la compilation !"); 
     }
+
+    private static String banner = 
+    " ||     '||''''| .|'''|     '||'''|. '||''''| .|'''',      /.\\      '||'''|, .|'''|  '||   ||` '||     '||''''| '||   ||` '||'''|, .|'''|\n" +
+    " ||      ||   .  ||          ||   ||  ||   .  ||          // \\\\      ||   || ||       ||   ||   ||      ||   .   ||   ||   ||   || ||      \n" +
+    " ||      ||'''|  `|'''|,     ||   ||  ||'''|  ||         //...\\\\     ||...|' `|'''|,  ||   ||   ||      ||'''|   ||   ||   ||...|' `|'''|, \n" +
+    " ||      ||       .   ||     ||   ||  ||      ||        //     \\\\    ||       .   ||  ||   ||   ||      ||       ||   ||   || \\\\    .   || \n" +
+    ".||...| .||....|  |...|'    .||...|' .||....| `|....' .//       \\\\. .||       |...|'  `|...|'  .||...| .||....|  `|...|'  .||  \\\\.  |...|'\n";
+    
+    
+    private static String banner_image1 = 
+               "        .::::::--:\n" +
+               "      .-:..:::::.:-:.\n" +
+               "     ...::--====-:::.:.\n" +
+               "    :.::--+=:::-===-::::.\n" +
+               "   .::::-=-      .-=+--:::.\n" +
+               "   -.::--=         .:=+--:::.\n" +
+               "  :::::---            .==-::::..      .::::------===============================================--------:::::.......\n" +
+               "  -::::---             :::----:::..-=-+++==============================================================================---\n" +
+               "  -:-:--=:            :.:--------::-..===--==============================================================================+-\n" +
+               " :-:-:--=:            :::----------:  =======+===++++++++==++++=+========================+++++++++++++=+=================+=\n" +
+               " :---:--=:            .::--===-==---..++++++++++++++++++++++*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++**+\n" +
+               " :---:--=:            :::-=+===-=--=--+++++**************+*+*************+++*+++++++++***********+++++++++++++++++*******#+\n" +
+               " .=-----=:            ------==-----:--+++++++******************************************************************#**#*######+\n" +
+               "  +-----=-            .-----------=---*********+++++***************###########*################***********#*******##**#*##-\n" +
+               "  =-------             :::-----==-::::+###***************+***************##################*######*********************++-\n" +
+               "  :=-----=          ..:.:---==-:    ..:===++++***************++++++++++++++++++++*++*+++++++++======-------:::::....\n" +
+               "   ==-----.       ...:---===:                        .......::::::::::::::::::::::......\n" +
+               "   .==---:..:......:---==-.\n" +
+               "    .==---:.....::--===:.\n" +
+               "     .-+=--------===-:\n" +
+               "       .:=======-:.\n" +
+               "          .....";    
+
+               
+
+
+
 }

@@ -1,0 +1,80 @@
+#include "Math.decah"
+{
+    Math m = new Math();
+
+    print("sin(0) = ", m.sin(0));
+    //printx("          ", m.sin(0));
+    println("             Java value : 0.00000e+00" );
+
+    print("sin(0.25) = ", m.sin(0.25));
+    //printx("          ", m.sin(0.25));
+    println("             Java value : 0.24740395925452294" );
+
+    print("sin(0.5) = ", m.sin(0.5));
+    //printx("          ", m.sin(0.5));
+    println("             Java value : 0.479425538604203" );
+
+    print("sin(1) = ", m.sin(1));
+    //printx("          ", m.sin(1));
+    println("             Java value : 0.8414709848078965" );
+
+    print("sin(10) = ", m.sin(10));
+    //printx("          ", m.sin(10));
+    println("             Java value : -0.5440211108893698" );
+
+    print("sin(100) = ", m.sin(100));
+    //printx("          ", m.sin(100));
+    println("             Java value : -0.5063656411097588" );
+
+    print("sin(0x1.0p8) = ", m.sin(256));
+    //printx("          ", m.sin(256));
+    println("             Java value : -0.9992080341070627" );
+
+    print("sin(0x1p10) = ", m.sin(0x1.0p10));
+    //printx("          ", m.sin(0x1.0p10));
+    println("             Java value : -0.15853338004399595" );
+
+    print("sin(0x1p20) = ", m.sin(0x1.0p20));
+    //printx("          ", m.sin(0x1.0p20));
+    println("             Java value : 0.3304931400217347" );
+
+    //print("sin(2147483647) = ", m.sin(2147483647)); // Limite des fonctions
+    ////printx("          ", m.sin(2147483647));
+    //println("             Java value : 0x1.0p8" );
+
+    //print("sin(0x1p40) = ", m.sin(0x1.0p40));
+    ////printx("          ", m.sin(0x1.0p40));
+    //println("             Java value : 0x1.0p17" );
+
+    print("sin(-0.25) = ", m.sin(-0.25));
+    //printx("          ", m.sin(-0.25));
+    println("             Java value : -0.24740395925452294" );
+
+    print("sin(-0.5) = ", m.sin(-0.5));
+    //printx("          ", m.sin(-0.5));
+    println("             Java value : -0.479425538604203" );
+
+    print("sin(-1) = ", m.sin(-1));
+    //printx("          ", m.sin(-1));
+    println("             Java value : -0.8414709848078965" );
+
+    print("sin(-10) = ", m.sin(-10));
+    //printx("          ", m.sin(-10));
+    println("             Java value : 0.5440211108893698" );
+
+    print("sin(-100) = ", m.sin(-100));
+    //printx("          ", m.sin(-100));
+    println("             Java value : 0.5063656411097588" );
+
+    print("sin(-0x1.0p8) = ", m.sin(-256));
+    //printx("          ", m.sin(-256));
+    println("             Java value : 0.9992080341070627" );
+
+    print("sin(-0x1p10) = ", m.sin(-0x1.0p10));
+    //printx("          ", m.sin(-0x1.0p10));
+    println("             Java value : 0.15853338004399595" );
+
+    print("sin(-0x1p20) = ", m.sin(-0x1.0p20));
+    //printx("          ", m.sin(-0x1.0p20));
+    println("             Java value : -0.3304931400217347" );
+}

@@ -1,0 +1,21 @@
+class A {
+    int x;
+}
+
+class B extends A {
+    int y;
+}
+
+class C {
+    int w;
+}
+
+{
+    C c = new C();
+
+    if (c instanceof A) {
+        println("KO");
+    } else {
+        println("OK");
+    }
+}

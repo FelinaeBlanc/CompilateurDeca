@@ -1,0 +1,31 @@
+#include "Math.decah"
+{
+    Math m = new Math();
+
+    print("asin(0) = ", m.asin(0));
+    println("             Java value : 0.0" );
+
+    print("asin(0.25) = ", m.asin(0.25));
+    println("             Java value : 0.25268025514207865" );
+
+    print("asin(0.5) = ", m.asin(0.5));
+    println("             Java value : 0.5235987755982989" );
+
+    print("asin(0.75) = ", m.asin(0.75));
+    println("             Java value : 0.848062078981481" );
+
+    print("asin(1) = ", m.asin(1));
+    println("             Java value : 1.5707963267948966" );
+
+    print("asin(-0.25) = ", m.asin(-0.25));
+    println("             Java value : -0.25268025514207865" );
+
+    print("asin(-0.5) = ", m.asin(-0.5));
+    println("             Java value : -0.5235987755982989" );
+
+    print("asin(-0.75) = ", m.asin(-0.75));
+    println("             Java value : -0.848062078981481" );
+
+    print("asin(-1) = ", m.asin(-1));
+    println("             Java value : -1.5707963267948966" );
+}

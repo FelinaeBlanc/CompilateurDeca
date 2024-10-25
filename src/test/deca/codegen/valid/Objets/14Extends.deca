@@ -1,0 +1,18 @@
+class A{
+    int a = 0;
+    float b= 13.0;
+}
+
+class B extends A{
+    float y = 12;
+    int x = this.a;
+    
+}
+
+{
+    B a = new B();
+
+    println(a.a);
+    println(a.x);
+    println(a.y);
+}

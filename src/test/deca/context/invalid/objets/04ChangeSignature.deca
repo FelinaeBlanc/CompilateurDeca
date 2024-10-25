@@ -1,0 +1,16 @@
+// This test should not work as we cannot redefine a method whith an other signature
+
+class A {
+    int x;
+
+    int getX() {
+        return x;
+    }
+}
+
+class B extends A {
+
+    float getX() {
+        return 12.3;
+    }
+}

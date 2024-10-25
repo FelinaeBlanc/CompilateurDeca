@@ -1,0 +1,6 @@
+#include "Math.decah"
+{
+    Math m = new Math() ;
+    println("PI:", m.PI);
+    printlnx("PI:", m.PI);
+}

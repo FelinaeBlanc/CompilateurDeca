@@ -1,0 +1,54 @@
+{
+        int a, b,c,d,e,f;
+        float x,y,z; 
+    a = 10;
+    b = 5; 
+
+    c = a - b; 
+
+    d = 4 - 3; 
+
+    e = a - 10; 
+
+    f = 40 - b; 
+     
+
+    if (d == 1) {
+        print("OK");
+    } else {
+        print("KO");
+    }   
+
+    if (e == 0) {
+        print("OK");
+    } else {
+        print("KO");
+    }    
+
+    if (f == 35) {
+        print("OK");
+    } else {
+        print("KO");
+    }
+
+    x = 3.2; 
+    y = 5.4; 
+
+    if( y - x == 2.2){
+        print("OK");
+    } else {
+        print("KO");
+    }
+
+    if( 5.4 - 3.2  == 2.2){
+        print("OK");
+    } else {
+        print("KO");
+    }
+
+    if( 5 - 2.1  == 2.9){
+        print("OK");
+    } else {
+        print("KO");
+    }
+}

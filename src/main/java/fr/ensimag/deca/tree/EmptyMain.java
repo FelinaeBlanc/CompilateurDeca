@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+
 import java.io.PrintStream;
 
 /**
@@ -12,6 +13,12 @@ import java.io.PrintStream;
  * @date 21/04/2023
  */
 public class EmptyMain extends AbstractMain {
+    
+    @Override
+    protected void optimizeMain(DecacCompiler compiler){
+        return;
+    }
+
     @Override
     protected void verifyMain(DecacCompiler compiler) throws ContextualError {
         return;
@@ -19,7 +26,6 @@ public class EmptyMain extends AbstractMain {
 
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
     }
 
     /**

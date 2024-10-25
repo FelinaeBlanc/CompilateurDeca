@@ -8,7 +8,10 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
+import java.util.List;
+
 import org.apache.commons.lang.Validate;
+import fr.ensimag.deca.context.EnvironmentVarValue;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 /**
  *
@@ -33,6 +36,30 @@ public class While extends AbstractInst {
         this.condition = condition;
         this.body = body;
     }
+
+    protected void optimizeInst(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError {
+        // On pourrait faire un detection spécifique des Variables à des-évalué / et de une optimisation de la condition qui modifie seulement si c'est un boolean mais pas le temps !
+        //envVar.invalidateEnv();
+
+        envVar.invalidateEnv();
+        this.condition = this.condition.optimizeExp(compiler, envVar);
+
+        envVar.invalidateEnv();
+        this.body.optimizeListInst(compiler, envVar);
+        envVar.invalidateEnv();
+
+    }
+    @Override // La boucle est fausse, on ne rentrera jamais dedans... On la vire !
+    protected List<AbstractInst> optimizeInsts() throws ContextualError {
+        if (this.condition instanceof BooleanLiteral){
+            boolean val = ((BooleanLiteral)this.condition).getValue();
+            if (!val){
+                return (new ListInst()).getList(); // On ne garde rien, ni le while, on retourne une liste vide
+            }
+        }
+        return null;
+    }
+
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {

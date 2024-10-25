@@ -1,0 +1,33 @@
+class A {
+   int getVal(){
+        return 1;
+   }
+}
+
+class B extends A {
+
+   int getVal(){
+        return 2;
+   }
+
+}
+
+class C extends B {
+
+   int getVal(){
+        return 3;
+   }
+
+}
+
+{
+  C c = new C();
+
+  if (c instanceof B){
+    println("OK");
+  }
+  else {
+    println("KO");
+  }
+
+}

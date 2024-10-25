@@ -5,16 +5,35 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.context.EnvironmentVarValue;
 
 /**
  *
  * @author gl07
  * @date 21/04/2023
  */
-public abstract class AbstractOpBool extends AbstractBinaryExpr {
+public abstract class AbstractOpBool extends AbstractBinaryBoolExpr {
 
     public AbstractOpBool(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
+    }
+
+    @Override
+    public AbstractExpr optimizeExp(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError {
+        AbstractExpr expr1 = this.getLeftOperand().optimizeExp(compiler, envVar); // On évalue toujours la partie gauche, mais pas la droite !
+
+        envVar.invalidateEnv();
+        AbstractExpr expr2 = this.getRightOperand().optimizeExp(compiler, envVar);
+
+        if (expr1 instanceof BooleanLiteral && expr2 instanceof BooleanLiteral){
+            return createBooleanLiteral(preCalculateBool( ((BooleanLiteral)expr1).getValue(),((BooleanLiteral)expr2).getValue()),compiler);
+        }
+
+        setLeftOperand(expr1);
+        setRightOperand(expr2);
+        
+        return this;
     }
 
     @Override
@@ -33,7 +52,6 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
                 return compiler.environmentType.BOOLEAN;
         
     }
-
 
 
 }

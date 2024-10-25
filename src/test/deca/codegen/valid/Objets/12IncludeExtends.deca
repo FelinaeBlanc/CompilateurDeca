@@ -1,0 +1,12 @@
+#include "Math.decah"
+
+class pow2 extends Math{
+    int two = 2;
+    int two2 = 4;
+}
+
+{
+    pow2 m = new pow2();
+    println(m.two);
+    println(m.PI);
+}

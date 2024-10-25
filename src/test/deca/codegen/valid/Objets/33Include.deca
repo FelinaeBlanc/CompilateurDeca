@@ -1,0 +1,9 @@
+#include "testInclude2.decah"
+
+{
+    B b = new B(); 
+    b.display_A(); 
+    b.display_B();
+    printlnx(b.getX_A());
+    printlnx(b.getX_B());
+}

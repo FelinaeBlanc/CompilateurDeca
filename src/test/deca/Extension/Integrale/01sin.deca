@@ -1,0 +1,30 @@
+#include "Float2Float.decah"
+#include "Math.decah"
+
+class carre extends Float2Float {
+    float function(float value){
+        Math m = new Math();
+        return m.sin(value);
+    }
+}
+
+{
+    carre f = new carre();
+
+    println("Integrale sin entre 0 et 10 (valeur de reference : 1.839071529076452)");
+    println("LeftRectangle(0,10,10) : ",f.LeftRectangle(0,10,10));
+    println("MidPoint(0,10,10) : ",f.MidPoint(0,10,10));
+    println("Trapezoid(0,10,10) : ",f.Trapezoid(0,10,10));
+    println("Simpson(0,10,10) : ",f.Simpson(0,10,10));
+    println();
+    println("LeftRectangle(0,10,100) : ",f.LeftRectangle(0,10,100));
+    println("MidPoint(0,10,100) : ",f.MidPoint(0,10,100));
+    println("Trapezoid(0,10,100) : ",f.Trapezoid(0,10,100));
+    println("Simpson(0,10,100) : ",f.Simpson(0,10,100));
+    println();
+    println("LeftRectangle(0,10,1000) : ",f.LeftRectangle(0,10,1000));
+    println("MidPoint(0,10,1000) : ",f.MidPoint(0,10,1000));
+    println("Trapezoid(0,10,1000) : ",f.Trapezoid(0,10,1000));
+    println("Simpson(0,10,1000) : ",f.Simpson(0,10,1000));
+    
+}

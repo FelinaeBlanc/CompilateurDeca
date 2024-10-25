@@ -1,0 +1,41 @@
+{
+    float x;
+    int y;
+
+    x = 10.0 / 2.5 ;
+    if (x == 4.0) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    y = 5 / 2;
+    if (y == 2) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    x = 5.0 / 2.0 ;
+    if (x == 2.5) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    y = 9 / 3 ;
+    if (y == 3) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    x = 9 ;
+    y = 3 ;
+
+    if (x/y == 3) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+}

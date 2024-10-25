@@ -6,7 +6,6 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.*;
@@ -30,18 +29,25 @@ public class ReadInt extends AbstractReadExpr {
     @Override
     public void codeGenInst(DecacCompiler compiler){
         compiler.addInstruction(new RINT());
-        compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
+        if (!compiler.getCompilerOptions().getNoCheck()) {
+            compiler.addInstruction(new BOV(compiler.getGestionnaireErreur().getErreur("io_error").getLabel()));
+        }
+        compiler.addInstruction(new LOAD(Register.getR(1), GPRegister.R2));
     }
 
     public void codeGenInst(DecacCompiler compiler, int lastFreeReg){
         compiler.addInstruction(new RINT());
-        compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
+        if (!compiler.getCompilerOptions().getNoCheck()) {
+          compiler.addInstruction(new BOV(compiler.getGestionnaireErreur().getErreur("io_error").getLabel()));      
+        } 
         compiler.addInstruction(new LOAD(Register.getR(1), Register.getR(lastFreeReg)));
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler, GPRegister R) {
         compiler.addInstruction(new RINT());
-        compiler.addInstruction(new BOV(compiler.getIOErrorLabel()));
+        if (!compiler.getCompilerOptions().getNoCheck()) {
+           compiler.addInstruction(new BOV(compiler.getGestionnaireErreur().getErreur("io_error").getLabel()));     
+        } 
         compiler.addInstruction(new LOAD(Register.R1, R));
     }
 

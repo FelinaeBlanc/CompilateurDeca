@@ -1,0 +1,15 @@
+class A {
+    int x = 0;
+    int y = 0;
+}
+
+{
+    int x = 1;
+    int y = 2;
+    A a = new A() ;
+    a.x = 3;
+    a.y = 4;
+
+    println("a.x = ", a.x) ;
+    println("a.y = ", a.y) ;
+}

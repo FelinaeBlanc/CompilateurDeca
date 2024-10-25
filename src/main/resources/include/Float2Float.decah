@@ -1,0 +1,75 @@
+class Float2Float{
+
+    float function(float value){
+        return value;
+    }
+
+    void ErrorNaN() asm("WSTR \"Error NaN value\"
+    WNL
+	ERROR");
+
+    float LeftRectangle(float a, float b, int n){
+        float h = (a+b)/n;
+        float res=0;
+        int i = 0;
+        if (n<=0){
+            println("subdivision cannot less or equal to 0");
+            ErrorNaN();
+        }
+        while(i<n){
+            res = res + function(a + (float)(i)*h);
+            i=i+1;
+        }
+        res = res*h;
+        return res;
+    }
+
+    float MidPoint(float a, float b, int n){
+        float h = (a+b)/n;
+        float res=0;
+        int i = 0;
+        if (n<=0){
+            println("subdivision cannot less or equal to 0");
+            ErrorNaN();
+        }
+        while(i<n){
+            res = res + function(a + h/2 + i*h);
+            i=i+1;
+        }
+        res = res*h;
+        return res;
+    }
+
+    float Trapezoid(float a, float b, int n){
+        float h = (a+b)/n;
+        float res=(function(a)+function(b))/2;
+        int i = 1;
+        if (n<=0){
+            println("subdivision cannot less or equal to 0");
+            ErrorNaN();
+        }
+        while(i<n){
+            res = res +  function(a + i*h)  ;
+            i=i+1;
+        }
+        res = res*h;
+        return res;
+    }
+
+    float Simpson(float a, float b, int n){
+        float h = (a+b)/n;
+        float res=function(a)+function(b);
+        int i = 1;
+        if (n<=0){
+            println("subdivision cannot less or equal to 0");
+            ErrorNaN();
+        }
+        res = res + 4*function(a+h/2 + i*h);
+        while(i<n){
+            res = res + 2*function(a + i*h) + 4*function(a + h/2 + i*h) ;
+            i=i+1;
+        }
+        res = res*h/6;
+        return res;
+    }
+}

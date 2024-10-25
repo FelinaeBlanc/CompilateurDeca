@@ -1,0 +1,10 @@
+// Description:
+//    
+//
+// Historique:
+//    cree le @DATE@
+
+{
+    float x = readFloat();
+    println(x); 
+}

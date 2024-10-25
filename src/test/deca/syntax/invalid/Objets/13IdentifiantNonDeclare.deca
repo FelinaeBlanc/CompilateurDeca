@@ -1,0 +1,11 @@
+class Invalid {
+    
+    int invalidFct() {
+        int a = 1;
+        int b = 5;
+
+        test = a + b;
+        return test;
+    }
+
+}

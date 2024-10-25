@@ -1,0 +1,21 @@
+// Description:
+//    tests de programme incorrect lexicalement (pas de condition dans un if)
+//
+// Historique:
+//    @DATE@
+
+{
+    float y = 5.8;
+
+    if (y < 9) {
+        print("y is below 9");
+    } else if () {
+        print("y equals 9");
+    } else {
+        print("y is above 9");
+    }
+
+    while (y < 15) {
+        y = y + 1;
+    }
+}

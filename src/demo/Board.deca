@@ -1,0 +1,130 @@
+#include "ListShip.deca"
+
+class Board {
+    // should never change
+    protected int boardSize = 10;
+    protected ListShip allShip = new ListShip();
+
+    ListShip getListShip() {
+        return this.allShip;
+    }
+
+    int getBoardSize() {
+        return this.boardSize;
+    }
+
+    boolean interceptAllShip(int x, int y) {
+        Ship currentShip;
+        int index = 0;
+
+        while (index < allShip.getSize()) {
+            currentShip = allShip.get(index);
+
+            if (currentShip.intercept(x, y)) {
+                return true;
+            }
+            index = index + 1; 
+        }
+
+        return false;
+    }
+
+    
+
+    boolean anyShipTouched(int x, int y) {
+        Ship currentShip;
+        int max, index;
+        max = allShip.getSize();
+        index = 0;
+
+        while (index < max) {
+            currentShip = allShip.get(index);
+            if (currentShip.isTouched(x, y)) {
+                return true;
+            }
+            index = index + 1;
+        }
+
+        return false;
+    }
+
+    boolean anyShipSank(int x, int y) {
+        Ship currentShip;
+        int max, index;
+
+        max = allShip.getSize();
+        index = 0;
+
+        while (index < max) {
+            currentShip = allShip.get(index);
+            if (currentShip.isTouched(x, y) && !currentShip.stillFloat()) {
+                return true;
+            }
+            index = index + 1;
+        }
+        return false;
+    }
+
+    boolean anyShipFloat() {
+        Ship currentShip;
+        int i = 0;
+        int maxSize = allShip.getSize();
+        
+        while (i < maxSize) {
+            currentShip = allShip.get(i);
+            
+            if ((currentShip != null) && (currentShip.stillFloat())) {
+                return true;
+            }
+            i = i + 1;
+        }
+
+        return false;
+    }
+
+    void display() {
+        int i = 0;
+        int j = 0;
+        boolean plainLine = true;
+
+        while (j < boardSize) {
+            i = 0;
+            if (plainLine) {
+                while (i < boardSize) {
+                    print("┃━━━");
+                    i = i + 1;
+                }
+                print("┃");
+                println();
+                plainLine = false;
+                
+                
+            } else {
+                while (i < boardSize) {
+
+                    if (anyShipSank(i, j)) {
+                        print("┃ o ");
+                    } else if (anyShipTouched(i, j)) {
+                        print("┃ x ");
+                    } else {
+                        print("┃   ");
+                    }
+                    i = i + 1;
+                }
+                print("┃");
+                println();
+                j = j + 1;
+                plainLine = true;
+            }
+            
+        }
+        i = 0;
+        while (i < boardSize) {
+            print("╹━━━");
+            i = i + 1;
+        }
+        println("╹");
+    }
+    
+
+}

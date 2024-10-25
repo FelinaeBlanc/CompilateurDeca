@@ -1,6 +1,8 @@
 package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.tree.Location;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 
 /**
  * Definition of a method parameter.
@@ -10,8 +12,16 @@ import fr.ensimag.deca.tree.Location;
  */
 public class ParamDefinition extends ExpDefinition {
 
-    public ParamDefinition(Type type, Location location) {
+    public int getIndex() {
+        return index;
+    }
+
+    private int index;
+
+    public ParamDefinition(Type type, Location location, int index) {
         super(type, location);
+        this.index = index;
+        setOperand(new RegisterOffset(index, Register.LB));
     }
 
     @Override

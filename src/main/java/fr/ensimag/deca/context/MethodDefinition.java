@@ -18,8 +18,7 @@ public class MethodDefinition extends ExpDefinition {
     }
 
     public Label getLabel() {
-        Validate.isTrue(label != null,
-                "setLabel() should have been called before");
+        Validate.isTrue(label != null, "setLabel() should have been called before");
         return label;
     }
 
@@ -34,8 +33,7 @@ public class MethodDefinition extends ExpDefinition {
     private int index;
 
     @Override
-    public MethodDefinition asMethodDefinition(String errorMessage, Location l)
-            throws ContextualError {
+    public MethodDefinition asMethodDefinition(String errorMessage, Location l) throws ContextualError {
         return this;
     }
 

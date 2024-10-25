@@ -14,6 +14,15 @@ public class ImmediateInteger extends DVal {
         this.value = value;
     }
 
+    public ImmediateInteger(boolean value) {
+        super();
+        this.value = (value) ? 1 : 0;
+    }
+
+    public int getValue(){
+        return value;
+    }
+    
     @Override
     public String toString() {
         return "#" + value;

@@ -1,0 +1,62 @@
+class A {
+    protected boolean bool = true;
+
+    boolean getBool() {
+        return bool;
+    }
+}
+
+class B extends A {
+    protected boolean bool1 = false;
+
+    boolean getBool1() {
+        return bool1;
+    }
+
+    void setBool1(boolean b) {
+        bool1 = b;
+    }
+}
+
+class Testing {
+
+    boolean getAndValues(A a, B b) {
+        return a.getBool() && b.getBool1();
+    }
+
+    boolean estPair(int x) {
+        return (x % 2) == 0;
+    }
+}
+
+{
+    A a = new A();
+    B b = new B();
+    Testing test_class = new Testing();
+
+    if (test_class.getAndValues(a, b)) {
+        println("KO");
+    } else {
+        println("OK");
+    }
+
+    b.setBool1(8 > 1);
+    if (test_class.getAndValues(a, b)) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+    if (test_class.estPair(5)) {
+        println("KO");
+    } else {
+        println("OK");
+    }
+
+    if (test_class.estPair(86)) {
+        println("OK");
+    } else {
+        println("KO");
+    }
+
+}

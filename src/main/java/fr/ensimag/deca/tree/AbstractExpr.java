@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
@@ -10,7 +11,8 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-
+import fr.ensimag.deca.context.EnvironmentVarValue;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 
 /**
@@ -44,9 +46,39 @@ public abstract class AbstractExpr extends AbstractInst {
     @Override
     protected void checkDecoration() {
         if (getType() == null) {
-            System.out.println(this);
             throw new DecacInternalError("Expression " + decompile() + " has no Type decoration");
         }
+    }
+
+    // Methodes pour l'optimisation
+    protected boolean preCalculateBool(float val1, float val2){ throw new UnsupportedOperationException("preCalculateBool 1 not yet implemented");}
+    protected boolean preCalculateBool(boolean val1, boolean val2){ throw new UnsupportedOperationException("preCalculateBool 2 not yet implemented");}
+    protected float preCalculate(float val1,float val2){ throw new UnsupportedOperationException("preCalculate 1 not yet implemented");}
+    protected int preCalculate(int val1,int val2){ throw new UnsupportedOperationException("preCalculate 2 not yet implemented");}
+
+    
+
+    protected BooleanLiteral createBooleanLiteral(boolean value, DecacCompiler compiler) {
+        BooleanLiteral literal = new BooleanLiteral(value);
+        literal.setType(compiler.environmentType.BOOLEAN);
+        return literal;
+    }
+
+    protected IntLiteral createIntLiteral(int value, DecacCompiler compiler) {
+        IntLiteral literal = new IntLiteral(value);
+        literal.setType(compiler.environmentType.INT);
+        return literal;
+    }
+    
+    protected FloatLiteral createFloatLiteral(float value, DecacCompiler compiler) {
+        FloatLiteral literal = new FloatLiteral(value);
+        literal.setType(compiler.environmentType.FLOAT);
+        return literal;
+    }
+    
+    // Passe 1 optimisation
+    public AbstractExpr optimizeExp(DecacCompiler compiler, EnvironmentVarValue envVar) throws ContextualError {
+        return this;   
     }
 
     /**
@@ -83,34 +115,28 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     public AbstractExpr verifyRValue(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition currentClass, Type expectedType) throws ContextualError {
 
-            Type type2 = verifyExpr(compiler, localEnv, currentClass);
-            setType(expectedType);
-
-            AbstractExpr ret;
-            if (expectedType.equals(type2)){
-                return this;
-            }
-
-            else if (expectedType.isFloat() && type2.isInt()) {
-                ret = new ConvFloat(this);
-                ret.verifyExpr(compiler, localEnv, currentClass);
-                return ret;
-            }
-
-            else if (expectedType.isClass()){
-                throw new UnsupportedOperationException("not yet implemented");
-            }else{
-                throw new ContextualError(null, getLocation());
-            }
-            
+        Type t = this.verifyExpr(compiler, localEnv, currentClass);
+        if ( !compiler.environmentType.assign_compatible(expectedType,t) ){
+            throw new ContextualError("Type "+ t.getName().getName() + " et " + expectedType.getName().getName()+ " non compatible",this.getLocation());
+        }
         
+        if (expectedType.isFloat() && t.isInt()) {
+            ConvFloat conv = new ConvFloat(this);
+            conv.verifyExpr(compiler,localEnv,currentClass);
+            return conv;
+        } else if (expectedType.isInt() && t.isFloat()){
+            ConvInt conv = new ConvInt(this);
+            conv.verifyExpr(compiler, localEnv, currentClass);
+            return conv;
+        }
+        
+
+        return this;
     }
     
     
     @Override
-    protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass, Type returnType)
-            throws ContextualError {
+    protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass, Type returnType) throws ContextualError {
                 Type t = verifyExpr(compiler, localEnv, currentClass);
                 this.setType(t);
     }
@@ -127,17 +153,13 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-
             Type t = this.verifyExpr(compiler, localEnv, currentClass);
+            
             setType(t);
             if (!t.isBoolean()){
                 throw new ContextualError("condition is not boolean", getLocation());
             }
 
-    }
-
-    protected void codeGenCondition(DecacCompiler compiler,boolean value, Label e) {
-        throw new UnsupportedOperationException("not yet implemented");
     }
 
     /**
@@ -150,22 +172,53 @@ public abstract class AbstractExpr extends AbstractInst {
     }
 
     @Override
+    protected void codeGenPrintHex(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("codeGenPrint not yet implemented");
+    }
+
+    @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println(this);
+        //System.err.println(this);
         throw new UnsupportedOperationException("codeGenInst 1 not yet implemented");
     }
     
     protected void codeGenInst(DecacCompiler compiler, GPRegister R){
-        System.out.println(this);
         throw new UnsupportedOperationException("codeGenInst 2 not yet implemented");
+    }
+
+    protected void codeGenInst(DecacCompiler compiler, int lastFreeReg){
+        throw new UnsupportedOperationException("codeGenInst 3 not yet implemented");
+    }
+
+    protected void codeGenInst(DecacCompiler compiler, DVal dval,GPRegister RegB){
+        throw new UnsupportedOperationException("codeGenInst 5 not yet implemented");
+    }
+
+    // codeGenInst des opérateurs booleen et comparateurs
+    protected void codeGenInst(DecacCompiler compiler, DVal dval,GPRegister RegB,boolean value, Label e){
+        throw new UnsupportedOperationException("codeGenInst 6 not yet implemented");
     }
 
     protected void codeGenCond(DecacCompiler compiler, boolean value, Label e) {
         throw new UnsupportedOperationException("codeGenCond not yet implemented");
     }
+
+    protected void codeExpGenCond(DecacCompiler compiler, int registerNb, boolean value, Label e){
+        System.out.println("Nope "+this);
+        throw new UnsupportedOperationException("codeGenCond not yet implemented");
+    }
     
-    public void codeGenOp(DecacCompiler compiler, int lastFreeReg){
-        throw new UnsupportedOperationException();
+
+    protected DVal dval(){
+        throw new UnsupportedOperationException("dval not yet implemented");
+    }
+    protected void codeExp( DecacCompiler compiler, int registreNb){
+        throw new UnsupportedOperationException("codeExp not yet implemented");
+    }
+    // codeExp des comparaisons et opérateurs booleen
+    protected void codeExp( DecacCompiler compiler, int registreNb, boolean value, Label e){
+        System.out.println(this);
+        throw new UnsupportedOperationException("codeExp2 not yet implemented");
     }
 
     @Override

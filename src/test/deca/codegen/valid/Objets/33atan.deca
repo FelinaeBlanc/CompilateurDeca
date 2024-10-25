@@ -1,0 +1,103 @@
+class math{
+            
+    float PI = 3.141592653589793f;
+    float TWO_66 = 0x1.0p66;
+    float TWO_29 = 0x1.0p29;
+    float PI_L = 1.2246467991473532e-16f; // Long bits 0x3ca1a62633145c07L.
+    float PIO2_1 = 1.5707963267341256f; // Long bits 0x3ff921fb54400000L.
+    float PIO2_1L = 6.077100506506192e-11f; // Long bits 0x3dd0b4611a626331L.
+    float PIO2_2 = 6.077100506303966e-11f; // Long bits 0x3dd0b4611a600000L.
+    float PIO2_2L = 2.0222662487959506e-21f; // Long bits 0x3ba3198a2e037073L.
+    float PIO2_3 = 2.0222662487111665e-21f; // Long bits 0x3ba3198a2e000000L.
+    float PIO2_3L = 8.4784276603689e-32f; // Long bits 0x397b839a252049c1L.
+    float ATAN_0_5H = 0.4636476090008061f; // Long bits 0x3fddac670561bb4fL.
+    float ATAN_0_5L = 2.2698777452961687e-17f; // Long bits 0x3c7a2b7f222f65e2L.
+    float ATAN_1_5H = 0.982793723247329f; // Long bits 0x3fef730bd281f69bL.
+    float ATAN_1_5L = 1.3903311031230998e-17f; // Long bits 0x3c7007887af0cbbdL.
+    float AT0 = 0.3333333333333293f; // Long bits 0x3fd555555555550dL.
+    float AT1 = -0.19999999999876483f; // Long bits 0xbfc999999998ebc4L.
+    float AT2 = 0.14285714272503466f; // Long bits 0x3fc24924920083ffL.
+    float AT3 = -0.11111110405462356f; // Long bits 0xbfbc71c6fe231671L.
+    float AT4 = 0.09090887133436507f; // Long bits 0x3fb745cdc54c206eL.
+    float AT5 = -0.0769187620504483f; // Long bits 0xbfb3b0f2af749a6dL.
+    float AT6 = 0.06661073137387531f; // Long bits 0x3fb10d66a0d03d51L.
+    float AT7 = -0.058335701337905735f; // Long bits 0xbfadde2d52defd9aL.
+    float AT8 = 0.049768779946159324f; // Long bits 0x3fa97b4b24760debL.
+    float AT9 = -0.036531572744216916f; // Long bits 0xbfa2b4442c6a6c2fL.
+    float AT10 = 0.016285820115365782f; // Long bits 0x3f90ad3ae322da11L.
+
+        
+    float atan(float x)
+    {
+        float lo;
+        float hi;
+        boolean negative = (x < 0);
+
+        // Break sum from i=0 to 10 ATi*z**(i+1) into odd and even poly.
+        float z = x * x;
+        float w = z * z;
+        float s1 = z * (AT0 + w * (AT2 + w * (AT4 + w * (AT6 + w * (AT8 + w * AT10)))));
+        float s2 = w * (AT1 + w * (AT3 + w * (AT5 + w * (AT7 + w * AT9))));
+
+        if (negative){ x = -x;}
+        if (x >= TWO_66){ 
+            if (negative) {return -PI / 2;}
+            else {return PI / 2;}
+        }
+
+        if (! (x >= 0.4375)) // |x|<7/16; or NaN.
+        {
+            if (! (x >= 1 / TWO_29)) { // Small; or NaN.
+             if (negative){ return -x ;}
+             else{ return x;}
+            }
+            lo = hi = 0;
+        }
+        else if (x < 1.1875)
+        {
+            if (x < 0.6875) // 7/16<=|x|<11/16.
+            {
+                x = (2 * x - 1) / (2 + x);
+                hi = ATAN_0_5H;
+                lo = ATAN_0_5L;
+            }
+            else // 11/16<=|x|<19/16.
+            {
+                x = (x - 1) / (x + 1);
+                hi = PI / 4;
+                lo = PI_L / 4;
+            }
+        }
+        else if (x < 2.4375) // 19/16<=|x|<39/16.
+        {
+            x = (x - 1.5f) / (1 + 1.5f * x);
+            hi = ATAN_1_5H;
+            lo = ATAN_1_5L;
+        }
+        else // 39/16<=|x|<2**66.
+        {
+        x = -1 / x;
+        hi = PI / 2;
+        lo = PI_L / 2;
+        }
+        
+        
+        if (hi == 0){ 
+            if (negative) {return x * (s1 + s2) - x;}
+            else { return x - x * (s1 + s2);}
+        }
+        
+        z = hi - ((x * (s1 + s2) - lo) - x);
+        
+        if(negative) {return -z;}
+        return z;
+    }
+}
+{
+    math M = new math();
+    float x = M.PI/4;
+    printlnx(M.atan(0.0));
+    printlnx(M.atan(1.0));
+    printlnx(x);
+
+}

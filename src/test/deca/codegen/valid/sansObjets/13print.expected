@@ -1,0 +1,6 @@
+print int: 5
+print float: 1.05000e+01
+print hex float: 0x1.5p+3
+print float et int: 1.05000e+015
+print expr type int: 10
+print expr type float: 1.02500e+01

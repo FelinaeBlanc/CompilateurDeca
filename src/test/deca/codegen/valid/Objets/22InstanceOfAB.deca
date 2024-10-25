@@ -1,0 +1,17 @@
+class A {
+
+}
+
+class B {
+
+}
+
+{
+    A a = new A();
+
+    if (a instanceof B) {
+        println("KO");
+    } else {
+        println("OK");
+    }
+}

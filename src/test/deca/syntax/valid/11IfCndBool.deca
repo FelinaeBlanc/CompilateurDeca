@@ -1,0 +1,29 @@
+{
+    int x = 1;
+    int y = 0;
+    int z = 1;    
+
+    //remplacer x==x par true apres l implementation
+
+    if ((x<y) || (x==x)){
+        println("OK ||");
+    }
+    else{
+        println("KO ||");
+    }
+
+    if ( (x==x) || (x>z)){ 
+        println("OK ||");
+    }
+    else{
+        println("KO ||");
+    }
+
+    if (!false){
+        println("OK !");
+    }
+    else {
+        println("KO !");
+    }
+
+}

@@ -1,0 +1,32 @@
+// This test should  work as can redefine a method with a return type that is a subtype of the original return type
+
+class A {
+    int x;
+
+    int getX() {
+        return x;
+    }
+}
+
+class B  extends A{
+    int x;
+    float y;
+
+    float getY() {
+        return y;
+    }
+}
+
+class C {
+    A x = new A();
+    A getX() {
+        return x;
+    }
+}
+
+class D extends C {
+    B x = new B();
+    B getX() {
+        return x;
+    }
+}

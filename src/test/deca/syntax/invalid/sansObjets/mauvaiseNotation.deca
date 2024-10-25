@@ -1,0 +1,10 @@
+// Description:
+//    tests de programme incorrect lexicalement (mauvaise notation d'une variable)
+//
+// Historique:
+//    @DATE@
+
+{
+    int x;
+    x[5] = 9;
+}

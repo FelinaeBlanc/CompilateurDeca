@@ -1,0 +1,14 @@
+// Description:
+//    tests de programme incorrect lexicalement (or seul invalide)
+//
+// Historique:
+//    @DATE@
+
+{
+    int y = 4;
+    int x;
+    float a;
+    boolean b;
+
+    b = ((82 < a) && (y == 4) | (x > y));
+}

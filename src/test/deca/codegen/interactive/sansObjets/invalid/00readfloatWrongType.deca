@@ -1,0 +1,9 @@
+// Description:
+//    Programme minimaliste testant le programme quand on rentre une valeur invalide
+//
+// Historique:
+//    cree le @DATE@
+
+{
+    float x = readFloat();
+}
